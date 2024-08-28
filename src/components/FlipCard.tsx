@@ -4,6 +4,8 @@ import { css } from '@emotion/css';
 import { MaybeAnchor } from './MaybeAnchor';
 import { getActualThreshold } from '../lib/thresholdCalulationFunc';
 import { StatusMetric } from './buildStatusMetric';
+import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
+import { formattedString } from '../lib/formattedString';
 
 interface FlipCardProps {
   width: number;
@@ -13,6 +15,7 @@ interface FlipCardProps {
   value: number;
   fontStyle: string;
   options: any;
+  formattedVariables: FormattedStringVariables;
   isFlipped: boolean;
 }
 
@@ -23,6 +26,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   value,
   fontStyle,
   options,
+  formattedVariables,
   width,
   height,
 }) => {
@@ -93,7 +97,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
                     fontSize: '2rem',
                   })}
                 >
-                  <span>{options.title}</span>
+                  <span>{formattedString(options.title, formattedVariables)}</span>
                 </div>
               )}
               {/* Pane subtitle */}

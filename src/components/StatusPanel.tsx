@@ -6,12 +6,20 @@ import { useHover, useInterval } from 'hooks/index';
 import { StatusPanelOptions } from 'interfaces/statusPanelOptions';
 import { getQueriesValuesAggregation } from '../lib/thresholdCalulationFunc';
 import { FlipCard } from './FlipCard';
+import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 
 type Props = PanelProps<StatusPanelOptions>;
 
-export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width, height, replaceVariables }) => {
+export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width, height }) => {
   console.log(data);
   const queriesValues: number[] = getQueriesValuesAggregation(data, fieldConfig.defaults.custom.aggregation);
+  const stringFormattedVariables: FormattedStringVariables[] = [
+    {
+      queryName: 'query1',
+      queryValue: 'value1',
+    },
+    { queryName: 'query2', queryValue: 'value2' },
+  ];
 
   // setup flipper
   // True for the metrics page, False for the severity page
@@ -50,6 +58,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
               metricUnit={fieldConfig.defaults.custom.metricUnit}
               fontStyle={fieldConfig.defaults.custom.fontFormat}
               options={options}
+              formattedVariables={stringFormattedVariables[index]}
               value={queryValue}
               isFlipped={flipped}
             />
