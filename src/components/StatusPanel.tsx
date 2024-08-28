@@ -2,18 +2,16 @@ import { PanelProps } from '@grafana/data';
 import { IconButton } from '@grafana/ui';
 import { css } from '@emotion/css';
 import React, { useEffect } from 'react';
-import ReactCardFlip from 'react-card-flip';
 import { useHover, useInterval } from 'hooks/index';
 import { StatusPanelOptions } from 'interfaces/statusPanelOptions';
-import { MaybeAnchor } from './MaybeAnchor';
-import { getActualThreshold, getQueryValueAggregation } from '../lib/thresholdCalulationFunc';
-import { StatusMetric } from './buildStatusMetric';
+import { getQueriesValuesAggregation } from '../lib/thresholdCalulationFunc';
+import { FlipCard } from './FlipCard';
 
 type Props = PanelProps<StatusPanelOptions>;
 
 export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width, height, replaceVariables }) => {
-  const queryValue = getQueryValueAggregation(data, fieldConfig.defaults.custom.aggregation);
-  const actualThreshold = getActualThreshold(options.thresholds, queryValue);
+  console.log(data);
+  const queriesValues: number[] = getQueriesValuesAggregation(data, fieldConfig.defaults.custom.aggregation);
 
   // setup flipper
   // True for the metrics page, False for the severity page
@@ -25,118 +23,56 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
     setFlipped(options.flipState);
   }, [options.flipState]);
 
-  // Retrieve colors
-  const backgroundColor = actualThreshold.color;
-  const textColor = css({ color: 'white' });
-  const noBackgroundColor = options.isGrayOnNoData && queryValue === undefined;
-
   return (
     <div
       ref={wrapper}
-      className={css(
-        {
-          width,
-          height,
-          boxSizing: 'border-box',
-          borderRadius: options.cornerRadius,
-          overflow: 'hidden',
-          zIndex: 10,
-        },
-        !noBackgroundColor && {
-          backgroundColor: backgroundColor,
-        }
-      )}
+      className={css({
+        boxSizing: 'border-box',
+        zIndex: 10,
+      })}
     >
-      <ReactCardFlip isFlipped={flipped}>
-        {/* view 2 (severity) */}
-        <div
-          className={css(
-            {
-              width,
-              height,
-              overflow: 'hidden',
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '2rem',
-            },
-            textColor
-          )}
-        >
-          <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'} className={textColor}>
-            <span>{actualThreshold.severity}</span>
-          </MaybeAnchor>
-        </div>
-        {/* view 1 (metrics) */}
-        <div className={css({ height, display: 'flex', flexDirection: 'column' })}>
+      <div className={css({ display: 'flex', flexWrap: 'wrap' })}>
+        {/* browse queries */}
+        {queriesValues.map((queryValue, index) => (
           <div
             className={css(
+              { flexBasis: 'O', flexGrow: '1', maxWidth: '100%' },
               {
-                flex: '1 0 0',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              },
-              textColor
+                padding: '5px',
+              }
             )}
+            key={index}
           >
-            <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'} className={textColor}>
-              {/* Pane title */}
-              {options.title !== '' && (
-                <div
-                  className={css({
-                    minHeight: '1px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    fontSize: '2rem',
-                  })}
-                >
-                  <span>{replaceVariables(options.title)}</span>
-                </div>
-              )}
-              {/* Pane subtitle */}
-              {options.subtitle !== '' && (
-                <div
-                  className={css({
-                    minHeight: '1px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    fontSize: '1.5rem',
-                  })}
-                >
-                  <span>{replaceVariables(options.subtitle)}</span>
-                </div>
-              )}
-              {/* Pane metric */}
-              {fieldConfig.defaults.custom.displayValueMetric && (
-                <div
-                  className={css({
-                    minHeight: '1px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    fontSize: '2.1rem',
-                    marginTop: '1rem',
-                  })}
-                >
-                  <StatusMetric fontStyle={fieldConfig.defaults.custom.fontFormat}>
-                    {queryValue}
-                    {fieldConfig.defaults.custom.metricUnit}
-                  </StatusMetric>
-                </div>
-              )}
-            </MaybeAnchor>
+            <FlipCard
+              width={width / queriesValues.length - 5 * 2}
+              height={height}
+              showMetric={fieldConfig.defaults.custom.displayValueMetric}
+              metricUnit={fieldConfig.defaults.custom.metricUnit}
+              fontStyle={fieldConfig.defaults.custom.fontFormat}
+              options={options}
+              value={queryValue}
+              isFlipped={flipped}
+            />
           </div>
-        </div>
-      </ReactCardFlip>
+        ))}
+      </div>
+
       {isHover && (
         <IconButton
           name={'exchange-alt'}
+          size={'xl'}
           onClick={() => setFlipped(!flipped)}
-          className={css({ position: 'absolute', bottom: '2rem', right: '2rem' }, textColor)}
+          className={css(
+            {
+              position: 'absolute',
+              bottom: '1.2rem',
+              right: '1.2rem',
+            },
+            { color: 'white' }
+          )}
           aria-label="Flip Card"
-        ></IconButton>
+          tooltip={'Flip Card'}
+        />
       )}
     </div>
   );
