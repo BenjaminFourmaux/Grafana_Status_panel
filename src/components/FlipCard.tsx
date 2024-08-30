@@ -39,21 +39,22 @@ export const FlipCard: React.FC<FlipCardProps> = ({
 
   return (
     <div
-      className={css(
-        { width, borderRadius: options.cornerRadius },
-        !noBackgroundColor && { backgroundColor: actualThreshold.color }
-      )}
+      className={
+        css({ width, height: '100%', minWidth: '142px', borderRadius: options.cornerRadius }) +
+        ' ' +
+        (!noBackgroundColor && css({ backgroundColor: actualThreshold.color }))
+      }
     >
       <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'}>
         {/* Front (severity) */}
-        <div className={Style.flipCardFrontContainer(height)}>
+        <div className={Style.flipCardFrontContainer}>
           <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'}>
             <span className={Style.flipCardSeverity + ' ' + textColoration}>{actualThreshold.severity}</span>
           </MaybeAnchor>
         </div>
 
         {/* Back (metric) */}
-        <div className={Style.flipCardBackContainer(height)}>
+        <div className={Style.flipCardBackContainer}>
           <div className={Style.flipCardBackFlexContainer + ' ' + textColoration}>
             <MaybeAnchor
               href={options.url}

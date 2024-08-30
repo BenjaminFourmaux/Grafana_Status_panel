@@ -28,13 +28,12 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   }, [options.flipState]);
 
   // Calculate Card size
-  console.log('wrapper width : ', width);
-  const cardWidth = (width + 16) / queriesValues.length - 3;
-  const cardHeight = height / Math.ceil(queriesValues.length / 12) - 5 * 2;
+  const cardWidth = queriesValues.length < 12 ? width / queriesValues.length - 5 * 2 : width / 12 - 5 * 2;
+  const cardHeight = height;
 
   return (
     <div ref={wrapper} className={Style.wrapperContainer}>
-      <div className={Style.row}>
+      <div className={Style.row + ' ' + css({ height })}>
         {/* browse queries */}
         {queriesValues.map((queryValue, index) => (
           <>
@@ -51,8 +50,6 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
                 isFlipped={flipped}
               />
             </div>
-            {/* Return to the line every 12 cards */}
-            {(index + 1) % 12 === 0 && <div className={css({ width: '100%' })} />}
           </>
         ))}
       </div>
