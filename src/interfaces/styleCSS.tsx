@@ -7,7 +7,7 @@ import { css } from '@emotion/css';
 export const Style = {
   wrapperContainer: css({ boxSizing: 'border-box', zIndex: 10 }),
   row: css({ display: 'flex', flexWrap: 'wrap' }),
-  col: css({ flexBasis: 'O', flexGrow: '1', maxWidth: '100%', padding: '5px' }),
+  col: css({ flexBasis: 'auto', flexGrow: '0', maxWidth: '100%', padding: '5px' }),
   flipButton: css({ position: 'absolute', bottom: '1.2rem', right: '1.2rem' }),
   /* Flip Card */
   flipCardFrontContainer: (height: number) =>

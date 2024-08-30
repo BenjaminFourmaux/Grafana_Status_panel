@@ -28,7 +28,8 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   }, [options.flipState]);
 
   // Calculate Card size
-  const cardWidth = width / queriesValues.length - 5 * 2;
+  console.log('wrapper width : ', width);
+  const cardWidth = (width + 16) / queriesValues.length - 3;
   const cardHeight = height / Math.ceil(queriesValues.length / 12) - 5 * 2;
 
   return (
