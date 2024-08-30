@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
 import { css } from '@emotion/css';
-import { MaybeAnchor } from './MaybeAnchor';
 import { getActualThreshold } from '../lib/thresholdCalulationFunc';
-import { StatusMetric } from './buildStatusMetric';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
-import { formattedString } from '../lib/formattedString';
 import { Style } from '../interfaces/styleCSS';
+import { MaybeAnchor } from './MaybeAnchor';
+import { formattedString } from '../lib/formattedString';
+import { StatusMetric } from './buildStatusMetric';
 
 interface FlipCardProps {
   width: number;
@@ -42,46 +42,45 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       className={
         css({ width, height: '100%', minWidth: '142px', borderRadius: options.cornerRadius }) +
         ' ' +
-        (!noBackgroundColor && css({ backgroundColor: actualThreshold.color }))
+        (!noBackgroundColor && css({ backgroundColor: actualThreshold.color })) +
+        ' ' +
+        textColoration
       }
     >
-      <div style={{ width: '100%', height: '100%' }}>
-        <ReactCardFlip
-          isFlipped={isFlipped}
-          flipDirection={'horizontal'}
-          containerStyle={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+      <div className={Style.size100}>
+        <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
           {/* Front (severity) */}
-          <div
-            style={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <h4>Issou</h4>
-            <h4>King</h4>
-            <h4>King</h4>
-            <h4>King</h4>
-            <h4>King</h4>
-            <h4>King</h4>
-            <h4>King</h4>
-            <h4>King</h4>
-            <h4>King</h4>
-            <h4>King</h4>
+          <div className={Style.flipCardContainer}>
+            <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'}>
+              <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
+            </MaybeAnchor>
           </div>
 
           {/* Back (metric) */}
-          <div>
-            <h3>Bite</h3>
+          <div className={Style.flipCardContainer}>
+            <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'}>
+              {/* Pane title */}
+              {options.title !== '' && (
+                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
+                  <span>{formattedString(options.title, formattedVariables)}</span>
+                </div>
+              )}
+              {/* Pane subtitle */}
+              {options.subtitle !== '' && (
+                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
+                  <span>{options.subtitle}</span>
+                </div>
+              )}
+              {/* Pane metric */}
+              {showMetric && (
+                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
+                  <StatusMetric fontStyle={fontStyle}>
+                    {value}
+                    {metricUnit}
+                  </StatusMetric>
+                </div>
+              )}
+            </MaybeAnchor>
           </div>
         </ReactCardFlip>
       </div>

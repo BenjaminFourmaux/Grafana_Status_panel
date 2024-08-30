@@ -8,8 +8,19 @@ export const Style = {
   wrapperContainer: css({ boxSizing: 'border-box', zIndex: 10 }),
   row: css({ display: 'flex', flexWrap: 'wrap' }),
   col: css({ flexBasis: 'auto', flexGrow: '0', maxWidth: '100%', padding: '5px' }),
+  size100: css({ width: '100%', height: '100%' }),
   flipButton: css({ position: 'absolute', bottom: '1.2rem', right: '1.2rem' }),
   /* Flip Card */
+  flipCardContainer: css({
+    height: '100%',
+    minHeight: '142px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    containerType: 'inline-size',
+    overflow: 'hidden',
+  }),
   flipCardFrontContainer: css({
     overflow: 'hidden',
     position: 'relative',
