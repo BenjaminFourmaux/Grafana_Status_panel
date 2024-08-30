@@ -7,19 +7,15 @@ import { StatusPanelOptions } from 'interfaces/statusPanelOptions';
 import { getQueriesValuesAggregation } from '../lib/thresholdCalulationFunc';
 import { FlipCard } from './FlipCard';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
+import { provideFormattedStringVariables } from '../lib/formattedString';
+import { Style } from '../interfaces/styleCSS';
 
 type Props = PanelProps<StatusPanelOptions>;
 
 export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width, height }) => {
   console.log(data);
   const queriesValues: number[] = getQueriesValuesAggregation(data, fieldConfig.defaults.custom.aggregation);
-  const stringFormattedVariables: FormattedStringVariables[] = [
-    {
-      queryName: 'query1',
-      queryValue: 'value1',
-    },
-    { queryName: 'query2', queryValue: 'value2' },
-  ];
+  const stringFormattedVariables: FormattedStringVariables[] = provideFormattedStringVariables(data, queriesValues);
 
   // setup flipper
   // True for the metrics page, False for the severity page
@@ -31,38 +27,32 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
     setFlipped(options.flipState);
   }, [options.flipState]);
 
+  // Calculate Card size
+  const cardWidth = width / queriesValues.length - 5 * 2;
+  const cardHeight = height / Math.ceil(queriesValues.length / 12) - 5 * 2;
+
   return (
-    <div
-      ref={wrapper}
-      className={css({
-        boxSizing: 'border-box',
-        zIndex: 10,
-      })}
-    >
-      <div className={css({ display: 'flex', flexWrap: 'wrap' })}>
+    <div ref={wrapper} className={Style.wrapperContainer}>
+      <div className={Style.row}>
         {/* browse queries */}
         {queriesValues.map((queryValue, index) => (
-          <div
-            className={css(
-              { flexBasis: 'O', flexGrow: '1', maxWidth: '100%' },
-              {
-                padding: '5px',
-              }
-            )}
-            key={index}
-          >
-            <FlipCard
-              width={width / queriesValues.length - 5 * 2}
-              height={height}
-              showMetric={fieldConfig.defaults.custom.displayValueMetric}
-              metricUnit={fieldConfig.defaults.custom.metricUnit}
-              fontStyle={fieldConfig.defaults.custom.fontFormat}
-              options={options}
-              formattedVariables={stringFormattedVariables[index]}
-              value={queryValue}
-              isFlipped={flipped}
-            />
-          </div>
+          <>
+            <div className={Style.col} key={index}>
+              <FlipCard
+                width={cardWidth}
+                height={cardHeight}
+                showMetric={fieldConfig.defaults.custom.displayValueMetric}
+                metricUnit={fieldConfig.defaults.custom.metricUnit}
+                fontStyle={fieldConfig.defaults.custom.fontFormat}
+                options={options}
+                formattedVariables={stringFormattedVariables[index]}
+                value={queryValue}
+                isFlipped={flipped}
+              />
+            </div>
+            {/* Return to the line every 12 cards */}
+            {(index + 1) % 12 === 0 && <div className={css({ width: '100%' })} />}
+          </>
         ))}
       </div>
 
@@ -71,14 +61,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
           name={'exchange-alt'}
           size={'xl'}
           onClick={() => setFlipped(!flipped)}
-          className={css(
-            {
-              position: 'absolute',
-              bottom: '1.2rem',
-              right: '1.2rem',
-            },
-            { color: 'white' }
-          )}
+          className={Style.flipButton + ' ' + css({ color: 'white' })}
           aria-label="Flip Card"
           tooltip={'Flip Card'}
         />

@@ -16,10 +16,26 @@ export const formattedString = (formatString: string, variables: FormattedString
       case 'query_value':
         value = variables.queryValue;
         break;
+      case 'query_index':
+        value = variables.queryIndex.toString();
+        break;
       default:
         value = '';
         break;
     }
     return value;
+  });
+};
+
+export const provideFormattedStringVariables = (
+  dataQueries: any,
+  queryValues: number[]
+): FormattedStringVariables[] => {
+  return dataQueries.series.map((serie: any, index: number) => {
+    return {
+      queryIndex: index,
+      queryName: serie.refId,
+      queryValue: queryValues[index],
+    };
   });
 };

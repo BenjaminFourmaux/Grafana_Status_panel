@@ -6,6 +6,7 @@ import { getActualThreshold } from '../lib/thresholdCalulationFunc';
 import { StatusMetric } from './buildStatusMetric';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { formattedString } from '../lib/formattedString';
+import { Style } from '../interfaces/styleCSS';
 
 interface FlipCardProps {
   width: number;
@@ -39,49 +40,21 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   return (
     <div
       className={css(
-        {
-          width,
-          borderRadius: options.cornerRadius,
-        },
+        { width, borderRadius: options.cornerRadius },
         !noBackgroundColor && { backgroundColor: actualThreshold.color }
       )}
     >
       <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'}>
         {/* Front (severity) */}
-        <div
-          className={css(
-            {
-              height,
-              overflow: 'hidden',
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '2rem',
-              textAlign: 'center',
-            },
-            textColoration
-          )}
-        >
+        <div className={Style.flipCardFrontContainer(height)}>
           <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'}>
-            <span>{actualThreshold.severity}</span>
+            <span className={Style.flipCardSeverity + ' ' + textColoration}>{actualThreshold.severity}</span>
           </MaybeAnchor>
         </div>
 
         {/* Back (metric) */}
-        <div className={css({ height, display: 'flex', flexDirection: 'column' })}>
-          <div
-            className={css(
-              {
-                flex: '1 0 0',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              },
-              textColoration
-            )}
-          >
+        <div className={Style.flipCardBackContainer(height)}>
+          <div className={Style.flipCardBackFlexContainer + ' ' + textColoration}>
             <MaybeAnchor
               href={options.url}
               target={options.urlTargetBlank ? '_blank' : '_self'}
@@ -89,41 +62,19 @@ export const FlipCard: React.FC<FlipCardProps> = ({
             >
               {/* Pane title */}
               {options.title !== '' && (
-                <div
-                  className={css({
-                    minHeight: '1px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    fontSize: '2rem',
-                  })}
-                >
+                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
                   <span>{formattedString(options.title, formattedVariables)}</span>
                 </div>
               )}
               {/* Pane subtitle */}
               {options.subtitle !== '' && (
-                <div
-                  className={css({
-                    minHeight: '1px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    fontSize: '1.5rem',
-                  })}
-                >
+                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
                   <span>{options.subtitle}</span>
                 </div>
               )}
               {/* Pane metric */}
               {showMetric && (
-                <div
-                  className={css({
-                    minHeight: '1px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    fontSize: '2.1rem',
-                    marginTop: '1rem',
-                  })}
-                >
+                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
                   <StatusMetric fontStyle={fontStyle}>
                     {value}
                     {metricUnit}
