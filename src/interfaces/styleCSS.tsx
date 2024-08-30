@@ -10,19 +10,17 @@ export const Style = {
   col: css({ flexBasis: 'auto', flexGrow: '0', maxWidth: '100%', padding: '5px' }),
   flipButton: css({ position: 'absolute', bottom: '1.2rem', right: '1.2rem' }),
   /* Flip Card */
-  flipCardFrontContainer: (height: number) =>
-    css({
-      height,
-      overflow: 'hidden',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      containerType: 'inline-size',
-    }),
-  flipCardBackContainer: (height: number) => css({ height, display: 'flex', flexDirection: 'column' }),
+  flipCardFrontContainer: css({
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    containerType: 'inline-size',
+  }),
+  flipCardBackContainer: css({ display: 'flex', flexDirection: 'column' }),
   flipCardBackFlexContainer: css({
     flex: '1 0 0',
     display: 'flex',
@@ -34,7 +32,6 @@ export const Style = {
     minHeight: '1px',
     display: 'flex',
     justifyContent: 'center',
-    fontSize: '2rem',
     textAlign: 'center',
   }),
   flipCardTitle: css({ fontSize: '12cqw' }),

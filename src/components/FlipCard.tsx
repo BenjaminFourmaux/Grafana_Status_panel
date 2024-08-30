@@ -45,47 +45,46 @@ export const FlipCard: React.FC<FlipCardProps> = ({
         (!noBackgroundColor && css({ backgroundColor: actualThreshold.color }))
       }
     >
-      <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'}>
-        {/* Front (severity) */}
-        <div className={Style.flipCardFrontContainer}>
-          <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'}>
-            <span className={Style.flipCardSeverity + ' ' + textColoration}>{actualThreshold.severity}</span>
-          </MaybeAnchor>
-        </div>
-
-        {/* Back (metric) */}
-        <div className={Style.flipCardBackContainer}>
-          <div className={Style.flipCardBackFlexContainer + ' ' + textColoration}>
-            <MaybeAnchor
-              href={options.url}
-              target={options.urlTargetBlank ? '_blank' : '_self'}
-              className={textColoration}
-            >
-              {/* Pane title */}
-              {options.title !== '' && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
-                  <span>{formattedString(options.title, formattedVariables)}</span>
-                </div>
-              )}
-              {/* Pane subtitle */}
-              {options.subtitle !== '' && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
-                  <span>{options.subtitle}</span>
-                </div>
-              )}
-              {/* Pane metric */}
-              {showMetric && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
-                  <StatusMetric fontStyle={fontStyle}>
-                    {value}
-                    {metricUnit}
-                  </StatusMetric>
-                </div>
-              )}
-            </MaybeAnchor>
+      <div style={{ width: '100%', height: '100%' }}>
+        <ReactCardFlip
+          isFlipped={isFlipped}
+          flipDirection={'horizontal'}
+          containerStyle={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {/* Front (severity) */}
+          <div
+            style={{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <h4>Issou</h4>
+            <h4>King</h4>
+            <h4>King</h4>
+            <h4>King</h4>
+            <h4>King</h4>
+            <h4>King</h4>
+            <h4>King</h4>
+            <h4>King</h4>
+            <h4>King</h4>
+            <h4>King</h4>
           </div>
-        </div>
-      </ReactCardFlip>
+
+          {/* Back (metric) */}
+          <div>
+            <h3>Bite</h3>
+          </div>
+        </ReactCardFlip>
+      </div>
     </div>
   );
 };
