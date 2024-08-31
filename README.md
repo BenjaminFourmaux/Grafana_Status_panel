@@ -97,6 +97,16 @@ You can add as much as you need thresholds. You can define threshold preferences
   The selected threshold is threshold_2, because the query value is between 50 and 70 (query value >= threshold_2 but <
   threshold_3).
 
+### Multi panes in one panel
+
+You can add all you need queries in one panel and each query will be displayed in a pane. Each pane will have the same
+thresholds, unit, title, and subtitle.
+
+### Text templating
+
+In fiels 'title', 'subtitle', and 'URL' you can use formatted variables like `{{query_name}}`, `{{query_value}}` ...
+Useful when you use multi pane.
+
 ### Show disable for no data
 
 If there is no data from any of the metrics, you can show the panel as disabled (in Grey), by checking the
@@ -124,16 +134,14 @@ dashboards) and keep them somewhere safe until you made sure everything is worki
 
 ### Panel States
 
-Examples of the panel:
-
 |       | status OK                     | status Warning                          | status Critical                     |
 | :---- | :---------------------------- | :-------------------------------------- | :---------------------------------- |
 | front | ![ok](./src/img/ok-front.png) | ![warning](./src/img/warning-front.png) | ![error](./src/img/error-front.png) |
 | back  | ![ok](./src/img/ok.png)       | ![warning](./src/img/warning.png)       | ![error](./src/img/error.png)       |
 
-### The end result should look like this
+### Multi panes in one panel
 
-![Result](https://github.com/Vonage/Grafana_Status_panel/blob/develop/src/img/environment_snapshot.png?raw=true)
+![Result](./src/img/multi-panes.png)
 
 # License
 

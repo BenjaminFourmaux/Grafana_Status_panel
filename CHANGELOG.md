@@ -22,8 +22,8 @@ The plugin now only supports the `number` type of data. The plugin will not work
 - Multi panes in one panel
   - Each pane corresponds to a Query
   - Each pane share the same thresholds, unit, and title and subtitle
-  - Panes are in grid layout. Each row can contain 12 panes
-  - Panes size (height and width) are responsive according to the panel size
+  - Panes are in grid layout (flexbox).
+  - Panes size (height and width, and font size) are responsive according to the panel size
 
 ### Removed
 

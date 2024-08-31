@@ -7,7 +7,6 @@ import { ThresholdConf } from '../components/ThresholdSetComponent';
  * @returns Values of the queries with selected aggregation
  */
 export const getQueriesValuesAggregation = (data: any, aggregation: string): number[] => {
-  console.log(data);
   let queriesValues: number[] = [];
 
   // Browse series

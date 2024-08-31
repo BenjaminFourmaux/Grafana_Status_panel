@@ -51,14 +51,22 @@ export const FlipCard: React.FC<FlipCardProps> = ({
         <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
           {/* Front (severity) */}
           <div className={Style.flipCardContainer}>
-            <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'}>
+            <MaybeAnchor
+              href={options.url}
+              target={options.urlTargetBlank ? '_blank' : '_self'}
+              className={textColoration}
+            >
               <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
             </MaybeAnchor>
           </div>
 
           {/* Back (metric) */}
           <div className={Style.flipCardContainer}>
-            <MaybeAnchor href={options.url} target={options.urlTargetBlank ? '_blank' : '_self'}>
+            <MaybeAnchor
+              href={options.url}
+              target={options.urlTargetBlank ? '_blank' : '_self'}
+              className={textColoration}
+            >
               {/* Pane title */}
               {options.title !== '' && (
                 <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>

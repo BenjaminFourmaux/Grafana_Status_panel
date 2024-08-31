@@ -6,7 +6,7 @@ import { css } from '@emotion/css';
  */
 export const Style = {
   wrapperContainer: css({ boxSizing: 'border-box', zIndex: 10 }),
-  row: css({ display: 'flex', flexWrap: 'wrap' }),
+  row: css({ display: 'flex', flexWrap: 'wrap', overflow: 'auto' }),
   col: css({ flexBasis: 'auto', flexGrow: '0', maxWidth: '100%', padding: '5px' }),
   size100: css({ width: '100%', height: '100%' }),
   flipButton: css({ position: 'absolute', bottom: '1.2rem', right: '1.2rem' }),
@@ -20,24 +20,6 @@ export const Style = {
     justifyContent: 'center',
     containerType: 'inline-size',
     overflow: 'hidden',
-  }),
-  flipCardFrontContainer: css({
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    containerType: 'inline-size',
-  }),
-  flipCardBackContainer: css({ display: 'flex', flexDirection: 'column' }),
-  flipCardBackFlexContainer: css({
-    flex: '1 0 0',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    containerType: 'inline-size',
   }),
   flipCardBackTexts: css({
     minHeight: '1px',
