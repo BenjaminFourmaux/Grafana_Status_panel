@@ -7,4 +7,8 @@ export interface FormattedStringVariables {
   queryValue: string;
   interval: string;
   time: number;
+  metricName: string;
+  labels: {
+    [labelName: string]: string;
+  };
 }

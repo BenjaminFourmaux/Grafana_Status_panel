@@ -25,8 +25,23 @@ export const formattedString = (formatString: string, variables: FormattedString
       case 'time':
         value = variables.time.toString();
         break;
+      case 'metric_name':
+        value = variables.metricName;
+        break;
+      case /label:/:
+        console.log('par ici');
+
+        break;
       default:
         value = '';
+
+        const regexLabel = /label:/;
+        if (regexLabel.test(token.trim())) {
+          const labelName: string = token.replace(/^label:/, '');
+          const labelvalue = variables.labels[labelName];
+          value = labelvalue ? labelvalue.toString() : '';
+        }
+
         break;
     }
     return value;
@@ -38,12 +53,45 @@ export const provideFormattedStringVariables = (
   queryValues: number[]
 ): FormattedStringVariables[] => {
   return dataQueries.series.map((serie: any, index: number) => {
+    let requestInfo = extractRequestInfo(dataQueries.request.targets[index]);
+
     return {
       queryIndex: index,
       queryName: serie.refId,
       queryValue: queryValues[index],
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
+      metricName: requestInfo.metricName,
+      labels: requestInfo.labels,
     };
   });
 };
+
+function extractRequestInfo(request: any): any {
+  let object = {
+    metricName: '',
+    labels: {},
+  };
+
+  if (request && request.expr) {
+    let match = request.expr.match(/^(?<metric_name>\w+)\{(?<labels>.*)\}$/);
+    if (match) {
+      const { metric_name, labels } = match.groups;
+
+      // Extract labels name and value
+      const labelRegex = /([^ =,]+)="([^"]+)"/g;
+      let labelMatch;
+      const labelsObject: { [key: string]: string } = {};
+      while ((labelMatch = labelRegex.exec(labels)) !== null) {
+        labelsObject[labelMatch[1]] = labelMatch[2];
+      }
+
+      object = {
+        metricName: metric_name,
+        labels: labelsObject,
+      };
+    }
+  }
+
+  return object;
+}
