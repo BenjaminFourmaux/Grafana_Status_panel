@@ -28,18 +28,14 @@ export const formattedString = (formatString: string, variables: FormattedString
       case 'metric_name':
         value = variables.metricName;
         break;
-      case /label:/:
-        console.log('par ici');
-
-        break;
       default:
         value = '';
 
         const regexLabel = /label:/;
         if (regexLabel.test(token.trim())) {
           const labelName: string = token.replace(/^label:/, '');
-          const labelvalue = variables.labels[labelName];
-          value = labelvalue ? labelvalue.toString() : '';
+          const labelValue = variables.labels[labelName];
+          value = labelValue ? labelValue.toString() : '';
         }
 
         break;
