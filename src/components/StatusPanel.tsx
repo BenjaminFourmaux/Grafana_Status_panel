@@ -13,8 +13,10 @@ import { Style } from '../interfaces/styleCSS';
 type Props = PanelProps<StatusPanelOptions>;
 
 export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width, height }) => {
+  console.log(data);
   const queriesValues: number[] = getQueriesValuesAggregation(data, fieldConfig.defaults.custom.aggregation);
   const stringFormattedVariables: FormattedStringVariables[] = provideFormattedStringVariables(data, queriesValues);
+  console.log(stringFormattedVariables);
 
   // setup flipper
   // True for the metrics page, False for the severity page

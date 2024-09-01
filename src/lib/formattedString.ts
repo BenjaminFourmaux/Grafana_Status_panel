@@ -19,6 +19,12 @@ export const formattedString = (formatString: string, variables: FormattedString
       case 'query_index':
         value = variables.queryIndex.toString();
         break;
+      case 'interval':
+        value = variables.interval;
+        break;
+      case 'time':
+        value = variables.time.toString();
+        break;
       default:
         value = '';
         break;
@@ -36,6 +42,8 @@ export const provideFormattedStringVariables = (
       queryIndex: index,
       queryName: serie.refId,
       queryValue: queryValues[index],
+      interval: dataQueries.request.interval,
+      time: dataQueries.request.startTime,
     };
   });
 };

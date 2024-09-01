@@ -107,6 +107,14 @@ thresholds, unit, title, and subtitle.
 In fiels 'title', 'subtitle', and 'URL' you can use formatted variables like `{{query_name}}`, `{{query_value}}` ...
 Useful when you use multi pane.
 
+List of available template variables:
+
+- `{{query_name}}` - The name of the query (A, B, C ... by default)
+- `{{query_value}}` - The value of the query (with aggregation)
+- `{{query_index}}` - The positional index of the query (start at 0)
+- `{{$__interval}}` - The interval of the query
+- `{{time}}` - The time of last send query (unix timestamp)
+
 ### Show disable for no data
 
 If there is no data from any of the metrics, you can show the panel as disabled (in Grey), by checking the
