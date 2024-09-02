@@ -20,6 +20,7 @@ export const Style = {
     justifyContent: 'center',
     containerType: 'inline-size',
     overflow: 'hidden',
+    textAlign: 'center',
   }),
   flipCardBackTexts: css({
     minHeight: '1px',
