@@ -63,8 +63,11 @@ const AggregationFunctions = (rows: any, aggregation: string): number => {
  */
 export const getActualThreshold = (thresholds: ThresholdConf[], value: number | undefined): ThresholdConf => {
   const baseThreshold = thresholds[0];
-  if (value === undefined) {
-    return baseThreshold;
+  if (value === undefined || value === null) {
+    return {
+      ...baseThreshold,
+      severity: undefined,
+    };
   }
 
   // Remove base threshold from the list (no used in actual threshold computing)

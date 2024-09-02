@@ -32,7 +32,6 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   height,
 }) => {
   const actualThreshold = getActualThreshold(options.thresholds, value);
-  console.log(value);
 
   // Retrieve colors
   const textColoration = css({ color: 'white' });
@@ -77,7 +76,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
               {/* Pane subtitle */}
               {options.subtitle !== '' && (
                 <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
-                  <span>{options.subtitle}</span>
+                  <span>{formattedString(options.subtitle, formattedVariables)}</span>
                 </div>
               )}
               {/* Pane metric */}

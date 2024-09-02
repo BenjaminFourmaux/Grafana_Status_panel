@@ -16,7 +16,7 @@ export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<Sta
     .addTextInput({
       path: 'subtitle',
       name: 'Subtitle',
-      description: "Use template '{{query_name}}' to display the query name",
+      description: '',
       defaultValue: '',
       category: ['Status Panel - options'],
     })
