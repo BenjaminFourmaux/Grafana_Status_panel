@@ -32,10 +32,11 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   height,
 }) => {
   const actualThreshold = getActualThreshold(options.thresholds, value);
+  console.log(value);
 
   // Retrieve colors
   const textColoration = css({ color: 'white' });
-  const noBackgroundColor = options.isGrayOnNoData && value === undefined;
+  const noBackgroundColor = options.isGrayOnNoData && value === null;
 
   return (
     <div

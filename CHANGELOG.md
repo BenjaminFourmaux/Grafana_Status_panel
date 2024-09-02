@@ -31,7 +31,7 @@ The plugin now only supports the `number` type of data. The plugin will not work
 - Alert system
 - Auto scroll feature
 - Annotation display mode
-- Things that make this plugin not simple to use (no offense Vonage :) )
+- Things that make this plugin not simple to use.
 
 ## v2.0.0
 
