@@ -31,4 +31,6 @@ export const Style = {
   flipCardSubtitle: css({ fontSize: '9.5cqw' }),
   flipCardMetric: css({ fontSize: '12.5cqw' }),
   flipCardSeverity: css({ fontSize: '14cqw' }),
+  /* help modal */
+  helpUl: css({ marginLeft: '1rem', listStylePosition: 'inside' }),
 };

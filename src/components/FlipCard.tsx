@@ -52,7 +52,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           {/* Front (severity) */}
           <div className={Style.flipCardContainer}>
             <MaybeAnchor
-              href={options.url}
+              href={formattedString(options.url, formattedVariables)}
               target={options.urlTargetBlank ? '_blank' : '_self'}
               className={textColoration}
             >
@@ -63,7 +63,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           {/* Back (metric) */}
           <div className={Style.flipCardContainer}>
             <MaybeAnchor
-              href={options.url}
+              href={formattedString(options.url, formattedVariables)}
               target={options.urlTargetBlank ? '_blank' : '_self'}
               className={textColoration}
             >

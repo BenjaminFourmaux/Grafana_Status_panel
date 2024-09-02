@@ -113,7 +113,9 @@ List of available template variables:
 - `{{query_value}}` - The value of the query (with aggregation)
 - `{{query_index}}` - The positional index of the query (start at 0)
 - `{{$__interval}}` - The interval of the query
-- `{{time}}` - The time of last send query (unix timestamp)
+- `{{time}}` - The time of last sent query (unix timestamp)
+- `{{metric_name}}` - (in prometheus) The metric name of the query expression
+- `{{label:<label_name>}}` - (in prometheus) The value of the label `<label_name>` of the query expression
 
 ### Show disable for no data
 
