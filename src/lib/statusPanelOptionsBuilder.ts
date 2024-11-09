@@ -103,6 +103,7 @@ export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<Sta
       path: 'thresholds',
       category: ['Status Panel - thresholds'],
       editor: ThresholdOptionsEditor,
+      settings: { expandTemplateVars: true },
       defaultValue: [
         {
           id: 1,

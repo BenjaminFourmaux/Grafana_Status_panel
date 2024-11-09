@@ -1,4 +1,6 @@
 import { ThresholdConf } from '../components/ThresholdSetComponent';
+import { DataFrame } from '@grafana/data';
+import { mappingMetricUnitName } from './metricUnitMapping';
 
 /**
  * Get queries (if there are multiple queries) values with selected aggregation (last, min, max, etc.)
@@ -84,4 +86,40 @@ export const getActualThreshold = (thresholds: ThresholdConf[], value: number | 
     }
   }
   return baseThreshold;
+};
+
+/**
+ * Get metric unit for display it, if it's define in options or override field
+ * @param showMetric If metric should be show
+ * @param metricUnit Metric unit from options
+ * @param series Data from the query
+ * @param overrideFields Override field from options
+ */
+export const getMetricUnit = (
+  showMetric: boolean,
+  metricUnit: string | undefined,
+  series: DataFrame,
+  overrideFields: any
+): string | undefined => {
+  let metricUnitName = '';
+
+  if (showMetric && metricUnit) {
+    for (let overrideField of overrideFields) {
+      let matcher = overrideField.matcher;
+      let properties = overrideField.properties[0];
+
+      if (
+        properties.id === 'custom.metricUnit' &&
+        matcher.id === 'byName' &&
+        matcher.options === series.fields[1].name
+      ) {
+        metricUnitName = properties.value;
+        break;
+      }
+    }
+    let metricUnitFromName = mappingMetricUnitName(metricUnitName);
+    return metricUnitFromName ? metricUnitFromName : metricUnit;
+  } else {
+    return undefined;
+  }
 };
