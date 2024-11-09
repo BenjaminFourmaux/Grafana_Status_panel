@@ -1,26 +1,35 @@
 import { ThresholdConf } from '../components/ThresholdSetComponent';
+import { DataFrame, FieldConfigSource, MatcherConfig } from '@grafana/data';
+import { mappingMetricUnitName } from './metricUnitMapping';
 
 /**
  * Get queries (if there are multiple queries) values with selected aggregation (last, min, max, etc.)
- * @param data Data from the query
- * @param aggregation Type of chosen aggregation
+ * @param frame Data from the query
+ * @param fieldsConf Type of chosen aggregation
+ * @param series Data from the query
  * @returns Values of the queries with selected aggregation
  */
-export const getQueriesValuesAggregation = (data: any, aggregation: string): number[] => {
-  let queriesValues: number[] = [];
+export const getQueryValueAggregation = (
+  frame: DataFrame,
+  fieldsConf: FieldConfigSource<any>,
+  series: DataFrame
+): number => {
+  let aggregation = fieldsConf.defaults.custom.aggregation;
 
-  // Browse series
-  data.series.forEach((frame: any) => {
-    if (!frame) {
-      return;
-    }
-    const rows = frame.fields.find((field: { type: string }) => field.type === 'number');
-    if (rows) {
-      queriesValues.push(AggregationFunctions(rows, aggregation));
-    }
-  });
+  for (let overrideField of fieldsConf.overrides) {
+    let matcher = overrideField.matcher;
 
-  return queriesValues;
+    for (let properties of overrideField.properties) {
+      if (properties && properties.id === 'custom.aggregation') {
+        if (overrideFieldForThisQuery(matcher, series)) {
+          aggregation = properties.value;
+        }
+      }
+    }
+  }
+
+  const rows = frame.fields.find((field: { type: string }) => field.type === 'number');
+  return AggregationFunctions(rows, aggregation);
 };
 
 /**
@@ -57,6 +66,27 @@ const AggregationFunctions = (rows: any, aggregation: string): number => {
 };
 
 /**
+ * Get thresholds configuration for a query from fields configuration or override fields if they exist
+ * @param fieldsConf Fields configuration
+ * @param series Data from the query
+ * @returns Thresholds configuration for the query
+ */
+export const getThresholdsConf = (fieldsConf: FieldConfigSource<any>, series: DataFrame): ThresholdConf[] => {
+  for (let overrideField of fieldsConf.overrides) {
+    let matcher = overrideField.matcher;
+
+    for (let properties of overrideField.properties) {
+      if (properties && properties.id === 'custom.thresholds') {
+        if (overrideFieldForThisQuery(matcher, series)) {
+          return properties.value;
+        }
+      }
+    }
+  }
+  return fieldsConf.defaults.custom.thresholds;
+};
+
+/**
  * Get actual threshold depending on the query data (where the magic happens)
  * @param thresholds List of thresholds
  * @param value query value
@@ -84,4 +114,59 @@ export const getActualThreshold = (thresholds: ThresholdConf[], value: number | 
     }
   }
   return baseThreshold;
+};
+
+/**
+ * True if the override field should be used for this query
+ * @param matcher
+ * @param series
+ * @returns True if the override field should be used for this query
+ */
+function overrideFieldForThisQuery(matcher: MatcherConfig<any>, series: DataFrame): boolean {
+  let regex = undefined;
+  if (matcher.id === 'byRegexp') {
+    let exp = matcher.options;
+    exp = exp.slice(1, exp.length - 1);
+    regex = new RegExp(exp);
+  }
+  return (
+    (matcher.id === 'byName' && matcher.options === series.fields[1].name) || // Override Field with Name
+    (matcher.id === 'byRegexp' && regex && regex.test(series.fields[1].name)) || // Override Field with Regexp
+    (matcher.id === 'byType' && series.fields[1].type === matcher.options) || // Override Field by Type
+    (matcher.id === 'byFrameRefID' && series.refId === matcher.options)
+  ); // Override Field by Fields returned by query
+}
+
+/**
+ * Get metric unit for display it, if it's define in options or override field
+ * @param showMetric If metric should be show
+ * @param metricUnit Metric unit from options
+ * @param series Data from the query
+ * @param overrideFields Override field from options
+ */
+export const getMetricUnit = (
+  showMetric: boolean,
+  metricUnit: string | undefined,
+  series: DataFrame,
+  overrideFields: any
+): string | undefined => {
+  let metricUnitName = '';
+
+  if (showMetric) {
+    for (let overrideField of overrideFields) {
+      let matcher = overrideField.matcher;
+
+      for (let properties of overrideField.properties) {
+        if (properties.id === 'custom.metricUnit') {
+          if (overrideFieldForThisQuery(matcher, series)) {
+            metricUnitName = properties.value;
+            break;
+          }
+        }
+      }
+    }
+    return mappingMetricUnitName(metricUnitName ? metricUnitName : metricUnit ? metricUnit : '');
+  } else {
+    return undefined;
+  }
 };

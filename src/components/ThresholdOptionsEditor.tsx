@@ -1,15 +1,15 @@
-import { PanelOptionsEditorProps } from '@grafana/data';
 import React, { useEffect, useState } from 'react';
 import { Button, useTheme2, VerticalGroup } from '@grafana/ui';
 import { ThresholdConf, ThresholdSet } from './ThresholdSetComponent';
-import { StatusPanelOptions } from '../interfaces/statusPanelOptions';
+import { StatusFieldOptions } from '../interfaces/statusFieldOptions';
+import { FieldConfigEditorProps } from '@grafana/data';
 
 /**
  * Custom editor for set the thresholds
  * @param value Thresholds list from StatusPanelOptions
  * @param onChange Update the thresholds list
  */
-export const ThresholdOptionsEditor: React.FC<PanelOptionsEditorProps<StatusPanelOptions['thresholds']>> = ({
+export const ThresholdOptionsEditor: React.FC<FieldConfigEditorProps<StatusFieldOptions['thresholds'], any>> = ({
   value,
   onChange,
 }) => {
