@@ -7,6 +7,7 @@ import { Style } from '../interfaces/styleCSS';
 import { MaybeAnchor } from './MaybeAnchor';
 import { formattedString } from '../lib/formattedString';
 import { StatusMetric } from './buildStatusMetric';
+import { ThresholdConf } from './ThresholdSetComponent';
 
 interface FlipCardProps {
   width: number;
@@ -16,6 +17,7 @@ interface FlipCardProps {
   value: number;
   fontStyle: string;
   options: any;
+  thresholds: ThresholdConf[];
   formattedVariables: FormattedStringVariables;
   isFlipped: boolean;
 }
@@ -27,11 +29,12 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   value,
   fontStyle,
   options,
+  thresholds,
   formattedVariables,
   width,
   height,
 }) => {
-  const actualThreshold = getActualThreshold(options.thresholds, value);
+  const actualThreshold = getActualThreshold(thresholds, value);
 
   // Retrieve colors
   const textColoration = css({ color: 'white' });

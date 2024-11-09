@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataFrame, FieldConfigSource, PanelData } from '@grafana/data';
 import { StatusPanelOptions } from '../interfaces/statusPanelOptions';
-import { getMetricUnit } from '../lib/thresholdCalulationFunc';
+import { getMetricUnit, getQueryValueAggregation, getThresholdsConf } from '../lib/thresholdCalulationFunc';
 import { FlipCard } from './FlipCard';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { provideFormattedStringVariables } from '../lib/formattedString';
@@ -35,8 +35,8 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     fieldsConfig.overrides
   );
   const stringFormattedVariables: FormattedStringVariables[] = provideFormattedStringVariables(data, [12]);
-  //const queriesValues: number[] = getQueriesValuesAggregation(data, fieldConfig.defaults.custom.aggregation);
-  const queryValueComputed = 12;
+  const queryValueComputed: number = getQueryValueAggregation(series, fieldsConfig.defaults.custom.aggregation);
+  const thresholdsConf = getThresholdsConf(fieldsConfig, series);
 
   return (
     <FlipCard
@@ -46,6 +46,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
       metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
       options={options}
+      thresholds={thresholdsConf}
       formattedVariables={stringFormattedVariables[index]}
       value={queryValueComputed}
       isFlipped={flipped}

@@ -68,7 +68,7 @@ export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<Stat
       override: ThresholdOptionsEditor,
       process(value: any, context: FieldOverrideContext, settings: any): any {},
       shouldApply(field: Field): boolean {
-        return false;
+        return true;
       },
       editor: ThresholdOptionsEditor,
       settings: { expandTemplateVars: true },
