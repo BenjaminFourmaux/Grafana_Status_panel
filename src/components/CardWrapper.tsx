@@ -35,7 +35,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     fieldsConfig.overrides
   );
   const stringFormattedVariables: FormattedStringVariables[] = provideFormattedStringVariables(data, [12]);
-  const queryValueComputed: number = getQueryValueAggregation(series, fieldsConfig.defaults.custom.aggregation);
+  const queryValueComputed: number = getQueryValueAggregation(series, fieldsConfig, series);
   const thresholdsConf = getThresholdsConf(fieldsConfig, series);
 
   return (
