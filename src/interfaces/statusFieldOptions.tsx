@@ -1,3 +1,5 @@
+import { ThresholdConf } from '../components/ThresholdSetComponent';
+
 /**
  * Represent field options of the status panel (stored and shared between panel and options editor)
  */
@@ -25,4 +27,5 @@ export interface StatusFieldOptions {
   displayValueMetric: boolean;
   fontFormat: 'Regular' | 'Bold' | 'Italic';
   metricUnit: string;
+  thresholds: ThresholdConf[];
 }

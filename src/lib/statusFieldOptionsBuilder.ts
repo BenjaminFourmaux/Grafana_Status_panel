@@ -1,6 +1,13 @@
-import { FieldConfigEditorBuilder } from '@grafana/data';
+import { Field, FieldConfigEditorBuilder, FieldOverrideContext } from '@grafana/data';
 import { StatusFieldOptions } from '../interfaces/statusFieldOptions';
+import { DISPLAY_OPTIONS_CATEGORY, THRESHOLDS_CATEGORY } from './constant';
+import { ThresholdOptionsEditor } from '../components/ThresholdOptionsEditor';
 
+/**
+ * FieldConfigs are field configuration options that allow for the customization of individual data fields within the panel.
+ * They are used for settings specific to data fields and can be overridden by the user.
+ * @param builder
+ */
 export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<StatusFieldOptions>) =>
   builder
     .addSelect({
@@ -19,14 +26,14 @@ export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<Stat
           { label: 'Delta', value: 'delta' },
         ],
       },
-      category: ['Status Panel - display options'],
+      category: [DISPLAY_OPTIONS_CATEGORY],
     })
     .addBooleanSwitch({
       path: 'displayValueMetric',
       name: 'Display value metric',
       description: '',
       defaultValue: true,
-      category: ['Status Panel - display options'],
+      category: [DISPLAY_OPTIONS_CATEGORY],
     })
     .addSelect({
       path: 'fontFormat',
@@ -40,7 +47,7 @@ export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<Stat
           { label: 'Italic', value: 'Italic' },
         ],
       },
-      category: ['Status Panel - display options'],
+      category: [DISPLAY_OPTIONS_CATEGORY],
       showIf: ({ displayValueMetric }) => displayValueMetric,
     })
     .addUnitPicker({
@@ -48,6 +55,29 @@ export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<Stat
       name: 'Metric Unit',
       defaultValue: '',
       settings: undefined,
-      category: ['Status Panel - display options'],
+      category: [DISPLAY_OPTIONS_CATEGORY],
       showIf: ({ displayValueMetric }) => displayValueMetric,
+    })
+    /* ---- Thresholds options ---- */
+    .addCustomEditor({
+      id: 'thresholds',
+      name: 'Thresholds',
+      description: 'Add thresholds to display different status on the panel depending on the query result',
+      path: 'thresholds',
+      category: [THRESHOLDS_CATEGORY],
+      override: ThresholdOptionsEditor,
+      process(value: any, context: FieldOverrideContext, settings: any): any {},
+      shouldApply(field: Field): boolean {
+        return false;
+      },
+      editor: ThresholdOptionsEditor,
+      settings: { expandTemplateVars: true },
+      defaultValue: [
+        {
+          id: 1,
+          color: '#73bf69',
+          value: undefined,
+          severity: 'Base',
+        },
+      ],
     });
