@@ -5,6 +5,7 @@ import { StatusPanelOptions } from 'interfaces/statusPanelOptions';
 import { CardWrapper } from './CardWrapper';
 import { Style } from '../interfaces/styleCSS';
 import { css } from '@emotion/css';
+import { IconButton } from '@grafana/ui';
 
 type Props = PanelProps<StatusPanelOptions>;
 
@@ -44,6 +45,16 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
           </>
         ))}
       </div>
+      {isHover && (
+        <IconButton
+          name={'exchange-alt'}
+          size={'xl'}
+          onClick={() => setFlipped(!flipped)}
+          className={Style.flipButton + ' ' + css({ color: 'white' })}
+          aria-label="Flip Card"
+          tooltip={'Flip Card'}
+        />
+      )}
     </div>
   );
 };

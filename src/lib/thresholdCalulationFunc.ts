@@ -103,23 +103,51 @@ export const getMetricUnit = (
 ): string | undefined => {
   let metricUnitName = '';
 
-  if (showMetric && metricUnit) {
-    for (let overrideField of overrideFields) {
-      let matcher = overrideField.matcher;
-      let properties = overrideField.properties[0];
+  console.log(series);
+  console.log(overrideFields);
 
-      if (
-        properties.id === 'custom.metricUnit' &&
-        matcher.id === 'byName' &&
-        matcher.options === series.fields[1].name
-      ) {
-        metricUnitName = properties.value;
-        break;
+  try {
+    if (showMetric && metricUnit) {
+      for (let overrideField of overrideFields) {
+        let matcher = overrideField.matcher;
+        let properties = overrideField.properties[0];
+
+        if (properties && properties.id === 'custom.metricUnit') {
+          // Override Field with Name
+          if (matcher.id === 'byName' && matcher.options === series.fields[1].name) {
+            metricUnitName = properties.value;
+            break;
+          }
+
+          // Override Field with Regexp
+          if (matcher.id === 'byRegexp') {
+            let regexp = new RegExp(matcher.options);
+            if (regexp.test(series.fields[1].name)) {
+              metricUnitName = properties.value;
+              break;
+            }
+          }
+
+          // Override Field by Type
+          if (matcher.id === 'byType' && series.fields[1].type === matcher.options) {
+            metricUnitName = properties.value;
+            break;
+          }
+
+          // Override Field by Fields returned by query
+          if (matcher.id === 'byFrameRefID' && series.refId === matcher.options) {
+            metricUnitName = properties.value;
+            break;
+          }
+        }
       }
+      let metricUnitFromName = mappingMetricUnitName(metricUnitName);
+      return metricUnitFromName ? metricUnitFromName : metricUnit;
+    } else {
+      return undefined;
     }
-    let metricUnitFromName = mappingMetricUnitName(metricUnitName);
-    return metricUnitFromName ? metricUnitFromName : metricUnit;
-  } else {
+  } catch (e) {
+    console.error(e);
     return undefined;
   }
 };
