@@ -1,4 +1,5 @@
 export function mappingMetricUnitName(metricName: string): string {
+  console.log('metricName', metricName);
   switch (metricName) {
     // Misc
     case 'percent':
@@ -9,7 +10,7 @@ export function mappingMetricUnitName(metricName: string): string {
       return 'dB';
     case 'candela':
       return 'cd';
-    case 'pixels':
+    case 'pixel':
       return 'px';
     // Acceleration
     case 'accMS2':

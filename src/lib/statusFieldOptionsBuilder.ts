@@ -33,12 +33,14 @@ export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<Stat
       name: 'Display value metric',
       description: '',
       defaultValue: true,
+      hideFromOverrides: true,
       category: [DISPLAY_OPTIONS_CATEGORY],
     })
     .addSelect({
       path: 'fontFormat',
       name: 'Metric font format',
       description: 'The metric text font format',
+      hideFromOverrides: true,
       defaultValue: 'Regular',
       settings: {
         options: [

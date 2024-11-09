@@ -58,7 +58,6 @@ export const getThresholdsConf = (fieldsConf: FieldConfigSource<any>, series: Da
 
     for (let properties of overrideField.properties) {
       if (properties && properties.id === 'custom.thresholds') {
-        // Concern this function
         if (overrideFieldForThisQuery(matcher, series)) {
           return properties.value;
         }
@@ -147,8 +146,7 @@ export const getMetricUnit = (
         }
       }
     }
-    let metricUnitFromName = mappingMetricUnitName(metricUnitName);
-    return metricUnitFromName ? metricUnitFromName : metricUnit;
+    return mappingMetricUnitName(metricUnitName ? metricUnitName : metricUnit ? metricUnit : '');
   } else {
     return undefined;
   }
