@@ -2,7 +2,7 @@ import { PanelProps } from '@grafana/data';
 import React, { useEffect } from 'react';
 import { useHover, useInterval } from 'hooks/index';
 import { StatusPanelOptions } from 'interfaces/statusPanelOptions';
-import { CardWrapper } from './CardWrapper';
+import { CardWrapper, CardWrapperAggregateQuery } from './CardWrapper';
 import { Style } from '../interfaces/styleCSS';
 import { css } from '@emotion/css';
 import { IconButton } from '@grafana/ui';
@@ -27,23 +27,38 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   return (
     <div ref={wrapper} className={Style.wrapperContainer}>
       <div className={Style.row + ' ' + css({ height })}>
-        {data.series.map((series, index) => (
+        {/* If option AggregateQueries is enabled */}
+        {options.aggregateQueries ? (
+          <div className={Style.col}>
+            <CardWrapperAggregateQuery
+              data={data}
+              options={options}
+              fieldsConfig={fieldConfig}
+              cardWidth={width - 5 * 2}
+              cardHeight={cardHeight}
+              flipped={flipped}
+            />
+          </div>
+        ) : (
           <>
-            <div className={Style.col} key={index}>
-              <CardWrapper
-                series={series}
-                data={data}
-                options={options}
-                fieldsConfig={fieldConfig}
-                cardWidth={cardWidth}
-                cardHeight={cardHeight}
-                flipped={flipped}
-                index={index}
-                key={index}
-              />
-            </div>
+            {data.series.map((series, index) => (
+              <>
+                <div className={Style.col} key={index}>
+                  <CardWrapper
+                    series={series}
+                    data={data}
+                    options={options}
+                    fieldsConfig={fieldConfig}
+                    cardWidth={cardWidth}
+                    cardHeight={cardHeight}
+                    flipped={flipped}
+                    index={index}
+                  />
+                </div>
+              </>
+            ))}
           </>
-        ))}
+        )}
       </div>
       {isHover && (
         <IconButton

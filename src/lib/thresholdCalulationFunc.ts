@@ -4,16 +4,11 @@ import { mappingMetricUnitName } from './metricUnitMapping';
 
 /**
  * Get queries (if there are multiple queries) values with selected aggregation (last, min, max, etc.)
- * @param frame Data from the query
  * @param fieldsConf Type of chosen aggregation
  * @param series Data from the query
  * @returns Values of the queries with selected aggregation
  */
-export const getQueryValueAggregation = (
-  frame: DataFrame,
-  fieldsConf: FieldConfigSource<any>,
-  series: DataFrame
-): number => {
+export const getQueryValueAggregation = (series: DataFrame, fieldsConf: FieldConfigSource<any>): number => {
   let aggregation = fieldsConf.defaults.custom.aggregation;
 
   for (let overrideField of fieldsConf.overrides) {
@@ -28,7 +23,7 @@ export const getQueryValueAggregation = (
     }
   }
 
-  const rows = frame.fields.find((field: { type: string }) => field.type === 'number');
+  const rows = series.fields.find((field: { type: string }) => field.type === 'number');
   return AggregationFunctions(rows, aggregation);
 };
 
