@@ -4,10 +4,11 @@ import { css } from '@emotion/css';
 import { getActualThreshold } from '../lib/thresholdCalulationFunc';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { Style } from '../interfaces/styleCSS';
-import { MaybeAnchor } from './MaybeAnchor';
+import { OpenLinkAnchor } from './OpenLinkAnchor';
 import { formattedString } from '../lib/formattedString';
 import { StatusMetric } from './buildStatusMetric';
 import { ThresholdConf } from './ThresholdSetComponent';
+import { Icon } from '@grafana/ui';
 
 interface FlipCardProps {
   width: number;
@@ -20,7 +21,8 @@ interface FlipCardProps {
   metricUnit: string | undefined;
   value: number;
   fontStyle: string;
-  options: any;
+  cornerRadius: string;
+  isGrayOnNoData: boolean;
   thresholds: ThresholdConf[];
   formattedVariables: FormattedStringVariables;
   isFlipped: boolean;
@@ -36,7 +38,8 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   metricUnit,
   value,
   fontStyle,
-  options,
+  cornerRadius,
+  isGrayOnNoData,
   thresholds,
   formattedVariables,
   width,
@@ -46,12 +49,12 @@ export const FlipCard: React.FC<FlipCardProps> = ({
 
   // Retrieve colors
   const textColoration = css({ color: 'white' });
-  const noBackgroundColor = options.isGrayOnNoData && value === null;
+  const noBackgroundColor = isGrayOnNoData && value === null;
 
   return (
     <div
       className={
-        css({ width, height: '100%', minWidth: '142px', borderRadius: options.cornerRadius }) +
+        css({ width, height: '100%', minWidth: '142px', borderRadius: cornerRadius, position: 'relative' }) +
         ' ' +
         (!noBackgroundColor && css({ backgroundColor: actualThreshold.color })) +
         ' ' +
@@ -59,49 +62,55 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       }
     >
       <div className={Style.size100}>
-        <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
-          {/* Front (severity) */}
-          <div className={Style.flipCardContainer}>
-            <MaybeAnchor
-              href={formattedString(url, formattedVariables)}
-              target={urlTargetBlank ? '_blank' : '_self'}
-              className={textColoration}
-            >
+        <OpenLinkAnchor
+          href={formattedString(url, formattedVariables)}
+          target={urlTargetBlank ? '_blank' : '_self'}
+          className={textColoration}
+        >
+          <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
+            {/* Front (severity) */}
+            <div className={Style.flipCardContainer}>
               <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
-            </MaybeAnchor>
-          </div>
+            </div>
 
-          {/* Back (metric) */}
-          <div className={Style.flipCardContainer}>
-            <MaybeAnchor
-              href={formattedString(url, formattedVariables)}
-              target={urlTargetBlank ? '_blank' : '_self'}
-              className={textColoration}
-            >
-              {/* Pane title */}
-              {title !== '' && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
-                  <span>{formattedString(title, formattedVariables)}</span>
-                </div>
-              )}
-              {/* Pane subtitle */}
-              {subtitle !== '' && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
-                  <span>{formattedString(subtitle, formattedVariables)}</span>
-                </div>
-              )}
-              {/* Pane metric */}
-              {showMetric && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
-                  <StatusMetric fontStyle={fontStyle}>
-                    {value}
-                    {metricUnit}
-                  </StatusMetric>
-                </div>
-              )}
-            </MaybeAnchor>
+            {/* Back (metric) */}
+            <div className={Style.flipCardContainer}>
+              <OpenLinkAnchor
+                href={formattedString(url, formattedVariables)}
+                target={urlTargetBlank ? '_blank' : '_self'}
+                className={textColoration}
+              >
+                {/* Pane title */}
+                {title !== '' && (
+                  <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
+                    <span>{formattedString(title, formattedVariables)}</span>
+                  </div>
+                )}
+                {/* Pane subtitle */}
+                {subtitle !== '' && (
+                  <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
+                    <span>{formattedString(subtitle, formattedVariables)}</span>
+                  </div>
+                )}
+                {/* Pane metric */}
+                {showMetric && (
+                  <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
+                    <StatusMetric fontStyle={fontStyle}>
+                      {value}
+                      {metricUnit}
+                    </StatusMetric>
+                  </div>
+                )}
+              </OpenLinkAnchor>
+            </div>
+          </ReactCardFlip>
+        </OpenLinkAnchor>
+        {url && (
+          <div className={Style.urlNotchContainer}>
+            <Icon name={'external-link-alt'} className={Style.urlIcon} />
+            <div className={Style.urlNotchTriangle}></div>
           </div>
-        </ReactCardFlip>
+        )}
       </div>
     </div>
   );
