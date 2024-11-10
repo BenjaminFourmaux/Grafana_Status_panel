@@ -49,6 +49,12 @@ export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<Sta
       category: [OPTIONS_CATEGORY],
       editor: FormattedStringHelpEditor,
     })
+    .addBooleanSwitch({
+      path: 'aggregateQueries',
+      name: 'Aggregate queries in a single panel',
+      defaultValue: false,
+      category: [OPTIONS_CATEGORY],
+    })
     // .addTextInput({
     //   path: 'namePrefix',
     //   name: 'Remove Prefix',

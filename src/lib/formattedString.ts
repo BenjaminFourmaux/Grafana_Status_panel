@@ -45,22 +45,22 @@ export const formattedString = (formatString: string, variables: FormattedString
 };
 
 export const provideFormattedStringVariables = (
+  queryIndex: number,
+  series: any,
   dataQueries: any,
-  queryValues: number[]
-): FormattedStringVariables[] => {
-  return dataQueries.series.map((serie: any, index: number) => {
-    let requestInfo = extractRequestInfo(dataQueries.request.targets[index]);
-
-    return {
-      queryIndex: index,
-      queryName: serie.refId,
-      queryValue: queryValues[index],
-      interval: dataQueries.request.interval,
-      time: dataQueries.request.startTime,
-      metricName: requestInfo.metricName,
-      labels: requestInfo.labels,
-    };
-  });
+  queryValue: number,
+  metricUnit: string
+): FormattedStringVariables => {
+  let requestInfo = extractRequestInfo(dataQueries.request.targets[queryIndex]);
+  return {
+    queryIndex: queryIndex,
+    queryName: series.refId,
+    queryValue: queryValue.toString(),
+    interval: dataQueries.request.interval,
+    time: dataQueries.request.startTime,
+    metricName: metricUnit,
+    labels: requestInfo.labels,
+  };
 };
 
 function extractRequestInfo(request: any): any {

@@ -1,5 +1,4 @@
 export function mappingMetricUnitName(metricName: string): string {
-  console.log('metricName', metricName);
   switch (metricName) {
     // Misc
     case 'percent':

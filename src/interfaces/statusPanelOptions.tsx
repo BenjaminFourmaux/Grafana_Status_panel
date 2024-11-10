@@ -6,6 +6,7 @@ export interface StatusPanelOptions {
   subtitle: string;
   url: string;
   urlTargetBlank: boolean;
+  aggregateQueries: boolean;
   // namePrefix: string;
   cornerRadius: string;
   flipCard: boolean;
