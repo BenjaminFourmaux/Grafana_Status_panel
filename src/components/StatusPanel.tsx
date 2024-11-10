@@ -34,7 +34,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
               data={data}
               options={options}
               fieldsConfig={fieldConfig}
-              cardWidth={width}
+              cardWidth={width - 5 * 2}
               cardHeight={cardHeight}
               flipped={flipped}
             />
@@ -53,7 +53,6 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
                     cardHeight={cardHeight}
                     flipped={flipped}
                     index={index}
-                    key={index}
                   />
                 </div>
               </>
