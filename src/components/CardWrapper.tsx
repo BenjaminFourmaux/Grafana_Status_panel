@@ -138,7 +138,8 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
       showMetric={fieldsConfig.defaults.custom.displayValueMetric}
       metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
-      options={options}
+      cornerRadius={options.cornerRadius}
+      isGrayOnNoData={options.isGrayOnNoData}
       thresholds={fieldsConfig.defaults.custom.thresholds}
       formattedVariables={stringFormattedVariables}
       value={queryValue}
