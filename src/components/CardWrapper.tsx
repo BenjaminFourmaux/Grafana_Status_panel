@@ -10,6 +10,7 @@ import {
 import { FlipCard } from './FlipCard';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { provideFormattedStringVariables } from '../lib/formattedString';
+import { mappingMetricUnitName } from '../lib/metricUnitMapping';
 
 interface CardWrapperProps {
   index: number;
@@ -101,12 +102,13 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
   const thresholdIndex = actualThresholds.indexOf(actualThreshold);
 
   const queryValue = aggregateQueriesValues[thresholdIndex];
+  const metricUnit = mappingMetricUnitName(fieldsConfig.defaults.custom.metricUnit);
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     thresholdIndex,
     data.series[thresholdIndex],
     data,
     queryValue,
-    fieldsConfig.defaults.custom.metricUnit
+    metricUnit
   );
 
   return (
@@ -114,7 +116,7 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
       width={cardWidth}
       height={cardHeight}
       showMetric={fieldsConfig.defaults.custom.displayValueMetric}
-      metricUnit={fieldsConfig.defaults.custom.metricUnit}
+      metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
       options={options}
       thresholds={fieldsConfig.defaults.custom.thresholds}
