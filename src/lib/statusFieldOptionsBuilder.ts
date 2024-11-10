@@ -1,6 +1,6 @@
 import { Field, FieldConfigEditorBuilder, FieldOverrideContext } from '@grafana/data';
 import { StatusFieldOptions } from '../interfaces/statusFieldOptions';
-import { DISPLAY_OPTIONS_CATEGORY, THRESHOLDS_CATEGORY } from './constant';
+import { DISPLAY_OPTIONS_CATEGORY, OPTIONS_CATEGORY, THRESHOLDS_CATEGORY } from './constant';
 import { ThresholdOptionsEditor } from '../components/ThresholdOptionsEditor';
 
 /**
@@ -59,6 +59,41 @@ export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<Stat
       settings: undefined,
       category: [DISPLAY_OPTIONS_CATEGORY],
       showIf: ({ displayValueMetric }) => displayValueMetric,
+    })
+    /* ---- Text options ---- */
+    .addTextInput({
+      path: 'title',
+      name: 'Title',
+      description: '',
+      defaultValue: '',
+      hideFromDefaults: true,
+      category: [OPTIONS_CATEGORY],
+      settings: { expandTemplateVars: true },
+    })
+    .addTextInput({
+      path: 'subtitle',
+      name: 'Subtitle',
+      description: '',
+      defaultValue: '',
+      hideFromDefaults: true,
+      category: [OPTIONS_CATEGORY],
+      settings: { expandTemplateVars: true },
+    })
+    .addTextInput({
+      path: 'url',
+      name: 'URL',
+      description: '',
+      defaultValue: '',
+      hideFromDefaults: true,
+      category: [OPTIONS_CATEGORY],
+      settings: { expandTemplateVars: true, placeholder: 'https://' },
+    })
+    .addBooleanSwitch({
+      path: 'urlTargetBlank',
+      name: 'Open URL in new tab',
+      defaultValue: false,
+      hideFromDefaults: true,
+      category: [OPTIONS_CATEGORY],
     })
     /* ---- Thresholds options ---- */
     .addCustomEditor({

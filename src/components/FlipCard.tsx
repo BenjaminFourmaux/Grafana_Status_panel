@@ -12,6 +12,10 @@ import { ThresholdConf } from './ThresholdSetComponent';
 interface FlipCardProps {
   width: number;
   height: number;
+  title: string;
+  subtitle: string;
+  url: string;
+  urlTargetBlank: boolean;
   showMetric: boolean;
   metricUnit: string | undefined;
   value: number;
@@ -24,6 +28,10 @@ interface FlipCardProps {
 
 export const FlipCard: React.FC<FlipCardProps> = ({
   isFlipped,
+  title,
+  subtitle,
+  url,
+  urlTargetBlank,
   showMetric,
   metricUnit,
   value,
@@ -55,8 +63,8 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           {/* Front (severity) */}
           <div className={Style.flipCardContainer}>
             <MaybeAnchor
-              href={formattedString(options.url, formattedVariables)}
-              target={options.urlTargetBlank ? '_blank' : '_self'}
+              href={formattedString(url, formattedVariables)}
+              target={urlTargetBlank ? '_blank' : '_self'}
               className={textColoration}
             >
               <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
@@ -66,20 +74,20 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           {/* Back (metric) */}
           <div className={Style.flipCardContainer}>
             <MaybeAnchor
-              href={formattedString(options.url, formattedVariables)}
-              target={options.urlTargetBlank ? '_blank' : '_self'}
+              href={formattedString(url, formattedVariables)}
+              target={urlTargetBlank ? '_blank' : '_self'}
               className={textColoration}
             >
               {/* Pane title */}
-              {options.title !== '' && (
+              {title !== '' && (
                 <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
-                  <span>{formattedString(options.title, formattedVariables)}</span>
+                  <span>{formattedString(title, formattedVariables)}</span>
                 </div>
               )}
               {/* Pane subtitle */}
-              {options.subtitle !== '' && (
+              {subtitle !== '' && (
                 <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
-                  <span>{formattedString(options.subtitle, formattedVariables)}</span>
+                  <span>{formattedString(subtitle, formattedVariables)}</span>
                 </div>
               )}
               {/* Pane metric */}
