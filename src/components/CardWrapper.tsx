@@ -108,7 +108,7 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
     queryValue,
     fieldsConfig.defaults.custom.metricUnit
   );
-  console.log(cardHeight);
+
   return (
     <FlipCard
       width={cardWidth}
