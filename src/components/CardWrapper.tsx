@@ -85,7 +85,7 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
   // Browse all series and get query value by aggregation
   let aggregateQueriesValues = [];
   for (let series of data.series) {
-    aggregateQueriesValues.push(getQueryValueAggregation(series, { ...fieldsConfig, overrides: [] }));
+    aggregateQueriesValues.push(getQueryValueAggregation(series, fieldsConfig));
   }
   // Get threshold configuration
   const thresholdsConf = fieldsConfig.defaults.custom.thresholds;
