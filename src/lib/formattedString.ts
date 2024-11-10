@@ -6,6 +6,9 @@ import { FormattedStringVariables } from '../interfaces/formattedStringVariables
  * @param variables some data to render
  */
 export const formattedString = (formatString: string, variables: FormattedStringVariables): string => {
+  if (!formatString) {
+    return '';
+  }
   return formatString.replace(/{{(.*?)}}/g, (match, token) => {
     let value;
 
@@ -19,7 +22,7 @@ export const formattedString = (formatString: string, variables: FormattedString
       case 'query_index':
         value = variables.queryIndex.toString();
         break;
-      case 'interval':
+      case '$__interval':
         value = variables.interval;
         break;
       case 'time':
@@ -55,7 +58,7 @@ export const provideFormattedStringVariables = (
   return {
     queryIndex: queryIndex,
     queryName: series.refId,
-    queryValue: queryValue.toString(),
+    queryValue: queryValue ? queryValue.toString() : '',
     interval: dataQueries.request.interval,
     time: dataQueries.request.startTime,
     metricName: metricUnit,

@@ -1,5 +1,6 @@
 import { ThresholdConf } from '../components/ThresholdSetComponent';
 import { DataFrame, FieldConfigSource, MatcherConfig } from '@grafana/data';
+import { StatusPanelOptions } from '../interfaces/statusPanelOptions';
 import { mappingMetricUnitName } from './metricUnitMapping';
 
 /**
@@ -164,4 +165,112 @@ export const getMetricUnit = (
   } else {
     return undefined;
   }
+};
+
+/**
+ * Get title for the card from options field or override field
+ * @param options
+ * @param fieldsConfig
+ * @param series
+ */
+export const getTitle = (
+  options: StatusPanelOptions,
+  fieldsConfig: FieldConfigSource<any>,
+  series: DataFrame
+): string => {
+  let title = options.title;
+  for (let overrideField of fieldsConfig.overrides) {
+    let matcher = overrideField.matcher;
+
+    for (let properties of overrideField.properties) {
+      if (properties.id === 'custom.title') {
+        if (overrideFieldForThisQuery(matcher, series)) {
+          title = properties.value;
+          break;
+        }
+      }
+    }
+  }
+  return title;
+};
+
+/**
+ * Get subtitle for the card from options field or override field
+ * @param options
+ * @param fieldsConfig
+ * @param series
+ */
+export const getSubtitle = (
+  options: StatusPanelOptions,
+  fieldsConfig: FieldConfigSource<any>,
+  series: DataFrame
+): string => {
+  let subtitle = options.subtitle;
+  for (let overrideField of fieldsConfig.overrides) {
+    let matcher = overrideField.matcher;
+
+    for (let properties of overrideField.properties) {
+      if (properties.id === 'custom.subtitle') {
+        if (overrideFieldForThisQuery(matcher, series)) {
+          subtitle = properties.value;
+          break;
+        }
+      }
+    }
+  }
+  return subtitle;
+};
+
+/**
+ * Get URL for the card from options field or override field
+ * @param options
+ * @param fieldsConfig
+ * @param series
+ */
+export const getUrl = (
+  options: StatusPanelOptions,
+  fieldsConfig: FieldConfigSource<any>,
+  series: DataFrame
+): string => {
+  let url = options.url;
+  for (let overrideField of fieldsConfig.overrides) {
+    let matcher = overrideField.matcher;
+
+    for (let properties of overrideField.properties) {
+      if (properties.id === 'custom.url') {
+        if (overrideFieldForThisQuery(matcher, series)) {
+          url = properties.value;
+          break;
+        }
+      }
+    }
+  }
+  return url;
+};
+
+/**
+ * Get URL target blank for the card from options field or override field
+ * @param options
+ * @param fieldsConfig
+ * @param series
+ */
+export const getUrlTargetBlank = (
+  options: StatusPanelOptions,
+  fieldsConfig: FieldConfigSource<any>,
+  series: DataFrame
+): boolean => {
+  let urlTargetBlank = options.urlTargetBlank;
+  for (let overrideField of fieldsConfig.overrides) {
+    let matcher = overrideField.matcher;
+
+    for (let properties of overrideField.properties) {
+      if (properties.id === 'custom.urlTargetBlank') {
+        if (overrideFieldForThisQuery(matcher, series)) {
+          urlTargetBlank = properties.value;
+          break;
+        }
+      }
+    }
+  }
+  return urlTargetBlank;
 };

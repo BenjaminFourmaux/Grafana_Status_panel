@@ -5,11 +5,16 @@ import {
   getActualThreshold,
   getMetricUnit,
   getQueryValueAggregation,
+  getSubtitle,
   getThresholdsConf,
+  getTitle,
+  getUrl,
+  getUrlTargetBlank,
 } from '../lib/thresholdCalulationFunc';
 import { FlipCard } from './FlipCard';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { provideFormattedStringVariables } from '../lib/formattedString';
+import { mappingMetricUnitName } from '../lib/metricUnitMapping';
 
 interface CardWrapperProps {
   index: number;
@@ -32,7 +37,11 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   flipped,
   index,
 }) => {
-  // Calculate velues depending on fieldsConfig and override fields
+  const cardTitle = getTitle(options, fieldsConfig, series);
+  const cardSubtitle = getSubtitle(options, fieldsConfig, series);
+  const cardUrl = getUrl(options, fieldsConfig, series);
+  const cardUrlTargetBlank = getUrlTargetBlank(options, fieldsConfig, series);
+  // Calculate values depending on fieldsConfig and override fields
   const metricUnit = getMetricUnit(
     fieldsConfig.defaults.custom.displayValueMetric,
     fieldsConfig.defaults.custom.metricUnit,
@@ -53,6 +62,10 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     <FlipCard
       width={cardWidth}
       height={cardHeight}
+      title={cardTitle}
+      subtitle={cardSubtitle}
+      url={cardUrl}
+      urlTargetBlank={cardUrlTargetBlank}
       showMetric={fieldsConfig.defaults.custom.displayValueMetric}
       metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
@@ -101,20 +114,29 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
   const thresholdIndex = actualThresholds.indexOf(actualThreshold);
 
   const queryValue = aggregateQueriesValues[thresholdIndex];
+  const metricUnit = mappingMetricUnitName(fieldsConfig.defaults.custom.metricUnit);
+  const cardTitle = getTitle(options, fieldsConfig, data.series[thresholdIndex]);
+  const cardSubtitle = getSubtitle(options, fieldsConfig, data.series[thresholdIndex]);
+  const cardUrl = getUrl(options, fieldsConfig, data.series[thresholdIndex]);
+  const cardUrlTargetBlank = getUrlTargetBlank(options, fieldsConfig, data.series[thresholdIndex]);
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     thresholdIndex,
     data.series[thresholdIndex],
     data,
     queryValue,
-    fieldsConfig.defaults.custom.metricUnit
+    metricUnit
   );
 
   return (
     <FlipCard
       width={cardWidth}
       height={cardHeight}
+      title={cardTitle}
+      subtitle={cardSubtitle}
+      url={cardUrl}
+      urlTargetBlank={cardUrlTargetBlank}
       showMetric={fieldsConfig.defaults.custom.displayValueMetric}
-      metricUnit={fieldsConfig.defaults.custom.metricUnit}
+      metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
       options={options}
       thresholds={fieldsConfig.defaults.custom.thresholds}
