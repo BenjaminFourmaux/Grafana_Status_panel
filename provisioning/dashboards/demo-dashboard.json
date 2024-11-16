@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -36,6 +37,7 @@
             "displayValueMetric": true,
             "fontFormat": "Bold",
             "metricUnit": "percent",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
@@ -66,7 +68,10 @@
                 "severity": "Very High",
                 "value": 90
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -91,41 +96,16 @@
       "options": {
         "aggregateQueries": false,
         "cornerRadius": "0rem",
-        "flipCard": true,
+        "flipCard": false,
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "{{query_name}}",
-        "thresholds": [
-          {
-            "color": "#5794F2",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "Normal",
-            "value": 10
-          },
-          {
-            "color": "#F2CC0C",
-            "id": 3,
-            "severity": "High",
-            "value": 75
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Very high",
-            "value": 90
-          }
-        ],
-        "title": "my_app",
+        "subtitle": "",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "alias": "",
@@ -139,7 +119,7 @@
         }
       ],
       "title": "Metrics",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -156,6 +136,7 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
@@ -180,7 +161,10 @@
                 "severity": "critical",
                 "value": 3
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -209,51 +193,28 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "backend api",
-        "thresholds": [
-          {
-            "color": "#73bf69",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "success",
-            "value": 1
-          },
-          {
-            "color": "#FADE2A",
-            "id": 3,
-            "severity": "warning",
-            "value": 2
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "critical",
-            "value": 3
-          }
-        ],
-        "title": "my_app health",
+        "subtitle": "",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "alias": "",
-          "csvContent": "\"time\",\"stateName\",\"state\"\r\n\"2024-08-18 12:30:00\",\"success\",1\r\n\"2024-08-18 12:35:00\",\"sucess\",1\r\n\"2024-08-18 12:40:00\",\"warning\",2\r\n\"2024-08-18 12:45:00\",\"critial\",3\r\n\"2024-08-18 12:50:00\",\"success\",1",
           "datasource": {
             "type": "grafana-testdata-datasource",
             "uid": "bdi86bi8f7zswc"
           },
+          "max": 3,
+          "min": 1,
           "refId": "A",
-          "scenarioId": "csv_content"
+          "scenarioId": "random_walk",
+          "startValue": 1
         }
       ],
       "title": "Healthcheck",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -270,6 +231,7 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
@@ -318,7 +280,10 @@
                 "severity": "Sunday",
                 "value": 6
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -342,66 +307,17 @@
       "id": 3,
       "options": {
         "aggregateQueries": false,
-        "cornerRadius": "3rem",
-        "flipCard": true,
+        "cornerRadius": "0rem",
+        "flipCard": false,
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
-        "thresholds": [
-          {
-            "color": "#73bf69",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#3274D9",
-            "id": 2,
-            "severity": "Monday",
-            "value": 0
-          },
-          {
-            "color": "#ff12ea",
-            "id": 3,
-            "severity": "Thusday",
-            "value": 1
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Wednesday",
-            "value": 2
-          },
-          {
-            "color": "#73BF69",
-            "id": 5,
-            "severity": "Thursday",
-            "value": 3
-          },
-          {
-            "color": "#A352CC",
-            "id": 6,
-            "severity": "Friday",
-            "value": 4
-          },
-          {
-            "color": "#FA6400",
-            "id": 7,
-            "severity": "Saturday",
-            "value": 5
-          },
-          {
-            "color": "#FADE2A",
-            "id": 8,
-            "severity": "Sunday",
-            "value": 6
-          }
-        ],
-        "title": "Day of week",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
@@ -415,7 +331,7 @@
         }
       ],
       "title": "Custom",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -432,13 +348,17 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#5794F2",
                 "id": 1,
                 "severity": "Base"
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -462,66 +382,17 @@
       "id": 4,
       "options": {
         "aggregateQueries": false,
-        "cornerRadius": "25%",
+        "cornerRadius": "0rem",
         "flipCard": false,
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
-        "thresholds": [
-          {
-            "color": "#73bf69",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#3274D9",
-            "id": 2,
-            "severity": "Monday",
-            "value": 0
-          },
-          {
-            "color": "#ff12ea",
-            "id": 3,
-            "severity": "Thusday",
-            "value": 1
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Wednesday",
-            "value": 2
-          },
-          {
-            "color": "#73BF69",
-            "id": 5,
-            "severity": "Thursday",
-            "value": 3
-          },
-          {
-            "color": "#A352CC",
-            "id": 6,
-            "severity": "Friday",
-            "value": 4
-          },
-          {
-            "color": "#FA6400",
-            "id": 7,
-            "severity": "Saturday",
-            "value": 5
-          },
-          {
-            "color": "#FADE2A",
-            "id": 8,
-            "severity": "Sunday",
-            "value": 6
-          }
-        ],
         "title": "Click on me",
-        "url": "https://youtu.be/dQw4w9WgXcQ",
+        "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
@@ -534,7 +405,7 @@
         }
       ],
       "title": "Clickable",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -551,13 +422,17 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#5794F2",
                 "id": 1,
                 "severity": "Base"
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -581,66 +456,17 @@
       "id": 5,
       "options": {
         "aggregateQueries": false,
-        "cornerRadius": "25%",
+        "cornerRadius": "0rem",
         "flipCard": false,
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "to open in new tab",
-        "thresholds": [
-          {
-            "color": "#73bf69",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#3274D9",
-            "id": 2,
-            "severity": "Monday",
-            "value": 0
-          },
-          {
-            "color": "#ff12ea",
-            "id": 3,
-            "severity": "Thusday",
-            "value": 1
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Wednesday",
-            "value": 2
-          },
-          {
-            "color": "#73BF69",
-            "id": 5,
-            "severity": "Thursday",
-            "value": 3
-          },
-          {
-            "color": "#A352CC",
-            "id": 6,
-            "severity": "Friday",
-            "value": 4
-          },
-          {
-            "color": "#FA6400",
-            "id": 7,
-            "severity": "Saturday",
-            "value": 5
-          },
-          {
-            "color": "#FADE2A",
-            "id": 8,
-            "severity": "Sunday",
-            "value": 6
-          }
-        ],
         "title": "Click on me",
-        "url": "https://youtu.be/dQw4w9WgXcQ",
+        "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
         "urlTargetBlank": true
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
@@ -653,7 +479,7 @@
         }
       ],
       "title": "Clickable open in new tab",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -671,6 +497,7 @@
             "displayValueMetric": true,
             "fontFormat": "Bold",
             "metricUnit": "percent",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
@@ -701,7 +528,10 @@
                 "severity": "Very High",
                 "value": 90
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -726,41 +556,16 @@
       "options": {
         "aggregateQueries": false,
         "cornerRadius": "0rem",
-        "flipCard": false,
-        "flipState": true,
+        "flipCard": true,
+        "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
-        "thresholds": [
-          {
-            "color": "#5794F2",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "Normal",
-            "value": 10
-          },
-          {
-            "color": "#F2CC0C",
-            "id": 3,
-            "severity": "High",
-            "value": 75
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Very high",
-            "value": 90
-          }
-        ],
-        "title": "{{query_name}}",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "alias": "",
@@ -873,7 +678,7 @@
         }
       ],
       "title": "Multi-card",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -891,6 +696,7 @@
             "displayValueMetric": true,
             "fontFormat": "Bold",
             "metricUnit": "percent",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
@@ -921,7 +727,10 @@
                 "severity": "Very High",
                 "value": 90
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -995,41 +804,16 @@
       "options": {
         "aggregateQueries": false,
         "cornerRadius": "0rem",
-        "flipCard": false,
-        "flipState": true,
+        "flipCard": true,
+        "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
-        "thresholds": [
-          {
-            "color": "#5794F2",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "Normal",
-            "value": 10
-          },
-          {
-            "color": "#F2CC0C",
-            "id": 3,
-            "severity": "High",
-            "value": 75
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Very high",
-            "value": 90
-          }
-        ],
-        "title": "{{query_name}}",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "alias": "",
@@ -1142,7 +926,7 @@
         }
       ],
       "title": "Overridable field",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -1160,6 +944,7 @@
             "displayValueMetric": true,
             "fontFormat": "Bold",
             "metricUnit": "percent",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
@@ -1190,7 +975,10 @@
                 "severity": "Very High",
                 "value": 90
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -1220,36 +1008,11 @@
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
-        "thresholds": [
-          {
-            "color": "#5794F2",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "Normal",
-            "value": 10
-          },
-          {
-            "color": "#F2CC0C",
-            "id": 3,
-            "severity": "High",
-            "value": 75
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Very high",
-            "value": 90
-          }
-        ],
         "title": "{{query_name}}",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "alias": "",
@@ -1362,7 +1125,7 @@
         }
       ],
       "title": "Aggreged queries",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -1379,13 +1142,17 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
                 "id": 1,
                 "severity": "Base"
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -1418,25 +1185,25 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "My mane is {{query_name}}",
+        "subtitle": "My name is {{query_name}}",
         "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
             "type": "grafana-testdata-datasource",
             "uid": "bdi86bi8f7zswc"
           },
-          "refId": "Joh Doe",
+          "refId": "John Doe",
           "scenarioId": "csv_metric_values",
           "stringInput": "1,20,90,30,5"
         }
       ],
       "title": "Formatted string - query name",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -1453,13 +1220,17 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
                 "id": 1,
                 "severity": "Base"
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -1492,12 +1263,12 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "Max value is {{query_value}}",
+        "subtitle": "My value is {{query_value}}",
         "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
@@ -1510,7 +1281,7 @@
         }
       ],
       "title": "Formatted string - query value",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -1527,13 +1298,17 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
                 "id": 1,
                 "severity": "Base"
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -1566,12 +1341,12 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "Interval is {{$__interval}}",
+        "subtitle": "The interval is set at {{$__interval}}",
         "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
@@ -1584,7 +1359,7 @@
         }
       ],
       "title": "Formatted string - interval",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -1601,13 +1376,17 @@
             "displayValueMetric": false,
             "fontFormat": "Regular",
             "metricUnit": "",
+            "subtitle": "",
             "thresholds": [
               {
                 "color": "#73bf69",
                 "id": 1,
                 "severity": "Base"
               }
-            ]
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -1640,12 +1419,12 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "Last request at {{time}}",
+        "subtitle": "Time is {{time}}",
         "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
@@ -1658,11 +1437,12 @@
         }
       ],
       "title": "Formatted string - time",
-      "type": "vonage-status-panel"
+      "type": "status-panel"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
