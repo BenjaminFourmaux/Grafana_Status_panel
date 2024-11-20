@@ -31,4 +31,6 @@ This plugin supports autoscaling for best-fit sizing and font size of each cards
 
 ### Multi cards in one panel
 
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/multi-card.png)
+
 ## Documentation
