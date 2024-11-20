@@ -29,6 +29,10 @@ Work for with all datasources as long as it returns a `number` field, like Prome
 
 This plugin supports autoscaling for best-fit sizing and font size of each cards to the panel size.
 
+### Card variant options
+
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/card-variants.png)
+
 ### Multi cards in one panel
 
 ![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/multi-card.png)
