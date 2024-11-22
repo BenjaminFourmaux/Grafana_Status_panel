@@ -12,7 +12,9 @@ export const formattedString = (formatString: string, variables: FormattedString
   return formatString.replace(/{{(.*?)}}/g, (match, token) => {
     let value;
 
-    switch (token.trim()) {
+    let token_variable = token.trim();
+
+    switch (token_variable) {
       case 'query_name':
         value = variables.queryName;
         break;
@@ -25,8 +27,18 @@ export const formattedString = (formatString: string, variables: FormattedString
       case '$__interval':
         value = variables.interval;
         break;
-      case 'time':
-        value = variables.time.toString();
+      case token_variable.match(/time?.+/)?.input:
+        let format = token_variable.match(/time\s(.*)/);
+        if (format) {
+          format = format[1];
+          value = parseDateToString(new Date(variables.time), format);
+
+          if (value === '') {
+            value = 'Invalid datetime format';
+          }
+        } else {
+          value = variables.time.toString();
+        }
         break;
       case 'metric_name':
         value = variables.metricName;
@@ -35,7 +47,7 @@ export const formattedString = (formatString: string, variables: FormattedString
         value = '';
 
         const regexLabel = /label:/;
-        if (regexLabel.test(token.trim())) {
+        if (regexLabel.test(token_variable)) {
           const labelName: string = token.replace(/^label:/, '');
           const labelValue = variables.labels[labelName];
           value = labelValue ? labelValue.toString() : '';
@@ -93,4 +105,29 @@ function extractRequestInfo(request: any): any {
   }
 
   return object;
+}
+
+function parseDateToString(date: Date, format: string): string {
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  let milliseconds = date.getMilliseconds();
+
+  let formatted_datetime = format
+    .replace('YYYY', year.toString())
+    .replace('MM', month.toString().padStart(2, '0'))
+    .replace('DD', day.toString().padStart(2, '0'))
+    .replace('HH', hours.toString().padStart(2, '0'))
+    .replace('mm', minutes.toString().padStart(2, '0'))
+    .replace('ss', seconds.toString().padStart(2, '0'))
+    .replace('SSS', milliseconds.toString().padStart(3, '0'));
+
+  if (formatted_datetime !== format) {
+    return formatted_datetime;
+  } else {
+    return '';
+  }
 }
