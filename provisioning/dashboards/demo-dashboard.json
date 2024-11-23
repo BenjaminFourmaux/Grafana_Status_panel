@@ -18,9 +18,109 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 1,
   "links": [],
   "panels": [
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": true,
+            "fontFormat": "Bold",
+            "metricUnit": "percent",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              },
+              {
+                "color": "#73BF69",
+                "id": 2,
+                "severity": "OK",
+                "value": 0
+              },
+              {
+                "color": "#fade2a",
+                "id": 3,
+                "severity": "Warning",
+                "value": 70
+              },
+              {
+                "color": "#f2495c",
+                "id": 4,
+                "severity": "High",
+                "value": 80
+              },
+              {
+                "color": "#c4162a",
+                "id": 5,
+                "severity": "Very High",
+                "value": 90
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": false,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "RAM Usage",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,77"
+        }
+      ],
+      "title": "Metrics",
+      "type": "status-panel"
+    },
     {
       "datasource": {
         "type": "grafana-testdata-datasource",
@@ -33,9 +133,1026 @@
           },
           "custom": {
             "aggregation": "last",
-            "displayValueMetric": true,
+            "displayValueMetric": false,
             "fontFormat": "Regular",
-            "metricUnit": ""
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              },
+              {
+                "color": "#73BF69",
+                "id": 2,
+                "severity": "success",
+                "value": 1
+              },
+              {
+                "color": "#FF9830",
+                "id": 3,
+                "severity": "warning",
+                "value": 2
+              },
+              {
+                "color": "#F2495C",
+                "id": 4,
+                "severity": "critical",
+                "value": 3
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 5,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": false,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "max": 3,
+          "min": 1,
+          "refId": "A",
+          "scenarioId": "random_walk",
+          "startValue": 1
+        }
+      ],
+      "title": "Healthcheck",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": false,
+            "fontFormat": "Regular",
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              },
+              {
+                "color": "#3274d9",
+                "id": 2,
+                "severity": "Monday",
+                "value": 0
+              },
+              {
+                "color": "#ff12ea",
+                "id": 3,
+                "severity": "Tuesday",
+                "value": 1
+              },
+              {
+                "color": "#f2495c",
+                "id": 4,
+                "severity": "Wednesday",
+                "value": 2
+              },
+              {
+                "color": "#73bf69",
+                "id": 5,
+                "severity": "Thursday",
+                "value": 3
+              },
+              {
+                "color": "#a352cc",
+                "id": 6,
+                "severity": "Friday",
+                "value": 4
+              },
+              {
+                "color": "#fa6400",
+                "id": 7,
+                "severity": "Saturday",
+                "value": 5
+              },
+              {
+                "color": "#fade2a",
+                "id": 8,
+                "severity": "Sunday",
+                "value": 6
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 10,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": false,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "max": 10,
+          "min": 0,
+          "refId": "A",
+          "scenarioId": "random_walk"
+        }
+      ],
+      "title": "Custom",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": false,
+            "fontFormat": "Regular",
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#5794F2",
+                "id": 1,
+                "severity": "Base"
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 15,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": true,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "",
+        "title": "Click on me",
+        "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "A",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "4"
+        }
+      ],
+      "title": "Clickable",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": false,
+            "fontFormat": "Regular",
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#5794F2",
+                "id": 1,
+                "severity": "Base"
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 19,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": true,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "to open in new tab",
+        "title": "Click on me",
+        "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
+        "urlTargetBlank": true
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "A",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "4"
+        }
+      ],
+      "title": "Clickable open in new tab",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "description": "For each query, display a card corresponding of the status of the query",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": true,
+            "fontFormat": "Bold",
+            "metricUnit": "percent",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              },
+              {
+                "color": "#73BF69",
+                "id": 2,
+                "severity": "OK",
+                "value": 0
+              },
+              {
+                "color": "#fade2a",
+                "id": 3,
+                "severity": "Warning",
+                "value": 70
+              },
+              {
+                "color": "#f2495c",
+                "id": 4,
+                "severity": "High",
+                "value": 80
+              },
+              {
+                "color": "#c4162a",
+                "id": 5,
+                "severity": "Very High",
+                "value": 90
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "id": 6,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": true,
+        "flipState": false,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "Query-1",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,77"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-2",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,52"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-3",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,84"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-4",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,68"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-5",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,6"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-6",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,35"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-7",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,71"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-8",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,37"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-9",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,99"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-10",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,41"
+        }
+      ],
+      "title": "Multi-card",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "description": "You can define overridable field (thresholds, metric unit and aggregation option) for each query",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": true,
+            "fontFormat": "Bold",
+            "metricUnit": "percent",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              },
+              {
+                "color": "#73BF69",
+                "id": 2,
+                "severity": "OK",
+                "value": 0
+              },
+              {
+                "color": "#fade2a",
+                "id": 3,
+                "severity": "Warning",
+                "value": 70
+              },
+              {
+                "color": "#f2495c",
+                "id": 4,
+                "severity": "High",
+                "value": 80
+              },
+              {
+                "color": "#c4162a",
+                "id": 5,
+                "severity": "Very High",
+                "value": 90
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query-4-series"
+            },
+            "properties": [
+              {
+                "id": "custom.metricUnit",
+                "value": "gflops"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query-7-series"
+            },
+            "properties": [
+              {
+                "id": "custom.thresholds",
+                "value": [
+                  {
+                    "color": "#73bf69",
+                    "id": 1,
+                    "severity": "Base"
+                  },
+                  {
+                    "color": "#5794F2",
+                    "id": 2,
+                    "severity": "Overriden",
+                    "value": 50
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query-10-series"
+            },
+            "properties": [
+              {
+                "id": "custom.aggregation",
+                "value": "max"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 12,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": true,
+        "flipState": false,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "Query-1",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,77"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-2",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,52"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-3",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,84"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-4",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,68"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-5",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,6"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-6",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,35"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-7",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,71"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-8",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,37"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-9",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,99"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-10",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,41"
+        }
+      ],
+      "title": "Overridable field",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "description": "For each query, calculate the threshold according to Aggregation option and get the max threshold in single card",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": true,
+            "fontFormat": "Bold",
+            "metricUnit": "percent",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              },
+              {
+                "color": "#73BF69",
+                "id": 2,
+                "severity": "OK",
+                "value": 0
+              },
+              {
+                "color": "#fade2a",
+                "id": 3,
+                "severity": "Warning",
+                "value": 70
+              },
+              {
+                "color": "#f2495c",
+                "id": 4,
+                "severity": "High",
+                "value": 80
+              },
+              {
+                "color": "#c4162a",
+                "id": 5,
+                "severity": "Very High",
+                "value": 90
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 0,
+        "y": 19
+      },
+      "id": 7,
+      "options": {
+        "aggregateQueries": true,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": true,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "",
+        "title": "{{query_name}}",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "Query-1",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,77"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-2",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,52"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-3",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,84"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-4",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,68"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-5",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,6"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-6",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,35"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-7",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,71"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-8",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,37"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-9",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,99"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "hide": false,
+          "refId": "Query-10",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "24,31,59,91,41"
+        }
+      ],
+      "title": "Aggreged queries",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "last",
+            "displayValueMetric": false,
+            "fontFormat": "Regular",
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -55,275 +1172,38 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 24,
-        "x": 0,
-        "y": 0
+        "h": 8,
+        "w": 4,
+        "x": 4,
+        "y": 19
       },
-      "id": 4,
+      "id": 8,
       "options": {
-        "cornerRadius": "2rem",
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
         "flipCard": false,
         "flipState": true,
         "flipTime": 5,
-        "isGrayOnNoData": true,
-        "subtitle": "CPU usage",
-        "thresholds": [
-          {
-            "color": "#00000000",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "OK",
-            "value": 0
-          },
-          {
-            "color": "#FADE2A",
-            "id": 3,
-            "severity": "Warning",
-            "value": 70
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "High",
-            "value": 80
-          },
-          {
-            "color": "#C4162A",
-            "id": 5,
-            "severity": "Very High",
-            "value": 90
-          }
-        ],
-        "title": "App {{query_index}}",
-        "url": "https://google.com/search?q={{query_name}}",
-        "urlTargetBlank": true
+        "isGrayOnNoData": false,
+        "subtitle": "My name is {{query_name}}",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
             "type": "grafana-testdata-datasource",
             "uid": "bdi86bi8f7zswc"
           },
-          "hide": false,
-          "refId": "A",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,20"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "B",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,56"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "C",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,73"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "D",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,87"
-        },
-        {
-          "csvContent": "time,metric\r\n2024-04-02 00:30:00,2\r\n2024-04-02 00:36:00,",
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "refId": "nodata",
-          "scenarioId": "csv_content"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "E",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,99"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "refId": "F",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,24"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "refId": "G",
+          "refId": "John Doe",
           "scenarioId": "csv_metric_values",
           "stringInput": "1,20,90,30,5"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "H",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,76"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "I",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,92"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "J",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,33"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "K",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,85"
-        },
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "hide": false,
-          "refId": "L",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "1,20,90,30,23"
         }
       ],
-      "title": "Multi pane in One panel",
-      "type": "vonage-status-panel"
-    },
-    {
-      "datasource": {
-        "type": "grafana-testdata-datasource",
-        "uid": "bdi86bi8f7zswc"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "aggregation": "last",
-            "displayValueMetric": true,
-            "fontFormat": "Bold",
-            "metricUnit": "%"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 0,
-        "y": 10
-      },
-      "id": 1,
-      "options": {
-        "cornerRadius": "0rem",
-        "flipCard": true,
-        "flipState": false,
-        "flipTime": 5,
-        "isGrayOnNoData": false,
-        "subtitle": "{{query_name}}",
-        "thresholds": [
-          {
-            "color": "#5794F2",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "Normal",
-            "value": 10
-          },
-          {
-            "color": "#F2CC0C",
-            "id": 3,
-            "severity": "High",
-            "value": 75
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Very high",
-            "value": 90
-          }
-        ],
-        "title": "my_app",
-        "url": "",
-        "urlTargetBlank": false
-      },
-      "pluginVersion": "3.0.0",
-      "targets": [
-        {
-          "alias": "",
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "bdi86bi8f7zswc"
-          },
-          "refId": "RAM Usage",
-          "scenarioId": "csv_metric_values",
-          "stringInput": "24,31,59,91,77"
-        }
-      ],
-      "title": "Metrics",
-      "type": "vonage-status-panel"
+      "title": "Formatted string - query name",
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -336,10 +1216,21 @@
             "mode": "thresholds"
           },
           "custom": {
-            "aggregation": "last",
+            "aggregation": "max",
             "displayValueMetric": false,
             "fontFormat": "Regular",
-            "metricUnit": ""
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -348,6 +1239,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           }
@@ -355,63 +1250,38 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 5,
-        "y": 10
+        "h": 8,
+        "w": 4,
+        "x": 8,
+        "y": 19
       },
-      "id": 2,
+      "id": 9,
       "options": {
+        "aggregateQueries": false,
         "cornerRadius": "0rem",
         "flipCard": false,
-        "flipState": false,
+        "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "backend api",
-        "thresholds": [
-          {
-            "color": "#73bf69",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#73BF69",
-            "id": 2,
-            "severity": "success",
-            "value": 1
-          },
-          {
-            "color": "#FADE2A",
-            "id": 3,
-            "severity": "warning",
-            "value": 2
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "critical",
-            "value": 3
-          }
-        ],
-        "title": "my_app health",
+        "subtitle": "My value is {{query_value}}",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
-          "alias": "",
-          "csvContent": "\"time\",\"stateName\",\"state\"\r\n\"2024-08-18 12:30:00\",\"success\",1\r\n\"2024-08-18 12:35:00\",\"sucess\",1\r\n\"2024-08-18 12:40:00\",\"warning\",2\r\n\"2024-08-18 12:45:00\",\"critial\",3\r\n\"2024-08-18 12:50:00\",\"success\",1",
           "datasource": {
             "type": "grafana-testdata-datasource",
             "uid": "bdi86bi8f7zswc"
           },
-          "refId": "A",
-          "scenarioId": "csv_content"
+          "refId": "Joh Doe",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1,20,90,30,5"
         }
       ],
-      "title": "Healthcheck",
-      "type": "vonage-status-panel"
+      "title": "Formatted string - query value",
+      "type": "status-panel"
     },
     {
       "datasource": {
@@ -424,10 +1294,21 @@
             "mode": "thresholds"
           },
           "custom": {
-            "aggregation": "last",
+            "aggregation": "max",
             "displayValueMetric": false,
             "fontFormat": "Regular",
-            "metricUnit": ""
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
           },
           "mappings": [],
           "thresholds": {
@@ -436,6 +1317,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           }
@@ -443,89 +1328,121 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 10,
-        "y": 10
+        "h": 8,
+        "w": 4,
+        "x": 12,
+        "y": 19
       },
-      "id": 3,
+      "id": 10,
       "options": {
-        "cornerRadius": "3rem",
-        "flipCard": true,
-        "flipState": false,
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "",
-        "thresholds": [
-          {
-            "color": "#73bf69",
-            "id": 1,
-            "severity": "Base"
-          },
-          {
-            "color": "#3274D9",
-            "id": 2,
-            "severity": "Monday",
-            "value": 0
-          },
-          {
-            "color": "#ff12ea",
-            "id": 3,
-            "severity": "Thusday",
-            "value": 1
-          },
-          {
-            "color": "#F2495C",
-            "id": 4,
-            "severity": "Wednesday",
-            "value": 2
-          },
-          {
-            "color": "#73BF69",
-            "id": 5,
-            "severity": "Thursday",
-            "value": 3
-          },
-          {
-            "color": "#A352CC",
-            "id": 6,
-            "severity": "Friday",
-            "value": 4
-          },
-          {
-            "color": "#FA6400",
-            "id": 7,
-            "severity": "Saturday",
-            "value": 5
-          },
-          {
-            "color": "#FADE2A",
-            "id": 8,
-            "severity": "Sunday",
-            "value": 6
-          }
-        ],
-        "title": "Day of week",
+        "subtitle": "The interval is set at {{$__interval}}",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "3.0.0",
+      "pluginVersion": "1.0.0",
       "targets": [
         {
           "datasource": {
             "type": "grafana-testdata-datasource",
             "uid": "bdi86bi8f7zswc"
           },
-          "refId": "A",
+          "refId": "Joh Doe",
           "scenarioId": "csv_metric_values",
-          "stringInput": "4"
+          "stringInput": "1,20,90,30,5"
         }
       ],
-      "title": "Custom",
-      "type": "vonage-status-panel"
+      "title": "Formatted string - interval",
+      "type": "status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "max",
+            "displayValueMetric": false,
+            "fontFormat": "Regular",
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 19
+      },
+      "id": 11,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": true,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "subtitle": "Time is {{time DD-MM-YYYY HH:mm:ss}}",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "Joh Doe",
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1,20,90,30,5"
+        }
+      ],
+      "title": "Formatted string - time",
+      "type": "status-panel"
     }
   ],
-  "schemaVersion": 39,
+  "preload": false,
+  "refresh": "",
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
@@ -538,6 +1455,6 @@
   "timezone": "browser",
   "title": "status-panel-demo",
   "uid": "ddv54djwm1zi8f",
-  "version": 13,
+  "version": 1,
   "weekStart": ""
 }

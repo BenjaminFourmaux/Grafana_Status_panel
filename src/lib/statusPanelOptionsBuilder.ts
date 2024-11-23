@@ -51,7 +51,7 @@ export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<Sta
     })
     .addBooleanSwitch({
       path: 'aggregateQueries',
-      name: 'Aggregate queries in a single panel',
+      name: 'Aggregate queries in a single card',
       defaultValue: false,
       category: [OPTIONS_CATEGORY],
     })
