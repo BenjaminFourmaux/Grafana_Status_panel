@@ -85,7 +85,7 @@ export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<Sta
     .addRadio({
       path: 'flipState',
       name: 'Stay on',
-      defaultValue: false,
+      defaultValue: true,
       settings: {
         options: [
           {
