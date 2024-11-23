@@ -69,12 +69,12 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
       showMetric={fieldsConfig.defaults.custom.displayValueMetric}
       metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
-      cornerRadius={options.cornerRadius}
-      isGrayOnNoData={options.isGrayOnNoData}
       thresholds={thresholdsConf}
       formattedVariables={stringFormattedVariables}
       value={queryValueComputed}
       isFlipped={flipped}
+      cornerRadius={options.cornerRadius}
+      isGrayOnNoData={options.isGrayOnNoData}
     />
   );
 };
