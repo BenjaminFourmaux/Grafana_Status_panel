@@ -68,12 +68,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           className={textColoration}
         >
           <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
-            {/* Front (severity) */}
-            <div className={Style.flipCardContainer}>
-              <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
-            </div>
-
-            {/* Back (metric) */}
+            {/* Front (metric) */}
             <div className={Style.flipCardContainer}>
               <OpenLinkAnchor
                 href={formattedString(url, formattedVariables)}
@@ -102,6 +97,11 @@ export const FlipCard: React.FC<FlipCardProps> = ({
                   </div>
                 )}
               </OpenLinkAnchor>
+            </div>
+
+            {/* Back (severity) */}
+            <div className={Style.flipCardContainer}>
+              <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
             </div>
           </ReactCardFlip>
         </OpenLinkAnchor>
