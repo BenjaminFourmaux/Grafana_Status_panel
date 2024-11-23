@@ -7,7 +7,9 @@ A simple plugin to display the state of your resource.
 ## Overview
 
 Status Panel is a Grafana plugin designed to visualize the status of resources in a straightforward and customizable
-color card format. The status is based on the resource's metrics or health checks queries, with **severity thresholds**
+color card format.
+\
+The status is based on the resource's metrics or health checks queries, with **severity thresholds**
 that can be defined by the user.
 
 ## Features

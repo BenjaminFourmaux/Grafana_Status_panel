@@ -4,7 +4,7 @@
   "name": "Status Panel",
   "id": "status-panel",
   "info": {
-    "description": "A simple panel to show resource status based on metrics or healthcheck. Powerful, easy-to-use and customizable",
+    "description": "A simple panel to show resource status",
     "author": {
       "name": "Tech Ben",
       "url": "https://github.com/BenjaminFourmaux"
