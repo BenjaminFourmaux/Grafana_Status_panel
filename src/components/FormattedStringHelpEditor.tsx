@@ -56,7 +56,7 @@ export const FormattedStringHelpEditor: React.FC = () => {
                 </li>
                 <li>
                   <a href={'https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-time-string-format'}>
-                    see more format
+                    <u>see more format</u>
                   </a>
                 </li>
               </ul>
