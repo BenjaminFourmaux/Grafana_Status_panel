@@ -1419,7 +1419,7 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "Time is {{time}}",
+        "subtitle": "Time is {{time DD-MM-YYYY HH:mm:ss}}",
         "title": "",
         "url": "",
         "urlTargetBlank": false
