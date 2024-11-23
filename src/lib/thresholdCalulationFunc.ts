@@ -53,6 +53,8 @@ const AggregationFunctions = (rows: any, aggregation: string): number => {
     case 'mean':
       const sum = rows.values.reduce((prev: number, curr: number) => prev + curr, 0);
       return sum / rows.values.length;
+    case 'count':
+      return rows.values.filter((value: number) => value !== null).length;
     case 'delta':
       const orderedValues = rows.values.sort((a: number, b: number) => a - b);
       return Math.abs(orderedValues[orderedValues.length - 1] - orderedValues[0]);

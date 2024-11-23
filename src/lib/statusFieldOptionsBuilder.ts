@@ -23,6 +23,7 @@ export const statusFieldOptionsBuilder = (builder: FieldConfigEditorBuilder<Stat
           { label: 'Min', value: 'min' },
           { label: 'Sum', value: 'sum' },
           { label: 'Avg', value: 'mean' },
+          { label: 'Count', value: 'count' },
           { label: 'Delta', value: 'delta' },
         ],
       },
