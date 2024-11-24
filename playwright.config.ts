@@ -34,7 +34,7 @@ export default defineConfig<PluginOptions>({
     trace: 'on-first-retry',
 
     /* Display the web browser UI. (true to hidden) */
-    headless: true,
+    headless: false,
   },
 
   /* Configure projects for major browsers */
