@@ -15,7 +15,7 @@ test('Same card title', async ({ page, panelEditPage }) => {
   // Act
   await SetPanelOption(page, 'CardTitle', expected_value);
   //await SetPanelOption(page, "FlipPanel", false); // Doesn't work => skipped
-  await SetPanelOption(page, 'StayOn', 'Front'); // Display
+  await SetPanelOption(page, 'StayOn', 'Front'); // Display side card
 
   // Assert
   let locator = (await GetPanelCardAttribute(page, 'Title', 0)) as Locator;
@@ -34,9 +34,27 @@ test('Same card subtitle', async ({ page, panelEditPage }) => {
   // Act
   await SetPanelOption(page, 'CardSubtitle', expected_value);
   //await SetPanelOption(page, "FlipPanel", false); // Doesn't work => skipped
-  await SetPanelOption(page, 'StayOn', 'Front'); // Display
+  await SetPanelOption(page, 'StayOn', 'Front'); // Display side card
 
   // Assert
   let locator = (await GetPanelCardAttribute(page, 'Subtitle', 0)) as Locator;
   expect(await locator.textContent()).toBe(expected_value);
+});
+
+/**
+ * Test scenario: Check if the metric correspond with the query LAST value
+ */
+test('Same metric value', async ({ page, panelEditPage }) => {
+  const query_values = [1, 2, 3, 4, 5, 6];
+
+  // Arrange
+  await Arrange(page, panelEditPage, query_values.toString());
+
+  // Act
+  await SetPanelOption(page, 'StayOn', 'Front'); // Display side card
+
+  // Assert
+  let locator = (await GetPanelCardAttribute(page, 'Metric', 0)) as Locator;
+  // Assert on the last query value case, by default Aggregation is set to Last
+  expect(await locator.textContent()).toBe(query_values[query_values.length - 1].toString());
 });
