@@ -78,13 +78,13 @@ export const FlipCard: React.FC<FlipCardProps> = ({
                 {/* Pane title */}
                 {title !== '' && (
                   <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
-                    <span>{formattedString(title, formattedVariables)}</span>
+                    <span id={'card-title'}>{formattedString(title, formattedVariables)}</span>
                   </div>
                 )}
                 {/* Pane subtitle */}
                 {subtitle !== '' && (
                   <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
-                    <span>{formattedString(subtitle, formattedVariables)}</span>
+                    <span id={'card-subtitle'}>{formattedString(subtitle, formattedVariables)}</span>
                   </div>
                 )}
                 {/* Pane metric */}
@@ -101,7 +101,9 @@ export const FlipCard: React.FC<FlipCardProps> = ({
 
             {/* Back (severity) */}
             <div className={Style.flipCardContainer}>
-              <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
+              <span id={'card-severity'} className={Style.flipCardSeverity}>
+                {actualThreshold.severity}
+              </span>
             </div>
           </ReactCardFlip>
         </OpenLinkAnchor>
