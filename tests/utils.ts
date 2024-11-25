@@ -38,6 +38,13 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
         .fill(value);
       await page.keyboard.press('Enter');
       break;
+    case 'CardSubtitle':
+      await page
+        .getByLabel('Status Panel - options Subtitle field property editor')
+        .getByTestId('input-wrapper')
+        .locator('input')
+        .fill(value);
+      break;
     case 'FlipPanel':
       await page
         .getByLabel('Status Panel - options Flip Panel field property editor')
@@ -57,35 +64,45 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
   }
 }
 
+/**
+ * Get Locator selected by the kind in Panel
+ * @param page
+ * @param kind What you want
+ * @param index Index if you want to select a specific card. Empty for browse all card
+ */
 export async function GetPanelCardAttribute(
   page: Page,
   kind: string,
   index: number | undefined = undefined
-): Promise<any> {
+): Promise<Locator | Locator[]> {
   const panel = page.getByTestId('data-testid panel content');
   const cards = panel.locator('div.react-card-flip');
 
-  if (index) {
+  if (index !== undefined) {
     return extractAttribute(cards.nth(index), kind);
   } else {
-    let values_list = [];
+    let locators: Locator[] = [];
 
     const elementsCount = await cards.count();
 
     for (let i = 0; i < elementsCount; i++) {
       let locator = extractAttribute(cards.nth(i), kind);
 
-      values_list.push(locator);
+      locators.push(locator);
     }
-  }
 
-  return '';
+    return locators;
+  }
 }
 
+/**
+ * Extract the Locator of the kind attribute you want
+ * @param card
+ * @param kind Name of the attribute you want. like Title, Subtitle ...
+ */
 function extractAttribute(card: Locator, kind: string) {
   switch (kind) {
     case 'Title':
-      console.log(card);
       return card.locator('span#card-title');
     case 'Subtitle':
       return card.locator('span#card-subtitle');
@@ -94,6 +111,6 @@ function extractAttribute(card: Locator, kind: string) {
     case 'Unit':
       return card.locator('span#card-unit');
     default:
-      return '';
+      return card;
   }
 }
