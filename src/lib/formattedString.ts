@@ -70,7 +70,7 @@ export const provideFormattedStringVariables = (
   return {
     queryIndex: queryIndex,
     queryName: series.refId,
-    queryValue: queryValue ? queryValue.toString() : '',
+    queryValue: queryValue !== undefined ? queryValue.toString() : '',
     interval: dataQueries.request.interval,
     time: dataQueries.request.startTime,
     metricName: metricUnit,
