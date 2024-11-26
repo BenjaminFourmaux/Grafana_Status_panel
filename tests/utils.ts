@@ -44,6 +44,7 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
         .getByTestId('input-wrapper')
         .locator('input')
         .fill(value);
+      await page.keyboard.press('Enter');
       break;
     case 'FlipPanel':
       await page
@@ -61,6 +62,19 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
       } else {
         await page.getByLabel('Status Panel - options Stay on field property editor').getByRole('radio').last().click();
       }
+      break;
+    case 'Unit':
+      await page
+        .getByLabel('Status Panel - display options Metric Unit field property editor')
+        .getByTestId('input-wrapper')
+        .getByPlaceholder('Choose')
+        .fill('bite');
+      // Cause .fill() not work with this input field (UnitPicker), need to browse all char and typing
+      for (let i = 0; i < value.toString().length; i++) {
+        await page.keyboard.press(value.toString()[i]);
+      }
+      await page.keyboard.press('Enter');
+      break;
   }
 }
 

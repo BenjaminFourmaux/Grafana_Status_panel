@@ -58,3 +58,21 @@ test('Same metric value', async ({ page, panelEditPage }) => {
   // Assert on the last query value case, by default Aggregation is set to Last
   expect(await locator.textContent()).toBe(query_values[query_values.length - 1].toString());
 });
+
+/**
+ * Test scenario: Check if the metric unit correspond with the unit wrote on the card
+ */
+test('Same metric unit', async ({ page, panelEditPage }) => {
+  const expected_value = 'tests';
+
+  // Arrange
+  await Arrange(page, panelEditPage);
+
+  // Act
+  await SetPanelOption(page, 'Unit', expected_value); // Display side card
+
+  // Assert
+  let locator = (await GetPanelCardAttribute(page, 'Unit', 0)) as Locator;
+  // Assert on the last query value case, by default Aggregation is set to Last
+  expect(await locator.textContent()).toBe(expected_value);
+});
