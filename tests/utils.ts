@@ -128,3 +128,22 @@ function extractAttribute(card: Locator, kind: string) {
       return card;
   }
 }
+
+export function convertDateTime(dateString: string) {
+  const regex = /^(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2}):(\d{2})$/;
+
+  const match = dateString.match(regex);
+
+  if (match) {
+    const jour = parseInt(match[1], 10);
+    const mois = parseInt(match[2], 10) - 1;
+    const annee = parseInt(match[3], 10);
+    const heure = parseInt(match[4], 10);
+    const minutes = parseInt(match[5], 10);
+    const secondes = parseInt(match[6], 10);
+
+    return new Date(annee, mois, jour, heure, minutes, secondes);
+  } else {
+    return new Date();
+  }
+}
