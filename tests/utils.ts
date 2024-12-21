@@ -120,6 +120,39 @@ export async function GetPanelCardAttribute(
 }
 
 /**
+ * Add a new query with the scenario CSV Metric Values
+ * @param page
+ * @param panelEditPage
+ * @param csv_data
+ */
+export async function AddQuery(page: Page, panelEditPage: PanelEditPage, csv_data: string | undefined = undefined) {
+  // Add a new query
+  await page.getByTestId('data-testid query-tab-add-query').click();
+
+  await panelEditPage.refreshPanel();
+
+  // Set the scenario
+  await page.getByLabel('Scenario').last().fill('CSV Metric Values');
+  await page.keyboard.press('Enter');
+  // Set scenario's data
+  if (csv_data) {
+    await page.getByText('String Input').last().fill(csv_data); // By default: 1,20,90,30,5,0
+    await page.keyboard.press('Enter');
+  }
+}
+
+/**
+ * Get the number of cards displayed in the panel
+ * @param page
+ */
+export async function CountCards(page: Page): Promise<number> {
+  const panel = page.getByTestId('data-testid panel content');
+  const cards = panel.locator('div.react-card-flip');
+
+  return await cards.count();
+}
+
+/**
  * Extract the Locator of the kind attribute you want
  * @param card
  * @param kind Name of the attribute you want. like Title, Subtitle ...

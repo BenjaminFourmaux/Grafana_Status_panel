@@ -69,7 +69,7 @@ test('Same metric unit', async ({ page, panelEditPage }) => {
   await Arrange(page, panelEditPage);
 
   // Act
-  await SetPanelOption(page, 'Unit', expected_value); // Display side card
+  await SetPanelOption(page, 'Unit', expected_value);
 
   // Assert
   let locator = (await GetPanelCardAttribute(page, 'Unit', 0)) as Locator;
