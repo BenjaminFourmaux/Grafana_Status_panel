@@ -16,7 +16,6 @@ test('Last', async ({ page, panelEditPage }) => {
   // Act
   await SetPanelOption(page, 'StayOn', 'Front'); // Display side card
   await SetPanelOption(page, 'Aggregation', 'Last');
-  await page.waitForTimeout(3000);
 
   // Assert
   let locator = (await GetPanelCardAttribute(page, 'Metric', 0)) as Locator;

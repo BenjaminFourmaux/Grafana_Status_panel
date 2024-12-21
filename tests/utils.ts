@@ -68,8 +68,18 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
         .getByLabel('Status Panel - display options Metric Unit field property editor')
         .getByTestId('input-wrapper')
         .getByPlaceholder('Choose')
-        .fill('bite');
+        .fill(value);
       // Cause .fill() not work with this input field (UnitPicker), need to browse all char and typing
+      for (let i = 0; i < value.toString().length; i++) {
+        await page.keyboard.press(value.toString()[i]);
+      }
+      await page.keyboard.press('Enter');
+      break;
+    case 'Aggregation':
+      await page
+        .getByLabel('Status Panel - display options Aggregation field property editor')
+        .getByRole('combobox')
+        .click();
       for (let i = 0; i < value.toString().length; i++) {
         await page.keyboard.press(value.toString()[i]);
       }
