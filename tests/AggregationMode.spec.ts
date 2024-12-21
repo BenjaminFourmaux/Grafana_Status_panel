@@ -19,6 +19,6 @@ test('Last', async ({ page, panelEditPage }) => {
   await page.waitForTimeout(3000);
 
   // Assert
-  let locator = (await GetPanelCardAttribute(page, 'Subtitle', 0)) as Locator;
+  let locator = (await GetPanelCardAttribute(page, 'Metric', 0)) as Locator;
   expect(await locator.textContent()).toBe(expected_value);
 });
