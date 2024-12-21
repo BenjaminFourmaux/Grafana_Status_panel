@@ -85,6 +85,27 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
       }
       await page.keyboard.press('Enter');
       break;
+    case 'Thresholds':
+      await page
+        .getByLabel('Status Panel - thresholds Thresholds field property editor')
+        .getByRole('button', { name: 'Add threshold' })
+        .click();
+      await page.waitForTimeout(200);
+      const last_threshold = await page
+        .getByLabel('Status Panel - thresholds Thresholds field property editor')
+        .locator('div[class$="-layoutChildrenWrapper"]')
+        .nth(1);
+      // Set severity
+      await last_threshold.getByPlaceholder('Severity').fill(value[1]);
+      // Set value
+      await last_threshold.getByPlaceholder('value').fill(value[2]);
+      // Set color
+      await last_threshold.getByTestId('data-testid-colorswatch').click();
+      await page.locator('#grafana-portal-container').getByRole('button', { name: 'Custom' }).click();
+      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').fill(value[0]);
+      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').click();
+      await page.keyboard.press('Enter');
+      break;
   }
 }
 
@@ -103,6 +124,10 @@ export async function GetPanelCardAttribute(
   const cards = panel.locator('div.react-card-flip');
 
   if (index !== undefined) {
+    if (kind === 'Color') {
+      return extractCardColor(panel, index);
+    }
+
     return extractAttribute(cards.nth(index), kind);
   } else {
     let locators: Locator[] = [];
@@ -110,9 +135,12 @@ export async function GetPanelCardAttribute(
     const elementsCount = await cards.count();
 
     for (let i = 0; i < elementsCount; i++) {
-      let locator = extractAttribute(cards.nth(i), kind);
-
-      locators.push(locator);
+      if (kind === 'Color') {
+        locators.push(await extractCardColor(panel, i));
+      } else {
+        let locator = extractAttribute(cards.nth(i), kind);
+        locators.push(locator);
+      }
     }
 
     return locators;
@@ -167,9 +195,20 @@ function extractAttribute(card: Locator, kind: string) {
       return card.locator('span#card-metric');
     case 'Unit':
       return card.locator('span#card-unit');
+    case 'Severity':
+      return card.locator('span#card-severity');
     default:
       return card;
   }
+}
+
+async function extractCardColor(panel: Locator, index: number) {
+  if (index === undefined) {
+    index = 0;
+  }
+  let list_cards = await panel.locator('div > div > div > div');
+
+  return list_cards.nth(index);
 }
 
 export function convertDateTime(dateString: string) {
@@ -189,4 +228,21 @@ export function convertDateTime(dateString: string) {
   } else {
     return new Date();
   }
+}
+
+// @ts-ignore
+async function findNodesWithColorDeeper(node: Locator, results: Locator[] = []) {
+  const color = await node.evaluate((el) => {
+    return window.getComputedStyle(el).getPropertyValue('background-color');
+  });
+
+  if (color !== '' && color !== 'null' && color !== 'rgba(0, 0, 0, 0)') {
+    results.push(node); // find a node with a background color
+  }
+
+  const childElements = await node.all();
+  for (const child of childElements) {
+    await findNodesWithColorDeeper(child, results);
+  }
+  return results;
 }
