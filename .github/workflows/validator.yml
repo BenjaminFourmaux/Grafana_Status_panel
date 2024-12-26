@@ -14,6 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: |
+          echo "Repository name: $GITHUB_REPOSITORY"
+          echo "Branch name: $GITHUB_REF"
+
       - name: Build Package
         uses: actions/setup-node@v4
         with:
@@ -27,7 +31,7 @@ jobs:
       
       # Archive the builded plugin into Zip
       - name: Package Plugin
-        run: zip -r plugin.zip ${{github.workspace}}/status-panel
+        run: zip -r plugin.zip status-panel
         
       - name: Run Validator
         uses: tj-actions/docker-run@v2.2.1
@@ -36,8 +40,3 @@ jobs:
           name: validator
           options: -v ${{github.workspace}}/plugin.zip:/plugin.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
           args: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /plugin.zip
-
-      - run: |
-          echo "Repository name: $GITHUB_REPOSITORY"
-          echo "Branch name: $GITHUB_REF"
-          
