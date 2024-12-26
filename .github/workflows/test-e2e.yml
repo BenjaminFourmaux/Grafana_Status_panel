@@ -21,7 +21,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn -s install
 
       # Linter steps
       - name: Check types
@@ -32,10 +32,14 @@ jobs:
       # Build
       - name: Build
         run: yarn build
-
+  test:
+    name: Playwright Test
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       # Install playwright
       - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+        run: yarn -s playwright install --with-deps
 
       # Start Grafana container
       - name: Start Grafana
@@ -51,5 +55,4 @@ jobs:
         id: run-tests
         run: yarn playwright test
 
-      
-        
+
