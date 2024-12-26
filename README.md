@@ -2,6 +2,7 @@
 
 ![Grafana Version](https://img.shields.io/badge/%3E%3D10.4.0-version?logo=grafana&logoColor=F47A20&label=Grafana&color=F47A20)
 [![Pipeline-Test-e2e](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/test-e2e.yml/badge.svg)](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/test-e2e.yml)
+[![Grafana-Plugin-Validator](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/validator.yml/badge.svg)](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/validator.yml)
 
 A simple plugin to display the state of your resource.
 
