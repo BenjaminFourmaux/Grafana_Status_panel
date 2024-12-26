@@ -35,4 +35,4 @@ jobs:
           image: grafana/plugin-validator-cli:latest
           name: validator
           options: -v ${{github.workspace}}/plugin.zip:/plugin.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
-          args: -config /config.yaml -sourceCodeUri "https://github.com/${{github.repository}}/tree/${{github.ref##*/}}" /plugin.zip
+          args: -config /config.yaml -sourceCodeUri https://github.com/${GITHUB_REPOSITORY}/tree/${GITHUB_REF##*/} /plugin.zip
