@@ -91,7 +91,7 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
         .getByRole('button', { name: 'Add threshold' })
         .click();
       await page.waitForTimeout(200);
-      const last_threshold = await page
+      const last_threshold = page
         .getByLabel('Status Panel - thresholds Thresholds field property editor')
         .locator('div[class$="-layoutChildrenWrapper"]')
         .nth(1);
@@ -107,8 +107,19 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
       await page.keyboard.press('Enter');
       break;
     case 'OverrideTitle':
-      await page.getByTestId('data-testid Value picker button Add field override').click();
-      await page.getByText('Fields with name', { exact: true }).click();
+      await setOverrideFields(page, 'Title', value);
+      break;
+    case 'OverrideSubtitle':
+      await setOverrideFields(page, 'Subtitle', value);
+      break;
+    case 'OverrideMetricUnit':
+      await setOverrideFields(page, 'Unit', value);
+      break;
+    case 'OverrideAggregation':
+      await setOverrideFields(page, 'Aggregation', value);
+      break;
+    case 'OverrideThreshold':
+      await setOverrideFields(page, 'Thresholds', value);
       break;
   }
 }
@@ -249,4 +260,124 @@ async function findNodesWithColorDeeper(node: Locator, results: Locator[] = []) 
     await findNodesWithColorDeeper(child, results);
   }
   return results;
+}
+
+async function setOverrideFields(page: Page, kind: string, value: any) {
+  // Add new override
+  await page.getByTestId('data-testid Value picker button Add field override').click();
+  if (kind === 'Thresholds') {
+    // reclick (bug)
+    await page.waitForTimeout(800);
+    await page.getByTestId('data-testid Value picker button Add field override').click();
+  }
+  await page.getByText('Fields with name', { exact: true }).click();
+
+  // Set the field name
+  await page.getByTestId('data-testid Options group Override 1').locator('input').fill('A-series');
+  await page.keyboard.press('Enter');
+
+  // Set the override value name
+  switch (kind) {
+    case 'Title':
+      await page.getByTestId('data-testid Value picker button Add override property').click();
+      for (let i = 0; i < 'status panel - options > title'.length; i++) {
+        await page.keyboard.press('status panel - options > title'[i]);
+      }
+      await page.keyboard.press('Enter');
+
+      // Set the override value
+      await page
+        .getByTestId('data-testid Options group Override 1')
+        .getByTestId('input-wrapper')
+        .locator('input')
+        .fill(value);
+      await page.keyboard.press('Enter');
+      break;
+    case 'Subtitle':
+      await page.getByTestId('data-testid Value picker button Add override property').click();
+      for (let i = 0; i < 'status panel - options > subtitle'.length; i++) {
+        await page.keyboard.press('status panel - options > subtitle'[i]);
+      }
+      await page.keyboard.press('Enter');
+
+      // Set the override value
+      await page
+        .getByTestId('data-testid Options group Override 1')
+        .getByTestId('input-wrapper')
+        .locator('input')
+        .fill(value);
+      await page.keyboard.press('Enter');
+      break;
+    case 'Unit':
+      await page.getByTestId('data-testid Value picker button Add override property').click();
+      for (let i = 0; i < 'status panel - display options > metric unit'.length; i++) {
+        await page.keyboard.press('status panel - display options > metric unit'[i]);
+      }
+      await page.keyboard.press('Enter');
+
+      // Set the override value
+      await page
+        .getByTestId('data-testid Options group Override 1')
+        .getByTestId('input-wrapper')
+        .locator('input')
+        .click();
+      for (let i = 0; i < value.length; i++) {
+        await page.keyboard.press(value[i]);
+      }
+      await page.keyboard.press('Enter');
+      break;
+    case 'Aggregation':
+      await page.getByTestId('data-testid Value picker button Add override property').click();
+      for (let i = 0; i < 'status panel - display options > aggregation'.length; i++) {
+        await page.keyboard.press('status panel - display options > aggregation'[i]);
+      }
+      await page.keyboard.press('Enter');
+
+      // Set the override value
+      await page.waitForTimeout(200);
+      await page.getByTestId('data-testid Options group Override 1').getByRole('combobox').nth(1).click();
+      for (let i = 0; i < value.length; i++) {
+        await page.keyboard.press(value[i]);
+      }
+      await page.keyboard.press('Enter');
+      break;
+    case 'Thresholds':
+      await page.getByTestId('data-testid Value picker button Add override property').click();
+      for (let i = 0; i < 'status panel - thresholds > thresholds'.length; i++) {
+        await page.keyboard.press('status panel - thresholds > thresholds'[i]);
+      }
+      await page.keyboard.press('Enter');
+
+      // Deploy dropdown
+      await page
+        .getByTestId('data-testid Options group Override 1')
+        .getByTestId('data-testid Options group Thresholds toggle')
+        .click();
+      await page
+        .getByTestId('data-testid Options group Override 1')
+        .getByTestId('data-testid Options group Thresholds toggle')
+        .click(); // reclick (bug)
+
+      // Add a new threshold
+      await page
+        .getByTestId('data-testid Options group Override 1')
+        .getByRole('button', { name: 'Add threshold' })
+        .click();
+      await page.waitForTimeout(200);
+      const last_threshold = page
+        .getByTestId('data-testid Options group Override 1')
+        .locator('#Thresholds div[class$="-layoutChildrenWrapper"]')
+        .nth(1);
+      // Set severity
+      await last_threshold.getByPlaceholder('Severity').fill(value[1]);
+      // Set value
+      await last_threshold.getByPlaceholder('value').fill(value[2]);
+      // Set color
+      await last_threshold.getByTestId('data-testid-colorswatch').click();
+      await page.locator('#grafana-portal-container').getByRole('button', { name: 'Custom' }).click();
+      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').fill(value[0]);
+      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').click();
+      await page.keyboard.press('Enter');
+      break;
+  }
 }
