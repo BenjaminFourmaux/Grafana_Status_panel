@@ -37,6 +37,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+              
       # Install playwright
       - name: Install Playwright Browsers
         run: yarn -s playwright install --with-deps
