@@ -5,7 +5,7 @@ on:
   pull_request:
     branches:
       - master
-      - mainr
+      - main
 
 jobs:
   plugin-validator:
@@ -13,10 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - run: |
-          echo "Repository name: $GITHUB_REPOSITORY"
-          echo "Branch name: $GITHUB_REF"
 
       - name: Build Package
         uses: actions/setup-node@v4
@@ -39,4 +35,4 @@ jobs:
           image: grafana/plugin-validator-cli:latest
           name: validator
           options: -v ${{github.workspace}}/plugin.zip:/plugin.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
-          args: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /plugin.zip
+          args: -config /config.yaml -sourceCodeUri "https://github.com/$GITHUB_REPOSITORY/tree/${GITHUB_REF##*/}" /plugin.zip
