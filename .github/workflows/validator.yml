@@ -33,6 +33,6 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: grafana/plugin-validator-cli:latest
-          options: -v ${{github.workspace}}/status-panel.zip:/status-panel.zip -v ${{github.worksprace}}/.config/plugin-validator.yaml:/config.yaml
+          options: -v ${{github.workspace}}/status-panel.zip:/status-panel.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
           run: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /status-panel.zip
           
