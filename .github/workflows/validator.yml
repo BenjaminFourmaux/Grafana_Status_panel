@@ -29,10 +29,17 @@ jobs:
       - name: Package Plugin
         run: zip status-panel.zip ./status-panel
 
+      # - name: Run Validator
+      #   uses: addnab/docker-run-action@v3
+      #   with:
+      #     image: grafana/plugin-validator-cli:latest
+      #     options: -v ${{github.workspace}}/status-panel.zip:/status-panel.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
+      #     run: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /status-panel.zip
       - name: Run Validator
-        uses: addnab/docker-run-action@v3
+        uses: tj-actions/docker-run@v2.2.1
         with:
           image: grafana/plugin-validator-cli:latest
+          name: validator
           options: -v ${{github.workspace}}/status-panel.zip:/status-panel.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
-          run: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /status-panel.zip
+          args: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /status-panel.zip
           
