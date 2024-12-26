@@ -1,14 +1,15 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - master
-      - main
-  pull_request:
-    branches:
-      - master
-      - main
+  workflow_dispatch:
+  # push:
+  # branches:
+  # - master
+  # - main
+  # pull_request:
+  # branches:
+  # - master
+  # - main
 
 permissions: read-all
 
@@ -125,7 +126,7 @@ jobs:
         uses: grafana/plugin-actions/e2e-version@main
 
   playwright-tests:
-    needs: [resolve-versions, build]
+    needs: [ resolve-versions, build ]
     timeout-minutes: 15
     strategy:
       fail-fast: false
