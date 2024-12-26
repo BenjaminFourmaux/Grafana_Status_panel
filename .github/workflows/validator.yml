@@ -1,0 +1,37 @@
+name: Plugin-Validator
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  plugin-validator:
+    name: Grafana Plugin Validator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Package
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+      - run: yarn -s install
+      - run: npm run build
+      
+      - name: Remove dir
+        run: mv ./dist status-panel
+      
+      # Archive the builded plugin into Zip
+      - name: Package Plugin
+        run: zip status-panel.zip ./status-panel
+      
+      - name: Run Validator
+        uses: addnab/docker-run-action@v3
+        with:
+          image: grafana/plugin-validator-cli:latest
+          options: -v ${{github.workspace}}/status-panel.zip:/status-panel.zip -v ${{github.worksprace}}/.config/plugin-validator.yaml:/config.yaml
+          run: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /status-panel.zip
+          
