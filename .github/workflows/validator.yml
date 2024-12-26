@@ -1,10 +1,11 @@
 name: Plugin-Validator
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - master
-      - main
+      - mainr
 
 jobs:
   plugin-validator:
@@ -20,14 +21,14 @@ jobs:
           cache: 'yarn'
       - run: yarn -s install
       - run: npm run build
-      
+
       - name: Remove dir
         run: mv ./dist status-panel
       
       # Archive the builded plugin into Zip
       - name: Package Plugin
         run: zip status-panel.zip ./status-panel
-      
+
       - name: Run Validator
         uses: addnab/docker-run-action@v3
         with:

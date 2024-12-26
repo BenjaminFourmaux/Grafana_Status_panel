@@ -1,0 +1,9 @@
+global:
+  enabled: true
+  severity: ok
+  jsonOutput: false
+  reportAll: true
+
+analyzers:
+  signature:
+    enabled: false
