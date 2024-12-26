@@ -22,7 +22,8 @@ jobs:
       - run: yarn -s install
       - run: npm run build
 
-      - run:  echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      - name: extract branch name 
+        run:  echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       
       - name: Remove dir
@@ -38,4 +39,4 @@ jobs:
           image: grafana/plugin-validator-cli:latest
           name: validator
           options: -v ${{github.workspace}}/plugin.zip:/plugin.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
-          args: -config /config.yaml -sourceCodeUri https://github.com/$GITHUB_REPOSITORY/tree/${{ steps.extract_branch.outputs.branch }} /plugin.zip
+          args: -config /config.yaml -sourceCodeUri https://github.com/${GITHUB_REPOSITORY}/tree/${{ steps.extract_branch.outputs.branch }} /plugin.zip
