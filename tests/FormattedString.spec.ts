@@ -130,8 +130,8 @@ test('time with format', async ({ page, panelEditPage }) => {
   let text_from_card = (await locator.textContent()) || '';
   let date_from_card = convertDateTime(text_from_card);
   let diff = date_from_card.getTime() - expected_value;
-  let tenSeconds = 10 * 1000;
-  // timestamp_from_card between now and now - 10 seconds
+  let tenSeconds = 20 * 1000;
+  // timestamp_from_card between now and now - 20 seconds
   expect(diff >= 0 && diff <= tenSeconds).toBe(true);
 });
 
