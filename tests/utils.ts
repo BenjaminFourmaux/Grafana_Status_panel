@@ -106,6 +106,10 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
       await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').click();
       await page.keyboard.press('Enter');
       break;
+    case 'OverrideTitle':
+      await page.getByTestId('data-testid Value picker button Add field override').click();
+      await page.getByText('Fields with name', { exact: true }).click();
+      break;
   }
 }
 
