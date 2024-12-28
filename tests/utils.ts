@@ -46,11 +46,31 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
         .fill(value);
       await page.keyboard.press('Enter');
       break;
+    case 'Url':
+      await page
+        .getByLabel('Status Panel - options URL field property editor')
+        .getByTestId('input-wrapper')
+        .locator('input')
+        .fill(value);
+      await page.keyboard.press('Enter');
+      break;
+    case 'OpenUrl':
+      await page
+        .getByLabel('Status Panel - options Open URL in new tab field property editor')
+        .getByLabel('Toggle switch')
+        .click({ force: true });
+      break;
+    case 'AggregateQueries':
+      await page
+        .getByLabel('Status Panel - options Aggregate queries in a single card field property editor')
+        .getByLabel('Toggle switch')
+        .click({ force: true });
+      break;
     case 'FlipPanel':
       await page
         .getByLabel('Status Panel - options Flip Panel field property editor')
-        .getByRole('checkbox')
-        .setChecked(true);
+        .getByLabel('Toggle switch')
+        .click({ force: true });
       break;
     case 'StayOn':
       if (value === 'Front') {
@@ -121,6 +141,9 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
     case 'OverrideThreshold':
       await setOverrideFields(page, 'Thresholds', value);
       break;
+    case 'OverrideUrl':
+      await setOverrideFields(page, 'Url', value);
+      break;
   }
 }
 
@@ -141,6 +164,8 @@ export async function GetPanelCardAttribute(
   if (index !== undefined) {
     if (kind === 'Color') {
       return extractCardColor(panel, index);
+    } else if (kind === 'Url' || kind === 'OpenUrl') {
+      return extractrAhrefLocator(panel, index);
     }
 
     return extractAttribute(cards.nth(index), kind);
@@ -152,6 +177,8 @@ export async function GetPanelCardAttribute(
     for (let i = 0; i < elementsCount; i++) {
       if (kind === 'Color') {
         locators.push(await extractCardColor(panel, i));
+      } else if (kind === 'Url' || kind === 'OpenUrl') {
+        locators.push(await extractrAhrefLocator(panel, i));
       } else {
         let locator = extractAttribute(cards.nth(i), kind);
         locators.push(locator);
@@ -215,6 +242,15 @@ function extractAttribute(card: Locator, kind: string) {
     default:
       return card;
   }
+}
+
+async function extractrAhrefLocator(panel: Locator, index: number) {
+  if (index === undefined) {
+    index = 0;
+  }
+  let list_cards = panel.locator('a');
+
+  return list_cards.nth(index);
 }
 
 async function extractCardColor(panel: Locator, index: number) {
@@ -297,6 +333,21 @@ async function setOverrideFields(page: Page, kind: string, value: any) {
       await page.getByTestId('data-testid Value picker button Add override property').click();
       for (let i = 0; i < 'status panel - options > subtitle'.length; i++) {
         await page.keyboard.press('status panel - options > subtitle'[i]);
+      }
+      await page.keyboard.press('Enter');
+
+      // Set the override value
+      await page
+        .getByTestId('data-testid Options group Override 1')
+        .getByTestId('input-wrapper')
+        .locator('input')
+        .fill(value);
+      await page.keyboard.press('Enter');
+      break;
+    case 'Url':
+      await page.getByTestId('data-testid Value picker button Add override property').click();
+      for (let i = 0; i < 'status panel - options > url'.length; i++) {
+        await page.keyboard.press('status panel - options > url'[i]);
       }
       await page.keyboard.press('Enter');
 

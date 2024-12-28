@@ -161,6 +161,32 @@ test('multi variable', async ({ page, panelEditPage }) => {
 });
 
 /**
+ * Test scenario: Check if the string formatted variable 'query_name' is correctly interpreted in URL
+ */
+test('Url with formatted string', async ({ page, panelEditPage }) => {
+  const variable_string = 'https://{{query_name}}.url';
+  const query_name = 'test';
+  const expected_value = 'https://test.url';
+
+  // Arrange
+  await Arrange(page, panelEditPage);
+
+  // Act
+  await SetPanelOption(page, 'Url', variable_string);
+  // Edit Query name
+  await page.getByTestId('query-name-div').click();
+  for (let i = 0; i < query_name.length; i++) {
+    await page.keyboard.press(query_name[i]);
+  }
+  await page.keyboard.press('Enter');
+  await expect(panelEditPage.refreshPanel()).toBeOK();
+
+  // Assert
+  let locator = (await GetPanelCardAttribute(page, 'Url', 0)) as Locator;
+  expect(await locator.getAttribute('href')).toBe(expected_value);
+});
+
+/**
  * Test scenario: Check if the string formatted variable 'metric_name' is correctly interpreted
  */
 test.skip('metric_name', async ({ page, panelEditPage }) => {

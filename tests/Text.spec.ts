@@ -42,6 +42,42 @@ test('Same card subtitle', async ({ page, panelEditPage }) => {
 });
 
 /**
+ * Test scenario: Check if the anchor link correspond with the url set in options
+ */
+test('Same url', async ({ page, panelEditPage }) => {
+  const expected_value = 'http://test.url';
+
+  // Arrange
+  await Arrange(page, panelEditPage);
+
+  // Act
+  await SetPanelOption(page, 'Url', expected_value);
+
+  // Assert
+  let locator = (await GetPanelCardAttribute(page, 'Url', 0)) as Locator;
+  expect(await locator.getAttribute('href')).toBe(expected_value);
+});
+
+/**
+ * Test scenario: Check if link open in new tab
+ */
+test('Open url in new tab', async ({ page, panelEditPage }) => {
+  const url = 'http://test.url';
+  const expected_value = '_blank';
+
+  // Arrange
+  await Arrange(page, panelEditPage);
+
+  // Act
+  await SetPanelOption(page, 'Url', url);
+  await SetPanelOption(page, 'OpenUrl', true);
+
+  // Assert
+  let locator = (await GetPanelCardAttribute(page, 'OpenUrl', 0)) as Locator;
+  expect(await locator.getAttribute('target')).toBe(expected_value);
+});
+
+/**
  * Test scenario: Check if the metric correspond with the query LAST value
  */
 test('Same metric value', async ({ page, panelEditPage }) => {

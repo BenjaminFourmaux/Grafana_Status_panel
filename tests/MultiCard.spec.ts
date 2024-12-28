@@ -83,3 +83,20 @@ test('Same metric unit on cards', async ({ page, panelEditPage }) => {
   let locator_card_2 = (await GetPanelCardAttribute(page, 'Unit', 1)) as Locator;
   expect(await locator_card_2.textContent()).toBe(expected_value);
 });
+
+/**
+ * Test scenario: Check Aggregate queries
+ */
+test('Aggregate queries', async ({ page, panelEditPage }) => {
+  const expected_value = 1;
+
+  // Arrange
+  await Arrange(page, panelEditPage);
+
+  // Act
+  await AddQuery(page, panelEditPage); // 2 queries
+  await SetPanelOption(page, 'AggregateQueries', true);
+
+  // Assert
+  expect(await CountCards(page)).toBe(expected_value);
+});

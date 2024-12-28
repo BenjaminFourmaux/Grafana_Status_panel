@@ -108,3 +108,21 @@ test('Override threshold', async ({ page, panelEditPage }) => {
     })
   ).toBe(expected_values[0]);
 });
+
+/**
+ * Test scenario: Change url of card by using overridden fields
+ */
+test('Override url', async ({ page, panelEditPage }) => {
+  const expected_value = 'http://overridden.url';
+
+  // Arrange
+  await Arrange(page, panelEditPage);
+  await SetPanelOption(page, 'Url', 'http://test.url');
+
+  // Act
+  await SetPanelOption(page, 'OverrideUrl', expected_value);
+
+  // Assert
+  let locator = (await GetPanelCardAttribute(page, 'Url', 0)) as Locator;
+  expect(await locator.getAttribute('href')).toBe(expected_value);
+});
