@@ -27,11 +27,11 @@
     "screenshots": [
       {
         "name": "Multi cards",
-        "path": "https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/multi-card.png"
+        "path": "./img/screenshots/multi-card.png"
       },
       {
         "name": "Card variants",
-        "path": "https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/card-variants.png"
+        "path": "./img/screenshots/card-variants.png"
       }
     ],
     "version": "%VERSION%",
