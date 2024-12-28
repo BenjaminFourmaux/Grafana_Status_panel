@@ -27,11 +27,11 @@
     "screenshots": [
       {
         "name": "Multi cards",
-        "path": "./img/screenshots/multi-card.png"
+        "path": "img/screenshots/multi-card.png"
       },
       {
         "name": "Card variants",
-        "path": "./img/screenshots/card-variants.png"
+        "path": "img/screenshots/card-variants.png"
       }
     ],
     "version": "%VERSION%",
