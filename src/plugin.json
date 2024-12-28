@@ -24,7 +24,16 @@
         "url": "https://github.com/BenjaminFourmaux/Grafana_Status_panel/blob/master/LICENSE"
       }
     ],
-    "screenshots": [],
+    "screenshots": [
+      {
+        "name": "Multi cards",
+        "path": "https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/multi-card.png"
+      },
+      {
+        "name": "Card variants",
+        "path": "https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/card-variants.png"
+      }
+    ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },
