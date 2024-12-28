@@ -1,0 +1,42 @@
+name: Plugin-Validator
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  plugin-validator:
+    name: Grafana Plugin Validator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Package
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+      - run: yarn -s install
+      - run: npm run build
+
+      - name: extract branch name
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Remove dir
+        run: mv ./dist status-panel
+      
+      # Archive the built plugin into Zip
+      - name: Package Plugin
+        run: zip -r plugin.zip status-panel
+
+      - name: Run Validator
+        uses: tj-actions/docker-run@v2.2.1
+        with:
+          image: grafana/plugin-validator-cli:latest
+          name: validator
+          options: -v ${{github.workspace}}/plugin.zip:/plugin.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
+          args: -config /config.yaml -sourceCodeUri https://github.com/${{github.repository}}/tree/${{ steps.extract_branch.outputs.branch }} /plugin.zip

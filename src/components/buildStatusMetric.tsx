@@ -28,12 +28,17 @@ export const StatusMetric: React.FC<StatusMetricProps> = ({ fontStyle, children 
       break;
   }
 
-  return <span style={style}>{formatString(childrenArray[0], childrenArray[1])}</span>;
-};
-
-function formatString(value: any, unit: any) {
-  if (unit === undefined || unit === 'none') {
-    unit = ' ';
+  if (childrenArray[1] && childrenArray[1] !== 'none') {
+    return (
+      <span style={style}>
+        <span id={'card-metric'}>{childrenArray[0]}</span> <span id={'card-unit'}>{childrenArray[1]}</span>
+      </span>
+    );
+  } else {
+    return (
+      <span style={style}>
+        <span id={'card-metric'}>{childrenArray[0]}</span>
+      </span>
+    );
   }
-  return `${value} ${unit}`.trim();
-}
+};
