@@ -50,5 +50,3 @@ jobs:
       - name: Run Playwright tests
         id: run-tests
         run: yarn playwright test
-
-
