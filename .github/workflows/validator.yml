@@ -26,7 +26,7 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
 
-      - name: Remove dir
+      - name: Rename dir
         run: mv ./dist status-panel
       
       # Archive the built plugin into Zip
