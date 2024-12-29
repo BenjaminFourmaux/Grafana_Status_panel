@@ -1,6 +1,6 @@
 on:
   release:
-    types: 
+    types:
       - created
 
 env:
@@ -13,17 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: echo "Plugin name $PLUGIN_NAME | vsersion $RELEASE_VERSION"
-      
+      - run: echo "Plugin name $PLUGIN_NAME | version $RELEASE_VERSION"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'yarn'
-        
+
       - name: Install dependencies
         run: yarn -s install
-      
+
       - name: Build
         run: npm run build
 
@@ -40,6 +40,6 @@ jobs:
         uses: csexton/release-asset-action@v3
         with:
           files: |
-            $PLUGIN_NAME-$RELEASE_VERSION.zip
-            $PLUGIN_NAME-$RELEASE_VERSION.tar.gz
+            ${{ env.PLUGIN_NAME }}-${{ env.RELEASE_VERSION }}.zip
+            ${{ env.PLUGIN_NAME }}-${{ env.RELEASE_VERSION }}.tar.gz
           github-token: ${{ secrets.GITHUB_TOKEN }}
