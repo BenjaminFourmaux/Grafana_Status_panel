@@ -21,18 +21,22 @@ jobs:
           cache: 'yarn'
       - run: yarn -s install
       - run: npm run build
-      
-      - name: Remove dir
+
+      - name: extract branch name
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Rename dir
         run: mv ./dist status-panel
       
-      # Archive the builded plugin into Zip
+      # Archive the built plugin into Zip
       - name: Package Plugin
-        run: zip status-panel.zip ./status-panel
-      
+        run: zip -r plugin.zip status-panel
+
       - name: Run Validator
-        uses: addnab/docker-run-action@v3
+        uses: tj-actions/docker-run@v2.2.1
         with:
           image: grafana/plugin-validator-cli:latest
-          options: -v ${{github.workspace}}/status-panel.zip:/status-panel.zip -v ${{github.worksprace}}/.config/plugin-validator.yaml:/config.yaml
-          run: -config /config.yaml -sourceCodeUri "https://github.com/BenjaminFourmaux/Grafana_Status_panel/tree/test-e2e" /status-panel.zip
-          
+          name: validator
+          options: -v ${{github.workspace}}/plugin.zip:/plugin.zip -v ${{github.workspace}}/.config/plugin-validator.yaml:/config.yaml
+          args: -config /config.yaml -sourceCodeUri https://github.com/${{github.repository}}/tree/${{ steps.extract_branch.outputs.branch }} /plugin.zip

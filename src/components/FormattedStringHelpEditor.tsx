@@ -39,6 +39,27 @@ export const FormattedStringHelpEditor: React.FC = () => {
             </li>
             <li>
               <code>{'{{time}}'}</code> - The time of last sent query
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp; You can specify the date time format to display, by adding format string. For
+              example:
+              <ul>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: "<!-- <li><code{'{{time DD/MM/YYYY}}'}</code> to have 11/01/2003</li>",
+                  }}
+                />
+                <li>
+                  <code>{'{{time DD-MM-YYYY HH:mm:ss}}'}</code> to have 31-06-2024 12:14:36
+                </li>
+                <li>
+                  <code>{'{{time HH:mm:ss}}'}</code> to have 12:14:36
+                </li>
+                <li>
+                  <a href={'https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-time-string-format'}>
+                    <u>see more format</u>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li>
               <code>{'{{metric_name}}'}</code> - (in prometheus) The metric name of the query expression

@@ -1,21 +1,15 @@
 import { PanelProps } from '@grafana/data';
-import { IconButton } from '@grafana/ui';
-import { css } from '@emotion/css';
 import React, { useEffect } from 'react';
 import { useHover, useInterval } from 'hooks/index';
 import { StatusPanelOptions } from 'interfaces/statusPanelOptions';
-import { getQueriesValuesAggregation } from '../lib/thresholdCalulationFunc';
-import { FlipCard } from './FlipCard';
-import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
-import { provideFormattedStringVariables } from '../lib/formattedString';
+import { CardWrapper, CardWrapperAggregateQuery } from './CardWrapper';
 import { Style } from '../interfaces/styleCSS';
+import { css } from '@emotion/css';
+import { IconButton } from '@grafana/ui';
 
 type Props = PanelProps<StatusPanelOptions>;
 
 export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width, height }) => {
-  const queriesValues: number[] = getQueriesValuesAggregation(data, fieldConfig.defaults.custom.aggregation);
-  const stringFormattedVariables: FormattedStringVariables[] = provideFormattedStringVariables(data, queriesValues);
-
   // setup flipper
   // True for the metrics page, False for the severity page
   const [flipped, setFlipped] = React.useState(options.flipState);
@@ -27,32 +21,45 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   }, [options.flipState]);
 
   // Calculate Card size
-  const cardWidth = queriesValues.length < 12 ? width / queriesValues.length - 5 * 2 : width / 12 - 5 * 2;
+  const cardWidth = data.series.length < 12 ? width / data.series.length - 5 * 2 : width / 12 - 5 * 2;
   const cardHeight = height;
 
   return (
     <div ref={wrapper} className={Style.wrapperContainer}>
       <div className={Style.row + ' ' + css({ height })}>
-        {/* browse queries */}
-        {queriesValues.map((queryValue, index) => (
+        {/* If option AggregateQueries is enabled */}
+        {options.aggregateQueries ? (
+          <div className={Style.col}>
+            <CardWrapperAggregateQuery
+              data={data}
+              options={options}
+              fieldsConfig={fieldConfig}
+              cardWidth={width - 5 * 2}
+              cardHeight={cardHeight}
+              flipped={flipped}
+            />
+          </div>
+        ) : (
           <>
-            <div className={Style.col} key={index}>
-              <FlipCard
-                width={cardWidth}
-                height={cardHeight}
-                showMetric={fieldConfig.defaults.custom.displayValueMetric}
-                metricUnit={fieldConfig.defaults.custom.metricUnit}
-                fontStyle={fieldConfig.defaults.custom.fontFormat}
-                options={options}
-                formattedVariables={stringFormattedVariables[index]}
-                value={queryValue}
-                isFlipped={flipped}
-              />
-            </div>
+            {data.series.map((series, index) => (
+              <>
+                <div className={Style.col} key={index}>
+                  <CardWrapper
+                    series={series}
+                    data={data}
+                    options={options}
+                    fieldsConfig={fieldConfig}
+                    cardWidth={cardWidth}
+                    cardHeight={cardHeight}
+                    flipped={flipped}
+                    index={index}
+                  />
+                </div>
+              </>
+            ))}
           </>
-        ))}
+        )}
       </div>
-
       {isHover && (
         <IconButton
           name={'exchange-alt'}

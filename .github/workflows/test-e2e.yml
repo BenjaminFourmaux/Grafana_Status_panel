@@ -8,8 +8,8 @@ on:
       - main
 
 jobs:
-  build:
-    name: Lint and Build
+  build_and_test:
+    name: Lint, Build and Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn -s install
 
       # Linter steps
       - name: Check types
@@ -32,14 +32,10 @@ jobs:
       # Build
       - name: Build
         run: yarn build
-  test:
-    name: Playwright Test
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+
       # Install playwright
       - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+        run: yarn -s playwright install --with-deps
 
       # Start Grafana container
       - name: Start Grafana
@@ -54,6 +50,3 @@ jobs:
       - name: Run Playwright tests
         id: run-tests
         run: yarn playwright test
-
-      
-        

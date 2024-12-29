@@ -4,43 +4,57 @@ import { css } from '@emotion/css';
 import { getActualThreshold } from '../lib/thresholdCalulationFunc';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { Style } from '../interfaces/styleCSS';
-import { MaybeAnchor } from './MaybeAnchor';
+import { OpenLinkAnchor } from './OpenLinkAnchor';
 import { formattedString } from '../lib/formattedString';
 import { StatusMetric } from './buildStatusMetric';
+import { ThresholdConf } from './ThresholdSetComponent';
+import { Icon } from '@grafana/ui';
 
 interface FlipCardProps {
   width: number;
   height: number;
+  title: string;
+  subtitle: string;
+  url: string;
+  urlTargetBlank: boolean;
   showMetric: boolean;
   metricUnit: string | undefined;
   value: number;
   fontStyle: string;
-  options: any;
+  cornerRadius: string;
+  isGrayOnNoData: boolean;
+  thresholds: ThresholdConf[];
   formattedVariables: FormattedStringVariables;
   isFlipped: boolean;
 }
 
 export const FlipCard: React.FC<FlipCardProps> = ({
   isFlipped,
+  title,
+  subtitle,
+  url,
+  urlTargetBlank,
   showMetric,
   metricUnit,
   value,
   fontStyle,
-  options,
+  cornerRadius,
+  isGrayOnNoData,
+  thresholds,
   formattedVariables,
   width,
   height,
 }) => {
-  const actualThreshold = getActualThreshold(options.thresholds, value);
+  const actualThreshold = getActualThreshold(thresholds, value);
 
   // Retrieve colors
   const textColoration = css({ color: 'white' });
-  const noBackgroundColor = options.isGrayOnNoData && value === null;
+  const noBackgroundColor = isGrayOnNoData && value === null;
 
   return (
     <div
       className={
-        css({ width, height: '100%', minWidth: '142px', borderRadius: options.cornerRadius }) +
+        css({ width, height: '100%', minWidth: '142px', borderRadius: cornerRadius, position: 'relative' }) +
         ' ' +
         (!noBackgroundColor && css({ backgroundColor: actualThreshold.color })) +
         ' ' +
@@ -48,49 +62,57 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       }
     >
       <div className={Style.size100}>
-        <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
-          {/* Front (severity) */}
-          <div className={Style.flipCardContainer}>
-            <MaybeAnchor
-              href={formattedString(options.url, formattedVariables)}
-              target={options.urlTargetBlank ? '_blank' : '_self'}
-              className={textColoration}
-            >
-              <span className={Style.flipCardSeverity}>{actualThreshold.severity}</span>
-            </MaybeAnchor>
-          </div>
+        <OpenLinkAnchor
+          href={formattedString(url, formattedVariables)}
+          target={urlTargetBlank ? '_blank' : '_self'}
+          className={textColoration}
+        >
+          <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
+            {/* Front (metric) */}
+            <div className={Style.flipCardContainer}>
+              <OpenLinkAnchor
+                href={formattedString(url, formattedVariables)}
+                target={urlTargetBlank ? '_blank' : '_self'}
+                className={textColoration}
+              >
+                {/* Pane title */}
+                {title !== '' && (
+                  <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
+                    <span id={'card-title'}>{formattedString(title, formattedVariables)}</span>
+                  </div>
+                )}
+                {/* Pane subtitle */}
+                {subtitle !== '' && (
+                  <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
+                    <span id={'card-subtitle'}>{formattedString(subtitle, formattedVariables)}</span>
+                  </div>
+                )}
+                {/* Pane metric */}
+                {showMetric && (
+                  <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
+                    <StatusMetric fontStyle={fontStyle}>
+                      {value}
+                      {metricUnit}
+                    </StatusMetric>
+                  </div>
+                )}
+              </OpenLinkAnchor>
+            </div>
 
-          {/* Back (metric) */}
-          <div className={Style.flipCardContainer}>
-            <MaybeAnchor
-              href={formattedString(options.url, formattedVariables)}
-              target={options.urlTargetBlank ? '_blank' : '_self'}
-              className={textColoration}
-            >
-              {/* Pane title */}
-              {options.title !== '' && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
-                  <span>{formattedString(options.title, formattedVariables)}</span>
-                </div>
-              )}
-              {/* Pane subtitle */}
-              {options.subtitle !== '' && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
-                  <span>{formattedString(options.subtitle, formattedVariables)}</span>
-                </div>
-              )}
-              {/* Pane metric */}
-              {showMetric && (
-                <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
-                  <StatusMetric fontStyle={fontStyle}>
-                    {value}
-                    {metricUnit}
-                  </StatusMetric>
-                </div>
-              )}
-            </MaybeAnchor>
+            {/* Back (severity) */}
+            <div className={Style.flipCardContainer}>
+              <span id={'card-severity'} className={Style.flipCardSeverity}>
+                {actualThreshold.severity}
+              </span>
+            </div>
+          </ReactCardFlip>
+        </OpenLinkAnchor>
+        {url && (
+          <div className={Style.urlNotchContainer}>
+            <Icon name={'external-link-alt'} className={Style.urlIcon} />
+            <div className={Style.urlNotchTriangle}></div>
           </div>
-        </ReactCardFlip>
+        )}
       </div>
     </div>
   );

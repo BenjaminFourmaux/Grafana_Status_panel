@@ -1,7 +1,7 @@
 {
-  "name": "vonage-status-panel",
+  "name": "status-panel",
   "private": true,
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "Status Panel for Grafana",
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
@@ -18,9 +18,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Vonage/Grafana_Status_panel.git"
+    "url": "git+https://github.com/BenjaminFourmaux/Grafana_Status_panel.git"
   },
-  "author": "Vonage",
+  "author": "Tech Ben",
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/core": "^7.21.4",

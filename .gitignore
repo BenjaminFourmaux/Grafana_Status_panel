@@ -36,6 +36,7 @@ grafana
 .sass-cache
 dist_*
 dist
+*.zip
 
 playwright
 playwright-report

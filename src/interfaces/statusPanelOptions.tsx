@@ -1,5 +1,3 @@
-import { ThresholdConf } from '../components/ThresholdSetComponent';
-
 /*
     Represent options of the status panel (stored and shared between panel and options editor)
  */
@@ -8,13 +6,13 @@ export interface StatusPanelOptions {
   subtitle: string;
   url: string;
   urlTargetBlank: boolean;
+  aggregateQueries: boolean;
   // namePrefix: string;
   cornerRadius: string;
   flipCard: boolean;
   flipTime: number;
   flipState: boolean;
   isGrayOnNoData: boolean;
-  thresholds: ThresholdConf[];
   fieldConfig: {
     defaults: {};
     overrides: unknown[];

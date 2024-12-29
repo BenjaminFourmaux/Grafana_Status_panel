@@ -1,159 +1,155 @@
-# Grafana Status Panel
+# Status Panel
 
-> This project was originally contributed by [Vonage](https://github.com/Vonage/Grafana_Status_panel) - thanks for all
-> your great work!
->
-> The previous published version of the plugin relied on AngularJS which
-> is [deprecated](https://grafana.com/docs/grafana/latest/developers/angular_deprecation/). We reached out to Vonage to
-> support publishing an updated version based on the changes made in the source repo, but they were unable to pursue
-> this
-> at the time.
->
-> We have stepped up for the time being to minimize disruption, but would be happy to hand maintainership back at any
-> point in the future.
->
-> We have republished under the same plugin ID, but with the Grafana signature. This means you can simply update your
-> plugin version. A new ID would have required manual updates to your dashboards. We changed the signature to Grafana to
-> reflect the change in publisher and so that it is clear we are not impersonating the original authors. For additional
-> information on the changes, see the [Notices](/NOTICES).
+![Grafana Version](https://img.shields.io/badge/%3E%3D10.4.0-version?logo=grafana&logoColor=F47A20&label=Grafana&color=F47A20)
+[![Pipeline-Test-e2e](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/test-e2e.yml/badge.svg)](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/test-e2e.yml)
+[![Grafana-Plugin-Validator](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/validator.yml/badge.svg)](https://github.com/BenjaminFourmaux/Grafana_Status_panel/actions/workflows/validator.yml)
 
-⚠️ This project is not actively maintained by Grafana Labs. Pull requests are welcome and will be reviewed on a
-best-effort basis. Contact integrations@grafana.com if you are interested in taking on this project longer term. We will
-be happy to work with and eventually hand over to people who are interested in maintaining it again.
+A simple plugin to display the state of your resource.
 
-This is a plugin meant to be used as a centralized view for the status of component in a glance.
-It is very similar to the Single Stat panel, but it can hold multiple values from the same data source.
-Each value can be used to customize the panel in different ways:
+## Overview
 
-- Mark the severity of the component
-- Mark if the component is disabled
-- Show extra data in the panel about the component
+Status Panel is a Grafana plugin designed to visualize the status of resources in a straightforward and customizable
+color card format.
+\
+The status is based on the resource's metrics or health checks queries, with **severity thresholds**
+that can be defined by the user.
 
-## The General Idea
+## Features
 
-Let's say you want to monitor the healthcheck of an application or a group of containers and want to see the health
-status.
+- **Customizable Status Cards**: Display resource status using color-coded cards that reflect severity levels based on
+  user-defined thresholds.
+- **Titles and Subtitles**: Add titles and subtitles to each status card to clarify resource information.
+- **Clickable Cards with URLs**: Configure a URL to open when clicking on a status card, enabling quick navigation to
+  additional details or resources.
+- **Metric Display and Units**: Optionally display metrics on the cards and define units for enhanced readability.
+- **Multiple Cards per Panel**: Add queries to display multiple cards in a single panel.
+- **Individual Card Customization**: Use override fields for advanced customization of each card independently.
 
-This plugin will make it easier to do. You just add a metric or log query and depending on the number obtained, you can
-display some thresholds of severity.
+## Compatibility
 
-You can also personalize the panel to show extra information about the component :
+Work for with all datasources as long as it returns a `number` field, like Prometheus, Loki, InfluxDB ...
 
-1. Define thresholds - Set the thresholds (if the query value is between), set the severity (like: OK, Warning,
-   Critical) and chose a panel color background to represent the severity.
-2. Add custom extra information - If you want to show extra information about the component, you can add a title and
-   subtitle at the panel (like pod name, app, instance ...).
-3. Set flip card - If you want, the panel can flip to show either extra information or severity.
-4. Open Link - You can add a link to the panel to redirect the user to a specific page when the panel is clicked.
+## Screenshots
 
-You can also repeat the panel on a template if you have multiple instances that you want to watch.
+This plugin supports autoscaling for best-fit sizing and font size of each cards to the panel size.
 
-## How to install (for debugging purposes only)
+### Card variant options
 
-1. Copy the contents of "Grafana_Status_panel" to the "/var/lib/grafana/plugins" folder
-2. Restart grafana by using `service grafana-server restart`
-3. Now this panel should be installed.
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/card-variants.png)
 
-## How to use
+### Multi cards in one panel
 
-1. Add the query you want to the panel. Make it to return only number values.
-2. Chose the visualization type to be `Status Panel` plugin.
-3. Setup Status Panel option in the option container
-   - Add a title to the panel (not required)
-   - Add a subtitle to the panel (not required)
-   - Add a link to the panel (not required)
-   - Set the panel border radius (not required, just for style)
-   - Set the panel flip card. If you want to flip the panel or stay on a view
-4. Setup thresholds in the option container
-   - Add a threshold to the panel
-   - Set a severity color to this threshold
-   - Set a severity name to this threshold
-   - set a threshold value
-5. Change display option
-   - Select the aggregation type (used to calculate the threshold)
-   - Select the font type (regular, bold, or italic)
-   - Select the unit to be displayed (not required)
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/multi-card.png)
 
-## Other Features
+## Documentation
 
-### Metric Unit display
+This panel provides some customization options and are searchable from the menu.
 
-You can choose a metric unit to be displayed in the panel. The unit will be displayed next to the metric value.
+### Options
 
-### Threshold preferences
+You can customize the panel with the following options:
 
-You can add as much as you need thresholds. You can define threshold preferences like:
+- **Title**: display the title of the card
+- **Subtitle**: display the subtitle of the card
+- **URL**: URL to open when clicking on the card
+  - (if URL) **Open URL in new tab**: choose if the URL should be open in a new tab
+- **Aggregate queries in a single card**: Aggregate all queries in one card
+- **Corner Radius**: set the corner radius of the card (with css attribute)
+- **Flip Card**: set if card do a flip animation
+  - (if not Flip Card) **Stay on**: select the side of the card to display
+  - (if Flip Card) **Flip interval**: set the time in seconds to flip the card
+- **Use 'Disable' color if no data**: if no data is returned by the query, the card will be colored with the 'Disable'
+  color
 
-- Severity color - Set the color of the panel background when the threshold is reached
-- Severity text - Set the text to be displayed when the threshold is reached
-- Value threshold - Set the value that will trigger the threshold (computation: `query value >= threshold value`)
-  \
-  How thresholds works:
-  \
-  Query value: 68
-  \
-  Thresholds: Base ; threshold_1: 0 ; threshold_2: 50 ; threshold_3 70 ; threshold_4 90
-  \
-  The selected threshold is threshold_2, because the query value is between 50 and 70 (query value >= threshold_2 but <
-  threshold_3).
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-options.png)
 
-### Multi panes in one panel
+#### String variables
 
-You can add all you need queries in one panel and each query will be displayed in a pane. Each pane will have the same
-thresholds, unit, title, and subtitle.
+For text fields (Title, Subtitle, URL), you can use string formatted variables, to make the text more dynamic.
 
-### Text templating
+- `{{query_name}}`: will be replaced by the query name (A, B, C, ... by default)
+- `{{query_value}}`: will be replaced by the value of the query (calculate with the selected aggregation)
+- `{{quer_index}}`: will be replaced by the index of the query (0, 1, 2, ... by default)
+- `{{$__interval}}`: will be replaced by the interval of the query
+- `{{time}}`: will be replaced by the sending query time. You can specify the format with `{{time format}}` (see
+  [EMACS - Date Time String Format](https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-time-string-format))
+  - `{{time DD-MM-YYYY HH:mm:ss}}`: format the query time to `DD-MM-YYYY HH:mm:ss` like `01-01-2022 00:00:00`
+  - `{{time HH:mm:ss}}`: format the query time to `HH:mm:ss` like `12:14:36`
+- `{{metric_name}}`: (for Prometheus) will be replaced by the metric name
+- `{{label:<label_name>}}`: (for Prometheus) get the value of the label by his name. Must be present in the query
+  expression
 
-In fiels 'title', 'subtitle', and 'URL' you can use formatted variables like `{{query_name}}`, `{{query_value}}` ...
-Useful when you use multi pane.
+You can add multiple variables in the same field, like `{{query_name}} - {{query_value}}`
 
-List of available template variables:
+### Display options
 
-- `{{query_name}}` - The name of the query (A, B, C ... by default)
-- `{{query_value}}` - The value of the query (with aggregation)
-- `{{query_index}}` - The positional index of the query (start at 0)
-- `{{$__interval}}` - The interval of the query
-- `{{time}}` - The time of last sent query (unix timestamp)
-- `{{metric_name}}` - (in prometheus) The metric name of the query expression
-- `{{label:<label_name>}}` - (in prometheus) The value of the label `<label_name>` of the query expression
+You can customize the apparence of the text with the following options:
 
-### Show disable for no data
+- **Aggregation**: Calculate method of the query value, used for threshold calculation
+  - **Last**: (default) get the last value of the time range, returned by the query
+  - **First**: get the first value of the time range, returned by the query
+  - **Max**: get the maximum value of the time range, returned by the query
+  - **Min**: get the minimum value of the time range, returned by the query
+  - **Sum**: get the sum of the values of the time range, returned by the query
+  - **Avg**: get the average of the values of the time range, returned by the query
+  - **Count**: get the number of values of the time range, returned by the query
+  - **Delta**: get the difference between the first and the last value of the time range, returned by the query
+- **Display value metric**: show the value of the query on the card
+  - **Metric font format**: set the style of the metric text (bold, italic, underline, ...)
+  - **Metric Unit**: set the unit of the metric value (like `ms`, `B`, `Gbits/s`, ...)
 
-If there is no data from any of the metrics, you can show the panel as disabled (in Grey), by checking the
-value `Make panel gray when no data` on the top of the options tab
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-display_options.png)
 
-## Supported Data Sources
+### Thresholds
 
-Maybe all datasources are supported. **Make sure to return number in the query**. You can use some technics to get
-number values from string.
+You can define thresholds to change the color and the severity depending on the query value by selected aggregation.
 
-## Release Notes
+Thresholds are calculated if the query value is greater or equal to the threshold value.
 
-[see release notes](./CHANGELOG.md)
+example:
 
-### Upgrading Tips
+```python
+query_value = 10
 
-> ⚠ **Warning**: the version **3.0.0** are breaking changes ! And aren't compatible with the previous versions.
+threshold_1 = 1
+threshold_2 = 5
+threshold_3 = 15
+threshold_4 = 20
 
-When upgrading there might be some changes in the data the plugin uses and saves, so some of the configurations you made
-might be removed by accident.
-To prevent this loss of configuration you should save the panel JSON of all panels you have (by exporting the panel or
-dashboards) and keep them somewhere safe until you made sure everything is working after the upgrade.
+# Oredered thresholds descending from the highest to the lowest
+if query_value >= threshold_4:
+    select_threshold = threshold_4
+elif query_value >= threhold_3:
+    select_threshold = threshold_3
+elif query_value >= threshold_2:
+    select_threshold = threshold_2 # <= in this example, this is the selected threshold
+elif query_value >= threshold_1:
+    select_threshold = threshold_1
+else:
+    select_threshold = default
 
-# Screenshots
+# Explication
+threshold_3 > query_value >= threshold_2
+```
 
-### Panel States
+Thresholds are defined by the following options:
 
-|       | status OK                     | status Warning                          | status Critical                     |
-| :---- | :---------------------------- | :-------------------------------------- | :---------------------------------- |
-| front | ![ok](./src/img/ok-front.png) | ![warning](./src/img/warning-front.png) | ![error](./src/img/error-front.png) |
-| back  | ![ok](./src/img/ok.png)       | ![warning](./src/img/warning.png)       | ![error](./src/img/error.png)       |
+- **color**: set the color of the card, with the color picker
+- **severity**: text to display on the card, when the threshold is reached
+- **value**: value of the threshold (only number)
 
-### Multi panes in one panel
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-thresholds.png)
 
-![Result](./src/img/multi-panes.png)
+### Overridden fields
 
-# License
+If you want to customize the card individually, you can use the overridden fields.
 
-See the [LICENSE](https://github.com/Vonage/Grafana_Status_panel/blob/master/LICENSE.txt) file for license rights and
-limitations (Apache License, Version 2.0)
+- **Title**
+- **Subtitle**
+- **URL**
+- **Open URL in new tab**
+- **Aggregation**
+- **Metric Unit**
+- **Thresholds**
+
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-overridden_fields.png)
