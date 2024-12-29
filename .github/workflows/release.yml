@@ -1,0 +1,43 @@
+on:
+  release:
+    types: 
+      - created
+
+env:
+  RELEASE_VERSION: ${{ github.event.release.tag_name }}
+  PLUGIN_NAME: "status-panel"
+
+jobs:
+  upload_package_on_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+        
+      - name: Install dependencies
+        run: yarn -s install
+      
+      - name: Build
+        run: npm run build
+
+      - name: Rename dir
+        run: mv ./dist $PLUGIN_NAME
+
+      - name: Package Plugin in ZIP
+        run: zip -r "$PLUGIN_NAME-$RELEASE_VERSION.zip" $PLUGIN_NAME
+
+      - name: Package Plugin in TAR
+        run: tar -czvf "$PLUGIN_NAME-$RELEASE_VERSION.tar.gz" $PLUGIN_NAME
+
+      - name: Upload asset to release
+        uses: csexton/release-asset-action@v3
+        with:
+          files: |
+            "$PLUGIN_NAME-$RELEASE_VERSION.zip"
+            "$PLUGIN_NAME-$RELEASE_VERSION.tar.gz"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
