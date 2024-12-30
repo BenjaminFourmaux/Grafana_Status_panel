@@ -6,7 +6,7 @@ on:
 env:
   RELEASE_VERSION: ${{ github.event.release.tag_name }}
   PLUGIN_NAME: "status-panel"
-  PLUGIN_NAME_SLUG: "benjaminfourmaux-${{ env.PLUGIN_NAME }}"
+  PLUGIN_NAME_SLUG: "benjaminfourmaux-status-panel"
 
 jobs:
   upload_package_on_release:
