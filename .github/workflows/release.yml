@@ -6,6 +6,7 @@ on:
 env:
   RELEASE_VERSION: ${{ github.event.release.tag_name }}
   PLUGIN_NAME: "status-panel"
+  PLUGIN_NAME_SLUG: "benjaminfourmaux-status-panel"
 
 jobs:
   upload_package_on_release:
@@ -28,13 +29,13 @@ jobs:
         run: npm run build
 
       - name: Rename dir
-        run: mv ./dist $PLUGIN_NAME
+        run: mv ./dist $PLUGIN_NAME_SLUG
 
       - name: Package Plugin in ZIP
-        run: zip -r "$PLUGIN_NAME-$RELEASE_VERSION.zip" $PLUGIN_NAME
+        run: zip -r "$PLUGIN_NAME-$RELEASE_VERSION.zip" $PLUGIN_NAME_SLUG
 
       - name: Package Plugin in TAR
-        run: tar -czvf "$PLUGIN_NAME-$RELEASE_VERSION.tar.gz" $PLUGIN_NAME
+        run: tar -czvf "$PLUGIN_NAME-$RELEASE_VERSION.tar.gz" $PLUGIN_NAME_SLUG
 
       - name: Upload asset to release
         uses: csexton/release-asset-action@v3
