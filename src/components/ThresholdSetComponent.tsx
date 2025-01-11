@@ -1,4 +1,4 @@
-import { Button, ColorPicker, Input } from '@grafana/ui';
+import { Button, ColorPicker, Input, Stack } from '@grafana/ui';
 import React from 'react';
 
 export interface ThresholdConf {
@@ -19,36 +19,38 @@ export const ThresholdSet: React.FC<ThresholdSetProps> = (props) => {
 
   return (
     <>
-      <Input
-        defaultValue={props.threshold.severity}
-        placeholder={'Severity'}
-        prefix={<ColorPicker color={props.threshold.color} onChange={props.handleChangeColor} />}
-        onChange={(event) => {
-          props.threshold.severity = event.currentTarget.value;
-        }}
-        disabled={isBaseThreshold}
-      />
-      {isBaseThreshold ? null : (
+      <Stack data-testid={'thresholds-configuration-inputs'}>
         <Input
-          defaultValue={props.threshold.value}
-          placeholder={'value'}
-          type={'number'}
+          defaultValue={props.threshold.severity}
+          placeholder={'Severity'}
+          prefix={<ColorPicker color={props.threshold.color} onChange={props.handleChangeColor} />}
           onChange={(event) => {
-            props.threshold.value = Number(event.currentTarget.value);
+            props.threshold.severity = event.currentTarget.value;
           }}
+          disabled={isBaseThreshold}
         />
-      )}
-      {/* Button remove this threshold */}
-      {isBaseThreshold ? null : (
-        <Button
-          icon={'trash-alt'}
-          variant={'secondary'}
-          fill={'text'}
-          size={'md'}
-          onClick={props.handleDeleteThreshold}
-          tooltip={'Remove threshold'}
-        />
-      )}
+        {isBaseThreshold ? null : (
+          <Input
+            defaultValue={props.threshold.value}
+            placeholder={'value'}
+            type={'number'}
+            onChange={(event) => {
+              props.threshold.value = Number(event.currentTarget.value);
+            }}
+          />
+        )}
+        {/* Button remove this threshold */}
+        {isBaseThreshold ? null : (
+          <Button
+            icon={'trash-alt'}
+            variant={'secondary'}
+            fill={'text'}
+            size={'md'}
+            onClick={props.handleDeleteThreshold}
+            tooltip={'Remove threshold'}
+          />
+        )}
+      </Stack>
     </>
   );
 };

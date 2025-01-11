@@ -113,8 +113,8 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
       await page.waitForTimeout(200);
       const last_threshold = page
         .getByLabel('Status Panel - thresholds Thresholds field property editor')
-        .locator('div[class$="-layoutChildrenWrapper"]')
-        .nth(1);
+        .getByTestId('thresholds-configuration-inputs')
+        .nth(0);
       // Set severity
       await last_threshold.getByPlaceholder('Severity').fill(value[1]);
       // Set value
@@ -122,9 +122,13 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
       // Set color
       await last_threshold.getByTestId('data-testid-colorswatch').click();
       await page.locator('#grafana-portal-container').getByRole('button', { name: 'Custom' }).click();
-      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').fill(value[0]);
       await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').click();
+      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').fill(value[0]);
       await page.keyboard.press('Enter');
+      await page.waitForTimeout(200);
+      // Click outside to close the color picker
+      await page.getByTestId('data-testid panel content').click();
+
       break;
     case 'OverrideTitle':
       await setOverrideFields(page, 'Title', value);
@@ -301,11 +305,6 @@ async function findNodesWithColorDeeper(node: Locator, results: Locator[] = []) 
 async function setOverrideFields(page: Page, kind: string, value: any) {
   // Add new override
   await page.getByTestId('data-testid Value picker button Add field override').click();
-  if (kind === 'Thresholds') {
-    // reclick (bug)
-    await page.waitForTimeout(800);
-    await page.getByTestId('data-testid Value picker button Add field override').click();
-  }
   await page.getByText('Fields with name', { exact: true }).click();
 
   // Set the field name
@@ -417,8 +416,8 @@ async function setOverrideFields(page: Page, kind: string, value: any) {
       await page.waitForTimeout(200);
       const last_threshold = page
         .getByTestId('data-testid Options group Override 1')
-        .locator('#Thresholds div[class$="-layoutChildrenWrapper"]')
-        .nth(1);
+        .getByTestId('thresholds-configuration-inputs')
+        .nth(0);
       // Set severity
       await last_threshold.getByPlaceholder('Severity').fill(value[1]);
       // Set value
@@ -426,9 +425,12 @@ async function setOverrideFields(page: Page, kind: string, value: any) {
       // Set color
       await last_threshold.getByTestId('data-testid-colorswatch').click();
       await page.locator('#grafana-portal-container').getByRole('button', { name: 'Custom' }).click();
-      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').fill(value[0]);
       await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').click();
+      await page.locator('#grafana-portal-container').getByTestId('input-wrapper').locator('input').fill(value[0]);
       await page.keyboard.press('Enter');
+      await page.waitForTimeout(200);
+      // Click outside to close the color picker
+      await page.getByTestId('data-testid panel content').click();
       break;
   }
 }
