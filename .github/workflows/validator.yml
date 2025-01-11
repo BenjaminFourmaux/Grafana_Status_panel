@@ -7,6 +7,9 @@ on:
       - master
       - main
 
+env:
+  PLUGIN_NAME_SLUG: "benjaminfourmaux-status-panel"
+
 jobs:
   plugin-validator:
     name: Grafana Plugin Validator
@@ -27,11 +30,11 @@ jobs:
         id: extract_branch
 
       - name: Rename dir
-        run: mv ./dist status-panel
+        run: mv ./dist $PLUGIN_NAME_SLUG
       
       # Archive the built plugin into Zip
-      - name: Package Plugin
-        run: zip -r plugin.zip status-panel
+      - name: Package Plugin in ZIP
+        run: zip -r plugin.zip $PLUGIN_NAME_SLUG
 
       - name: Run Validator
         uses: tj-actions/docker-run@v2.2.1
