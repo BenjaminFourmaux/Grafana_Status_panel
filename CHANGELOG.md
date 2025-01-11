@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.0.0
+## v1.0.0
 
 **Breaking Changes**
 
@@ -15,6 +15,8 @@ The plugin now only supports the `number` type of data. The plugin will not work
 - Panel subtitle (to display a metric category or whatever you want)
 - Panel title and subtitle can be formatted with formatted variables (like Query name `{{query_name}}`, Query value
   aggregate `{{query_value}}` ...)
+- Tests End-to-End
+- CI/CD pipelines
 
 ### Changed
 
@@ -33,13 +35,4 @@ The plugin now only supports the `number` type of data. The plugin will not work
 - Annotation display mode
 - Things that make this plugin not simple to use.
 
-## v2.0.0
-
-Migrating Status Panel from Angular to react. This release includes automatic migrations for Angular panels, but please
-make sure to have backups and test these migrations in a staging environment first as we can not guarantee that they
-will
-all be translated properly.
-
-## 1.0.0 (Unreleased)
-
-Initial release.
+## Fork from [Grafana_Status_panel v2.0.0](https://github.com/grafana/Grafana_Status_panel)
