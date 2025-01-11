@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.1
+
+### Changed
+
+- Update LICENSE and NOTICE files to change code owner and mention the original code owner (Grafana Labs)
+- Upgrade `package.json` dependencies to use Grafana `10.4.0`
+- Fix tests e2e according to the package upgrade
+
 ## v1.0.0
 
 **Breaking Changes**
