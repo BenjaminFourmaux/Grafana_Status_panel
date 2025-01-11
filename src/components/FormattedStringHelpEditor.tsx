@@ -7,7 +7,7 @@ export const FormattedStringHelpEditor: React.FC = () => {
 
   return (
     <>
-      <IconButton name={'question-circle'} onClick={() => setModalOpen(true)} />
+      <IconButton name={'question-circle'} onClick={() => setModalOpen(true)} aria-label={'help'} />
 
       <Modal
         title={'Formatted string Help'}

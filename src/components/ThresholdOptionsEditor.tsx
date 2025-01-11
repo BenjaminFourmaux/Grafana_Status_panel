@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Button, useTheme2, VerticalGroup } from '@grafana/ui';
+import { Button, Stack, useTheme2 } from '@grafana/ui';
 import { ThresholdConf, ThresholdSet } from './ThresholdSetComponent';
 import { StatusFieldOptions } from '../interfaces/statusFieldOptions';
-import { FieldConfigEditorProps } from '@grafana/data';
+import { StandardEditorProps } from '@grafana/data';
 
 /**
  * Custom editor for set the thresholds
  * @param value Thresholds list from StatusPanelOptions
  * @param onChange Update the thresholds list
  */
-export const ThresholdOptionsEditor: React.FC<FieldConfigEditorProps<StatusFieldOptions['thresholds'], any>> = ({
+export const ThresholdOptionsEditor: React.FC<StandardEditorProps<StatusFieldOptions['thresholds'], any>> = ({
   value,
   onChange,
 }) => {
@@ -56,7 +56,7 @@ export const ThresholdOptionsEditor: React.FC<FieldConfigEditorProps<StatusField
 
   return (
     <>
-      <VerticalGroup>
+      <Stack direction={'column'}>
         <Button
           variant={'secondary'}
           style={{ width: '100%' }}
@@ -78,7 +78,7 @@ export const ThresholdOptionsEditor: React.FC<FieldConfigEditorProps<StatusField
               key={threshold.id}
             />
           ))}
-      </VerticalGroup>
+      </Stack>
     </>
   );
 };
