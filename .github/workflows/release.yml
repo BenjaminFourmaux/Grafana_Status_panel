@@ -44,6 +44,11 @@ jobs:
       - name: Package Plugin in TAR
         run: tar -czvf "$PLUGIN_NAME-$RELEASE_VERSION.tar.gz" $PLUGIN_NAME_SLUG
 
+      - name: Checksum
+        run: |
+          md5sum $PLUGIN_NAME-$RELEASE_VERSION.zip
+          md5sum $PLUGIN_NAME-$RELEASE_VERSION.tar.gz
+
       - name: Upload asset to release
         uses: csexton/release-asset-action@v3
         with:
