@@ -30,6 +30,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Sign
+        env:
+          GRAFANA_ACCESS_POLICY_TOKEN:  ${{ secrets.GRAFANA_SIGN_PLUGIN }}
+        run: npx @grafana/sign-plugin@latest
+        
       - name: Rename dir
         run: mv ./dist $PLUGIN_NAME_SLUG
 
