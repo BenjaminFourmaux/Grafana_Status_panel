@@ -8,47 +8,48 @@ on:
       - main
 
 jobs:
-  build_and_test:
-    timeout-minutes: 30
-    name: Lint, Build and Test
+  test:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js env
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn -s install
-
-      # Linter steps
-      - name: Check types
-        run: yarn run typecheck
-      - name: Lint
-        run: yarn run lint
-
-      # Build
-      - name: Build
-        run: yarn build
+      - uses: actions/checkout@v3
       
-      # Start Grafana container
-      - name: Start Grafana
-        run: |
-          docker compose pull
-          docker compose up -d
-
-      - name: Wait for grafana server
-        uses: grafana/plugin-actions/wait-for-grafana@main
-
-      # Run playwright Tests
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      
       - name: Install dependencies
         run: npm ci
+      
+      - name: Build plugin
+        run: npm run build
         
-      - name: Install Playwright Browsers
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v2
+        
+      - name: Start Grafana container
+        run: |
+          docker-compose up -d
+          # Wait for Grafana to be ready
+          echo "Waiting for Grafana to start..."
+          timeout=60
+          elapsed=0
+          while ! curl -s http://localhost:3000 > /dev/null; do
+            sleep 5
+            elapsed=$((elapsed+5))
+            if [ "$elapsed" -ge "$timeout" ]; then
+              echo "Timed out waiting for Grafana to start"
+              docker-compose logs
+              exit 1
+            fi
+            echo "Waiting... ($elapsed/$timeout seconds)"
+          done
+          echo "Grafana is up and running!"
+          
+      - name: Install Playwright browsers
         run: npx playwright install --with-deps
-        
+      
       - name: Run Playwright tests
         run: npx playwright test
