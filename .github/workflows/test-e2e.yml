@@ -31,7 +31,7 @@ jobs:
         
       - name: Start Grafana container
         run: |
-          docker-compose up -d
+          docker compose up -d
           # Wait for Grafana to be ready
           echo "Waiting for Grafana to start..."
           timeout=60
