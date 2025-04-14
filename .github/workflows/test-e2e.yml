@@ -34,8 +34,8 @@ jobs:
         run: yarn build
 
       # Install playwright
-      - name: Install Playwright Browsers
-        run: yarn -s playwright install --with-deps
+      # - name: Install Playwright Browsers
+      #   run: yarn -s playwright install --with-deps
 
       # Start Grafana container
       - name: Start Grafana
