@@ -49,4 +49,4 @@ jobs:
       # Run playwright Tests
       - name: Run Playwright tests
         id: run-tests
-        run: yarn playwright test --trace on
+        run: yarn playwright test
