@@ -4,7 +4,6 @@ import { StatusPanelOptions } from '../interfaces/statusPanelOptions';
 import {
   getActualThreshold,
   getMetricUnit,
-  getQueryValueAggregation,
   getSubtitle,
   getThresholdsConf,
   getTitle,
@@ -22,6 +21,7 @@ interface CardWrapperProps {
   series: DataFrame;
   fieldsConfig: FieldConfigSource<any>;
   options: StatusPanelOptions;
+  queryValue: number;
   cardWidth: number;
   cardHeight: number;
   flipped: boolean;
@@ -30,8 +30,9 @@ interface CardWrapperProps {
 export const CardWrapper: React.FC<CardWrapperProps> = ({
   data,
   series,
-  options,
   fieldsConfig,
+  options,
+  queryValue,
   cardWidth,
   cardHeight,
   flipped,
@@ -48,12 +49,12 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     series,
     fieldsConfig.overrides
   );
-  const queryValueComputed: number = getQueryValueAggregation(series, fieldsConfig);
+
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     index,
     series,
     data,
-    queryValueComputed,
+    queryValue,
     metricUnit || ''
   );
   const thresholdsConf = getThresholdsConf(fieldsConfig, series);
@@ -71,7 +72,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
       thresholds={thresholdsConf}
       formattedVariables={stringFormattedVariables}
-      value={queryValueComputed}
+      value={queryValue}
       isFlipped={flipped}
       cornerRadius={options.cornerRadius}
       isGrayOnNoData={options.isGrayOnNoData}
@@ -83,6 +84,7 @@ interface CardWrapperPropsAggregateQuery {
   data: PanelData;
   fieldsConfig: FieldConfigSource<any>;
   options: StatusPanelOptions;
+  queriesValuesAggregated: number[];
   cardWidth: number;
   cardHeight: number;
   flipped: boolean;
@@ -92,20 +94,16 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
   data,
   fieldsConfig,
   options,
+  queriesValuesAggregated,
   cardWidth,
   cardHeight,
   flipped,
 }) => {
-  // Browse all series and get query value by aggregation
-  let aggregateQueriesValues = [];
-  for (let series of data.series) {
-    aggregateQueriesValues.push(getQueryValueAggregation(series, fieldsConfig));
-  }
   // Get threshold configuration
   const thresholdsConf = fieldsConfig.defaults.custom.thresholds;
   // For all aggregateQueriesValues, get actual threshold
   let actualThresholds = [];
-  for (let queryValue of aggregateQueriesValues) {
+  for (let queryValue of queriesValuesAggregated) {
     actualThresholds.push(getActualThreshold(thresholdsConf, queryValue));
   }
   // Get index of the worst threshold
@@ -114,12 +112,13 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
   );
   const thresholdIndex = actualThresholds.indexOf(actualThreshold);
 
-  const queryValue = aggregateQueriesValues[thresholdIndex];
+  const queryValue = queriesValuesAggregated[thresholdIndex];
   const metricUnit = mappingMetricUnitName(fieldsConfig.defaults.custom.metricUnit);
   const cardTitle = getTitle(options, fieldsConfig, data.series[thresholdIndex]);
   const cardSubtitle = getSubtitle(options, fieldsConfig, data.series[thresholdIndex]);
   const cardUrl = getUrl(options, fieldsConfig, data.series[thresholdIndex]);
   const cardUrlTargetBlank = getUrlTargetBlank(options, fieldsConfig, data.series[thresholdIndex]);
+
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     thresholdIndex,
     data.series[thresholdIndex],

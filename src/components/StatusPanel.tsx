@@ -6,6 +6,7 @@ import { CardWrapper, CardWrapperAggregateQuery } from './CardWrapper';
 import { Style } from '../interfaces/styleCSS';
 import { css } from '@emotion/css';
 import { IconButton } from '@grafana/ui';
+import { getQueryValueAggregation } from '../lib/thresholdCalulationFunc';
 
 type Props = PanelProps<StatusPanelOptions>;
 
@@ -20,9 +21,25 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
     setFlipped(options.flipState);
   }, [options.flipState]);
 
-  // Calculate Card size
+  /* Calculate the query values */
+  // Contains all query aggregated values
+  let queriesValuesAggregated: number[] = [];
+  for (let series of data.series) {
+    let value = getQueryValueAggregation(series, fieldConfig);
+    if (value !== undefined) {
+      queriesValuesAggregated.push(value);
+    }
+  }
+
+  /* Calculate Card size */
+
   const cardWidth = data.series.length < 12 ? width / data.series.length - 5 * 2 : width / 12 - 5 * 2;
   const cardHeight = height;
+
+  // If query(ies) return no data, display "no data"
+  if (queriesValuesAggregated.length === 0) {
+    return <div>no data</div>;
+  }
 
   return (
     <div ref={wrapper} className={Style.wrapperContainer}>
@@ -34,6 +51,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
               data={data}
               options={options}
               fieldsConfig={fieldConfig}
+              queriesValuesAggregated={queriesValuesAggregated}
               cardWidth={width - 5 * 2}
               cardHeight={cardHeight}
               flipped={flipped}
@@ -49,6 +67,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
                     data={data}
                     options={options}
                     fieldsConfig={fieldConfig}
+                    queryValue={queriesValuesAggregated[index]}
                     cardWidth={cardWidth}
                     cardHeight={cardHeight}
                     flipped={flipped}
