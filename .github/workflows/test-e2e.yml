@@ -9,6 +9,7 @@ on:
 
 jobs:
   build_and_test:
+    timeout-minutes: 30
     name: Lint, Build and Test
     runs-on: ubuntu-latest
     steps:
@@ -32,11 +33,7 @@ jobs:
       # Build
       - name: Build
         run: yarn build
-
-      # Install playwright
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
+      
       # Start Grafana container
       - name: Start Grafana
         run: |
@@ -47,6 +44,11 @@ jobs:
         uses: grafana/plugin-actions/wait-for-grafana@main
 
       # Run playwright Tests
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        
       - name: Run Playwright tests
-        id: run-tests
-        run: yarn playwright test
+        run: npx playwright test
