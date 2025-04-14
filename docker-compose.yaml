@@ -2,7 +2,6 @@ services:
   grafana:
     user: root
     container_name: 'status-panel'
-
     platform: 'linux/amd64'
     build:
       context: ./.config
