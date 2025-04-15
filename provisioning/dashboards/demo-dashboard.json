@@ -78,8 +78,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -97,7 +96,7 @@
         "aggregateQueries": false,
         "cornerRadius": "0rem",
         "flipCard": false,
-        "flipState": false,
+        "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
@@ -105,7 +104,7 @@
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "alias": "",
@@ -171,8 +170,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -198,7 +196,7 @@
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "alias": "",
@@ -290,8 +288,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -307,7 +304,7 @@
       "id": 3,
       "options": {
         "aggregateQueries": false,
-        "cornerRadius": "0rem",
+        "cornerRadius": "5rem",
         "flipCard": false,
         "flipState": true,
         "flipTime": 5,
@@ -317,7 +314,7 @@
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "datasource": {
@@ -365,8 +362,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -384,15 +380,15 @@
         "aggregateQueries": false,
         "cornerRadius": "0rem",
         "flipCard": false,
-        "flipState": false,
+        "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "",
-        "title": "Click on me",
+        "subtitle": "Click on me",
+        "title": "",
         "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "datasource": {
@@ -439,8 +435,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -461,12 +456,12 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "to open in new tab",
-        "title": "Click on me",
+        "subtitle": "Click on me",
+        "title": "",
         "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
         "urlTargetBlank": true
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "datasource": {
@@ -538,8 +533,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -556,8 +550,8 @@
       "options": {
         "aggregateQueries": false,
         "cornerRadius": "0rem",
-        "flipCard": true,
-        "flipState": false,
+        "flipCard": false,
+        "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
@@ -565,7 +559,7 @@
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "alias": "",
@@ -737,8 +731,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -804,7 +797,7 @@
       "options": {
         "aggregateQueries": false,
         "cornerRadius": "0rem",
-        "flipCard": true,
+        "flipCard": false,
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
@@ -813,7 +806,7 @@
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "alias": "",
@@ -900,7 +893,7 @@
           "hide": false,
           "refId": "Query-8",
           "scenarioId": "csv_metric_values",
-          "stringInput": "24,31,59,91,37"
+          "stringInput": "24,31,59,91,71"
         },
         {
           "alias": "",
@@ -985,8 +978,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1004,15 +996,15 @@
         "aggregateQueries": true,
         "cornerRadius": "0rem",
         "flipCard": false,
-        "flipState": false,
+        "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
         "subtitle": "",
-        "title": "{{query_name}}",
+        "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "alias": "",
@@ -1159,8 +1151,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1190,7 +1181,7 @@
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "datasource": {
@@ -1237,8 +1228,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1268,7 +1258,7 @@
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "datasource": {
@@ -1315,8 +1305,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1341,12 +1330,12 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "The interval is set at {{$__interval}}",
+        "subtitle": "interval set at {{$__interval}}",
         "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "datasource": {
@@ -1393,8 +1382,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1419,12 +1407,12 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
-        "subtitle": "Time is {{time DD-MM-YYYY HH:mm:ss}}",
+        "subtitle": "time is {{time DD-MM-YYYY HH:mm:ss}}",
         "title": "",
         "url": "",
         "urlTargetBlank": false
       },
-      "pluginVersion": "1.0.0",
+      "pluginVersion": "1.1.0",
       "targets": [
         {
           "datasource": {
@@ -1442,7 +1430,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": []
@@ -1455,6 +1443,5 @@
   "timezone": "browser",
   "title": "status-panel-demo",
   "uid": "ddv54djwm1zi8f",
-  "version": 1,
-  "weekStart": ""
+  "version": 1
 }
