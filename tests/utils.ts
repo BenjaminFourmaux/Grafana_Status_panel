@@ -8,6 +8,8 @@ import { PanelEditPage } from '@grafana/plugin-e2e';
  * @param csv_data CSV data to be used in the datasource. By default: 1,20,90,30,5,0
  */
 export async function Arrange(page: Page, panelEditPage: PanelEditPage, csv_data: string | undefined = undefined) {
+  page.goto('http://localhost:3000/dashboard/new', { waitUntil: 'load' });
+
   // Set datasource
   await panelEditPage.datasource.set('Static');
   // Set the scenario
