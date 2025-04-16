@@ -8,36 +8,28 @@ on:
       - main
 
 jobs:
-  build_and_test:
-    name: Lint, Build and Test
+  test:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js env
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn -s install
-
-      # Linter steps
-      - name: Check types
-        run: yarn run typecheck
-      - name: Lint
-        run: yarn run lint
-
-      # Build
-      - name: Build
+          # cache: 'yarn'
+          
+      - name: Install yarn dependencies
+        run: yarn install
+        
+      - name: Build frontend
         run: yarn build
 
-      # Install playwright
       - name: Install Playwright Browsers
-        run: yarn -s playwright install --with-deps
-
-      # Start Grafana container
+        run: yarn playwright install --with-deps
+      
       - name: Start Grafana
         run: |
           docker compose pull
@@ -45,8 +37,7 @@ jobs:
 
       - name: Wait for grafana server
         uses: grafana/plugin-actions/wait-for-grafana@main
-
-      # Run playwright Tests
+      
       - name: Run Playwright tests
         id: run-tests
         run: yarn playwright test

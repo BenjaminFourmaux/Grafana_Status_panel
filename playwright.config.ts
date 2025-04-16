@@ -33,6 +33,11 @@ export default defineConfig<PluginOptions>({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
+    /* Fix bug : https://github.com/grafana/plugin-tools/issues/1733 */
+    launchOptions: {
+      args: ['--disable-features=PlzDedicatedWorker'], // because https://github.com/microsoft/playwright/pull/34400
+    },
+
     /* Display the web browser UI. (true to hidden) */
     headless: true,
   },
