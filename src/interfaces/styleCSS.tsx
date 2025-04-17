@@ -17,7 +17,13 @@ export const Style = {
   }),
   col: css({ flexBasis: 'auto', flexGrow: '0', maxWidth: '100%', padding: '5px' }),
   size100: css({ width: '100%', height: '100%' }),
-  flipButton: css({ position: 'absolute', bottom: '1.2rem', right: '1.2rem' }),
+  flipButton: css({
+    position: 'absolute',
+    bottom: '1.2rem',
+    right: '1.2rem',
+    display: 'none',
+    '.panel-container:hover &': { display: 'block' },
+  }),
   /* Flip Card */
   flipCardContainer: css({
     height: '100%',

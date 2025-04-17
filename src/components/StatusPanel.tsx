@@ -1,6 +1,6 @@
 import { PanelProps } from '@grafana/data';
 import React, { useEffect } from 'react';
-import { useHover, useInterval } from 'hooks/index';
+import { useInterval } from 'hooks/index';
 import { StatusPanelOptions } from 'interfaces/statusPanelOptions';
 import { CardWrapper, CardWrapperAggregateQuery } from './CardWrapper';
 import { Style } from '../interfaces/styleCSS';
@@ -14,9 +14,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   // setup flipper
   // True for the metrics page, False for the severity page
   const [flipped, setFlipped] = React.useState(options.flipState);
-  const wrapper = React.useRef<HTMLDivElement>(null);
-  const isHover = useHover(wrapper);
-  useInterval(() => options.flipCard && !isHover && setFlipped(!flipped), 1000 * options.flipTime);
+  useInterval(() => options.flipCard && setFlipped(!flipped), 1000 * options.flipTime);
   useEffect(() => {
     setFlipped(options.flipState);
   }, [options.flipState]);
@@ -42,7 +40,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   }
 
   return (
-    <div ref={wrapper} className={Style.wrapperContainer}>
+    <div className={Style.wrapperContainer + ' panel-container'}>
       <div className={Style.row + ' ' + css({ height })}>
         {/* If option AggregateQueries is enabled */}
         {options.aggregateQueries ? (
@@ -79,16 +77,14 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
           </>
         )}
       </div>
-      {isHover && (
-        <IconButton
-          name={'exchange-alt'}
-          size={'xl'}
-          onClick={() => setFlipped(!flipped)}
-          className={Style.flipButton + ' ' + css({ color: 'white' })}
-          aria-label="Flip Card"
-          tooltip={'Flip Card'}
-        />
-      )}
+      <IconButton
+        name={'exchange-alt'}
+        size={'xl'}
+        onClick={() => setFlipped(!flipped)}
+        className={Style.flipButton + ' ' + css({ color: 'white' })}
+        aria-label="Flip Card"
+        tooltip={'Flip Card'}
+      />
     </div>
   );
 };
