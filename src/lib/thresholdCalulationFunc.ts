@@ -1,5 +1,5 @@
 import { ThresholdConf } from '../components/ThresholdSetComponent';
-import { DataFrame, FieldConfigSource, MatcherConfig } from '@grafana/data';
+import { DataFrame, Field, FieldConfigSource, MatcherConfig } from '@grafana/data';
 import { StatusPanelOptions } from '../interfaces/statusPanelOptions';
 import { mappingMetricUnitName } from './metricUnitMapping';
 
@@ -9,7 +9,7 @@ import { mappingMetricUnitName } from './metricUnitMapping';
  * @param series Data from the query
  * @returns Values of the queries with selected aggregation
  */
-export const getQueryValueAggregation = (series: DataFrame, fieldsConf: FieldConfigSource<any>): number => {
+export const getQueryValueAggregation = (series: DataFrame, fieldsConf: FieldConfigSource<any>): number | undefined => {
   let aggregation = fieldsConf.defaults.custom.aggregation;
 
   for (let overrideField of fieldsConf.overrides) {
@@ -34,7 +34,10 @@ export const getQueryValueAggregation = (series: DataFrame, fieldsConf: FieldCon
  * @param aggregation Aggregation type
  * @returns Value of the query with selected aggregation
  */
-const AggregationFunctions = (rows: any, aggregation: string): number => {
+const AggregationFunctions = (rows: Field<any> | undefined, aggregation: string): number | undefined => {
+  if (!rows) {
+    return undefined;
+  }
   switch (aggregation) {
     case 'last':
       return rows.values[rows.values.length - 1];
