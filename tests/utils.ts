@@ -11,10 +11,13 @@ export async function Arrange(page: Page, panelEditPage: PanelEditPage, csv_data
   // Set datasource
   await panelEditPage.datasource.set('Static');
   // Set the scenario
-  await page.getByLabel('Scenario').last().fill('CSV Metric Values');
+  await page
+    .getByLabel('Scenario')
+    .last()
+    .fill(csv_data !== 'no data point' ? 'CSV Metric Values' : 'No Data Point');
   await page.keyboard.press('Enter');
   // Set scenario's data
-  if (csv_data) {
+  if (csv_data && csv_data !== 'no data point') {
     await page.getByText('String Input').last().fill(csv_data); // By default: 1,20,90,30,5,0
     await page.keyboard.press('Enter');
   }
@@ -128,8 +131,14 @@ export async function SetPanelOption(page: Page, kind: string, value: any) {
       await page.waitForTimeout(200);
       // Click outside to close the color picker
       await page.getByTestId('data-testid panel content').click();
-
       break;
+    case 'DisplayNoData':
+      await page
+        .getByLabel("Status Panel - options Display nothing when 'no data' field property editor")
+        .getByRole('switch')
+        .click({ force: true });
+      break;
+    /* --- Overridden fields --- */
     case 'OverrideTitle':
       await setOverrideFields(page, 'Title', value);
       break;

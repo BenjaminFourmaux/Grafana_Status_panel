@@ -75,7 +75,6 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
       value={queryValue}
       isFlipped={flipped}
       cornerRadius={options.cornerRadius}
-      isGrayOnNoData={options.isGrayOnNoData}
     />
   );
 };
@@ -139,7 +138,6 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
       metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
       cornerRadius={options.cornerRadius}
-      isGrayOnNoData={options.isGrayOnNoData}
       thresholds={fieldsConfig.defaults.custom.thresholds}
       formattedVariables={stringFormattedVariables}
       value={queryValue}

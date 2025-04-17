@@ -22,7 +22,6 @@ interface FlipCardProps {
   value: number;
   fontStyle: string;
   cornerRadius: string;
-  isGrayOnNoData: boolean;
   thresholds: ThresholdConf[];
   formattedVariables: FormattedStringVariables;
   isFlipped: boolean;
@@ -39,7 +38,6 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   value,
   fontStyle,
   cornerRadius,
-  isGrayOnNoData,
   thresholds,
   formattedVariables,
   width,
@@ -49,14 +47,13 @@ export const FlipCard: React.FC<FlipCardProps> = ({
 
   // Retrieve colors
   const textColoration = css({ color: 'white' });
-  const noBackgroundColor = isGrayOnNoData && value === null;
 
   return (
     <div
       className={
         css({ width, height: '100%', minWidth: '142px', borderRadius: cornerRadius, position: 'relative' }) +
         ' ' +
-        (!noBackgroundColor && css({ backgroundColor: actualThreshold.color })) +
+        css({ backgroundColor: actualThreshold.color }) +
         ' ' +
         textColoration
       }
