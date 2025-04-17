@@ -36,7 +36,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
 
   // If query(ies) return no data, display "no data"
   if (queriesValuesAggregated.length === 0) {
-    return <div>no data</div>;
+    return <>{!options.isNothingOnNoData && <div>no data</div>}</>;
   }
 
   return (

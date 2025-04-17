@@ -102,8 +102,8 @@ export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<Sta
       showIf: ({ flipCard }) => !flipCard,
     })
     .addBooleanSwitch({
-      path: 'isGrayOnNoData',
-      name: "Use 'Disable' color if no data",
+      path: 'isNothingOnNoData',
+      name: "Display nothing when 'no data'",
       defaultValue: false,
       category: [OPTIONS_CATEGORY],
     });

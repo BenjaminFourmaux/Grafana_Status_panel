@@ -12,7 +12,7 @@ export interface StatusPanelOptions {
   flipCard: boolean;
   flipTime: number;
   flipState: boolean;
-  isGrayOnNoData: boolean;
+  isNothingOnNoData: boolean;
   fieldConfig: {
     defaults: {};
     overrides: unknown[];
