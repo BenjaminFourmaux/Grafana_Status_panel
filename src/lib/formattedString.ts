@@ -1,4 +1,5 @@
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
+import { DataFrame, PanelData } from '@grafana/data';
 
 /**
  * Render a formatted string with template
@@ -61,51 +62,33 @@ export const formattedString = (formatString: string, variables: FormattedString
 
 export const provideFormattedStringVariables = (
   queryIndex: number,
-  series: any,
-  dataQueries: any,
+  series: DataFrame,
+  dataQueries: PanelData,
   queryValue: number,
   metricUnit: string
 ): FormattedStringVariables => {
-  let requestInfo = extractRequestInfo(dataQueries.request.targets[queryIndex]);
-  return {
-    queryIndex: queryIndex,
-    queryName: series.refId,
-    queryValue: queryValue !== undefined ? queryValue.toString() : '',
-    interval: dataQueries.request.interval,
-    time: dataQueries.request.startTime,
-    metricName: metricUnit,
-    labels: requestInfo.labels,
-  };
-};
-
-function extractRequestInfo(request: any): any {
-  let object = {
-    metricName: '',
-    labels: {},
-  };
-
-  if (request && request.expr) {
-    let match = request.expr.match(/^(?<metric_name>\w+)\{(?<labels>.*)\}$/);
-    if (match) {
-      const { metric_name, labels } = match.groups;
-
-      // Extract labels name and value
-      const labelRegex = /([^ =,]+)="([^"]+)"/g;
-      let labelMatch;
-      const labelsObject: { [key: string]: string } = {};
-      while ((labelMatch = labelRegex.exec(labels)) !== null) {
-        labelsObject[labelMatch[1]] = labelMatch[2];
-      }
-
-      object = {
-        metricName: metric_name,
-        labels: labelsObject,
-      };
-    }
+  if (dataQueries.request) {
+    return {
+      queryIndex: queryIndex,
+      queryName: series.refId || '',
+      queryValue: queryValue !== undefined ? queryValue.toString() : '',
+      interval: dataQueries.request.interval,
+      time: dataQueries.request.startTime,
+      metricName: metricUnit,
+      labels: { ...series.fields[1].labels },
+    };
+  } else {
+    return {
+      queryIndex: 0,
+      queryName: '',
+      queryValue: '',
+      interval: '',
+      time: 0,
+      metricName: '',
+      labels: {},
+    };
   }
-
-  return object;
-}
+};
 
 function parseDateToString(date: Date, format: string): string {
   let day = date.getDate();
