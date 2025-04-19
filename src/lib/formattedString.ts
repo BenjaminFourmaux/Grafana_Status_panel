@@ -71,13 +71,8 @@ export const provideFormattedStringVariables = (
   metricUnit: string,
   aggregateQuery = false
 ): FormattedStringVariables => {
-  console.log('series', series);
-  console.log('queryIndex', queryIndex);
-
   if (dataQueries.request) {
     const numberFields = series.fields.filter((field, index) => field.type === 'number');
-    console.log('numberFields', numberFields);
-    console.log('numberFields[0]', numberFields[0]);
 
     return {
       queryIndex: queryIndex,
