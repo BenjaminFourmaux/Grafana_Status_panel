@@ -73,10 +73,10 @@ test('query_index', async ({ page, panelEditPage }) => {
  */
 test('column_name', async ({ page, panelEditPage }) => {
   const variable_string = '{{column_name}}';
-  const expected_value = '0';
+  const expected_value = 'Value';
 
   // Arrange
-  await Arrange(page, panelEditPage);
+  await Arrange(page, panelEditPage, 'table static');
 
   // Act
   await SetPanelOption(page, 'CardSubtitle', variable_string);

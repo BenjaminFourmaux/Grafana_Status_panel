@@ -11,18 +11,28 @@ export async function Arrange(page: Page, panelEditPage: PanelEditPage, csv_data
   // Set datasource
   await panelEditPage.datasource.set('Static');
   // Set the scenario
-  await page
-    .getByLabel('Scenario')
-    .last()
-    .fill(csv_data !== 'no data point' ? 'CSV Metric Values' : 'No Data Point');
+  await page.getByLabel('Scenario').last().fill(getScenarioName(csv_data));
   await page.keyboard.press('Enter');
   // Set scenario's data
-  if (csv_data && csv_data !== 'no data point') {
+  if (csv_data && getScenarioName(csv_data) === 'CSV Metric Values') {
     await page.getByText('String Input').last().fill(csv_data); // By default: 1,20,90,30,5,0
     await page.keyboard.press('Enter');
   }
   // Set Status Panel plugin as visualization
   await panelEditPage.setVisualization('Status Panel');
+}
+
+function getScenarioName(csv_data: string | undefined) {
+  switch (csv_data) {
+    case 'no data point':
+      return 'No Data Point';
+    case 'table static':
+      return 'Table Static';
+    case 'random walk table':
+      return 'Random Walk Table';
+    default:
+      return 'CSV Metric Values';
+  }
 }
 
 /**

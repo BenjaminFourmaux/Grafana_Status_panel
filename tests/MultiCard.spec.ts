@@ -100,3 +100,34 @@ test('Aggregate queries', async ({ page, panelEditPage }) => {
   // Assert
   expect(await CountCards(page)).toBe(expected_value);
 });
+
+/**
+ * Test scenario: Check if the wright number of cards is displayed if one query return a multiple fields (a dataframe) (like Zabbix)
+ */
+test('Multiple fields', async ({ page, panelEditPage }) => {
+  const expected_value = 3;
+
+  // Arrange
+  await Arrange(page, panelEditPage, 'random walk table');
+
+  // Act
+
+  // Assert
+  expect(await CountCards(page)).toBe(expected_value);
+});
+
+/**
+ * Test scenario: Check if only one card is displayed if one query return a multiple fields (a dataframe) (like Zabbix) when aggregate queries is enabled
+ */
+test('Multiple fields aggregate queries', async ({ page, panelEditPage }) => {
+  const expected_value = 1;
+
+  // Arrange
+  await Arrange(page, panelEditPage, 'random walk table');
+
+  // Act
+  await SetPanelOption(page, 'AggregateQueries', true);
+
+  // Assert
+  expect(await CountCards(page)).toBe(expected_value);
+});
