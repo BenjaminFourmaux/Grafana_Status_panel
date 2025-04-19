@@ -54,6 +54,10 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     queryValue,
     metricUnit || ''
   );
+
+  // Debug, help people to show what their can do with the variables
+  console.log('stringFormattedVariables', stringFormattedVariables);
+
   const cardTitle = compileFormattedString(getTitle(options, fieldsConfig, series), stringFormattedVariables);
   const cardSubtitle = compileFormattedString(getSubtitle(options, fieldsConfig, series), stringFormattedVariables);
   const cardUrl = compileFormattedString(getUrl(options, fieldsConfig, series), stringFormattedVariables);

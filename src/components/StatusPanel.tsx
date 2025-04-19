@@ -20,9 +20,6 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   }, [options.flipState]);
 
   /* Calculate the query values */
-  // Contains all query aggregated values
-
-  console.log('data', data);
 
   // A list for all panel (and all rows) aggregated values used to compute the threshold according to the selected aggregation and overrides fields config
   let queriesValuesAggregated: number[][] = [];
