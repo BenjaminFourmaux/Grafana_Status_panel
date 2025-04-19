@@ -16,6 +16,7 @@ services:
       - ./dist:/var/lib/grafana/plugins/status-panel
       - ./provisioning:/etc/grafana/provisioning
       - .:/root/status-panel
+      - grafana-plugins:/var/lib/grafana/plugins
 
     environment:
       NODE_ENV: development
@@ -23,3 +24,6 @@ services:
       GF_LOG_LEVEL: info
       GF_DATAPROXY_LOGGING: 1
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: status-panel
+
+volumes:
+  grafana-plugins:
