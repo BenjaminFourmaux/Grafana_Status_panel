@@ -6,7 +6,7 @@ import { DataFrame, PanelData } from '@grafana/data';
  * @param formatString A string {{formatted_value}} to render
  * @param variables some data to render
  */
-export const formattedString = (formatString: string, variables: FormattedStringVariables): string => {
+export const compileFormattedString = (formatString: string, variables: FormattedStringVariables): string => {
   if (!formatString) {
     return '';
   }

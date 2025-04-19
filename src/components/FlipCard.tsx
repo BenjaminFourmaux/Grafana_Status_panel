@@ -2,10 +2,8 @@ import React from 'react';
 import ReactCardFlip from 'react-card-flip';
 import { css } from '@emotion/css';
 import { getActualThreshold } from '../lib/thresholdCalulationFunc';
-import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { Style } from '../interfaces/styleCSS';
 import { OpenLinkAnchor } from './OpenLinkAnchor';
-import { formattedString } from '../lib/formattedString';
 import { StatusMetric } from './buildStatusMetric';
 import { ThresholdConf } from './ThresholdSetComponent';
 import { Icon } from '@grafana/ui';
@@ -23,7 +21,6 @@ interface FlipCardProps {
   fontStyle: string;
   cornerRadius: string;
   thresholds: ThresholdConf[];
-  formattedVariables: FormattedStringVariables;
   isFlipped: boolean;
 }
 
@@ -39,7 +36,6 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   fontStyle,
   cornerRadius,
   thresholds,
-  formattedVariables,
   width,
   height,
 }) => {
@@ -59,29 +55,21 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       }
     >
       <div className={Style.size100}>
-        <OpenLinkAnchor
-          href={formattedString(url, formattedVariables)}
-          target={urlTargetBlank ? '_blank' : '_self'}
-          className={textColoration}
-        >
+        <OpenLinkAnchor href={url} target={urlTargetBlank ? '_blank' : '_self'} className={textColoration}>
           <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'} containerClassName={Style.size100}>
             {/* Front (metric) */}
             <div className={Style.flipCardContainer}>
-              <OpenLinkAnchor
-                href={formattedString(url, formattedVariables)}
-                target={urlTargetBlank ? '_blank' : '_self'}
-                className={textColoration}
-              >
+              <OpenLinkAnchor href={url} target={urlTargetBlank ? '_blank' : '_self'} className={textColoration}>
                 {/* Pane title */}
                 {title !== '' && (
                   <div className={Style.flipCardBackTexts + ' ' + Style.flipCardTitle}>
-                    <span id={'card-title'}>{formattedString(title, formattedVariables)}</span>
+                    <span id={'card-title'}>{title}</span>
                   </div>
                 )}
                 {/* Pane subtitle */}
                 {subtitle !== '' && (
                   <div className={Style.flipCardBackTexts + ' ' + Style.flipCardSubtitle}>
-                    <span id={'card-subtitle'}>{formattedString(subtitle, formattedVariables)}</span>
+                    <span id={'card-subtitle'}>{subtitle}</span>
                   </div>
                 )}
                 {/* Pane metric */}

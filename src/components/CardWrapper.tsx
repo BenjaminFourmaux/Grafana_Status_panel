@@ -12,7 +12,7 @@ import {
 } from '../lib/thresholdCalulationFunc';
 import { FlipCard } from './FlipCard';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
-import { provideFormattedStringVariables } from '../lib/formattedString';
+import { compileFormattedString, provideFormattedStringVariables } from '../lib/formattedString';
 import { mappingMetricUnitName } from '../lib/metricUnitMapping';
 import { FlipCardNoData } from './FlipCardNoData';
 
@@ -39,10 +39,6 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   flipped,
   index,
 }) => {
-  const cardTitle = getTitle(options, fieldsConfig, series);
-  const cardSubtitle = getSubtitle(options, fieldsConfig, series);
-  const cardUrl = getUrl(options, fieldsConfig, series);
-  const cardUrlTargetBlank = getUrlTargetBlank(options, fieldsConfig, series);
   // Calculate values depending on fieldsConfig and override fields
   const metricUnit = getMetricUnit(
     fieldsConfig.defaults.custom.displayValueMetric,
@@ -50,7 +46,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     series,
     fieldsConfig.overrides
   );
-
+  // Get formatted string variables (like query name, query value, etc.)
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     index,
     series,
@@ -58,6 +54,11 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     queryValue,
     metricUnit || ''
   );
+  const cardTitle = compileFormattedString(getTitle(options, fieldsConfig, series), stringFormattedVariables);
+  const cardSubtitle = compileFormattedString(getSubtitle(options, fieldsConfig, series), stringFormattedVariables);
+  const cardUrl = compileFormattedString(getUrl(options, fieldsConfig, series), stringFormattedVariables);
+  const cardUrlTargetBlank = getUrlTargetBlank(options, fieldsConfig, series);
+
   const thresholdsConf = getThresholdsConf(fieldsConfig, series);
 
   if (queryValue === undefined || queryValue === null) {
@@ -74,7 +75,6 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
             showMetric={fieldsConfig.defaults.custom.displayValueMetric}
             fontStyle={fieldsConfig.defaults.custom.fontFormat}
             cornerRadius={options.cornerRadius}
-            formattedVariables={stringFormattedVariables}
             isFlipped={flipped}
           />
         )}
@@ -94,7 +94,6 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
       metricUnit={metricUnit}
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
       thresholds={thresholdsConf}
-      formattedVariables={stringFormattedVariables}
       value={queryValue}
       isFlipped={flipped}
       cornerRadius={options.cornerRadius}
@@ -136,10 +135,6 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
 
   const queryValue = queriesValuesAggregated[thresholdIndex];
   const metricUnit = mappingMetricUnitName(fieldsConfig.defaults.custom.metricUnit);
-  const cardTitle = getTitle(options, fieldsConfig, data.series[thresholdIndex]);
-  const cardSubtitle = getSubtitle(options, fieldsConfig, data.series[thresholdIndex]);
-  const cardUrl = getUrl(options, fieldsConfig, data.series[thresholdIndex]);
-  const cardUrlTargetBlank = getUrlTargetBlank(options, fieldsConfig, data.series[thresholdIndex]);
 
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     thresholdIndex,
@@ -148,6 +143,21 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
     queryValue,
     metricUnit
   );
+
+  // Formatted Texts
+  const cardTitle = compileFormattedString(
+    getTitle(options, fieldsConfig, data.series[thresholdIndex]),
+    stringFormattedVariables
+  );
+  const cardSubtitle = compileFormattedString(
+    getSubtitle(options, fieldsConfig, data.series[thresholdIndex]),
+    stringFormattedVariables
+  );
+  const cardUrl = compileFormattedString(
+    getUrl(options, fieldsConfig, data.series[thresholdIndex]),
+    stringFormattedVariables
+  );
+  const cardUrlTargetBlank = getUrlTargetBlank(options, fieldsConfig, data.series[thresholdIndex]);
 
   return (
     <FlipCard
@@ -162,7 +172,6 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
       fontStyle={fieldsConfig.defaults.custom.fontFormat}
       cornerRadius={options.cornerRadius}
       thresholds={fieldsConfig.defaults.custom.thresholds}
-      formattedVariables={stringFormattedVariables}
       value={queryValue}
       isFlipped={flipped}
     />
