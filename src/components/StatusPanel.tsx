@@ -34,7 +34,8 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
 
   /* Calculate Card size */
 
-  const cardWidth = data.series.length < 12 ? width / data.series.length - 5 * 2 : width / 12 - 5 * 2;
+  const totalCards = getTotalCardsToShow(queriesValuesAggregated, options.isNothingOnNoData);
+  const cardWidth = totalCards < 12 ? width / totalCards - 5 * 2 : width / 12 - 5 * 2;
   const cardHeight = height;
 
   // If query(ies) return no data, display "no data"
@@ -61,10 +62,10 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
         ) : (
           <>
             {/* For each query */}
-            {data.series.map((series, index) => (
+            {data.series.map((series, queryIndex) => (
               <>
                 {/* For each values in query (dataframe returned in the query (zabbix)  */}
-                {queriesValuesAggregated[index].map((value, index) => (
+                {queriesValuesAggregated[queryIndex].map((value, index) => (
                   <>
                     <div className={Style.col} key={index}>
                       <CardWrapper
@@ -76,7 +77,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
                         cardWidth={cardWidth}
                         cardHeight={cardHeight}
                         flipped={flipped}
-                        index={index}
+                        index={index + 1}
                       />
                     </div>
                   </>
@@ -96,4 +97,22 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
       />
     </div>
   );
+};
+
+const getTotalCardsToShow = (queriesValues: number[][], nothingOnNoData: boolean): number => {
+  let calculatedCards = 0;
+
+  // Browse all query values
+  for (let queryValues of queriesValues) {
+    if (queryValues.length > 0) {
+      for (let value of queryValues) {
+        // If the value is not null or undefined, add it to the total cards
+        if (!nothingOnNoData || (nothingOnNoData && value !== null && value !== undefined)) {
+          calculatedCards++;
+        }
+      }
+    }
+  }
+
+  return calculatedCards;
 };

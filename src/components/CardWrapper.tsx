@@ -38,6 +38,11 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   flipped,
   index,
 }) => {
+  // First: display "no data" if no data
+  if (queryValue === undefined || queryValue === null) {
+    return <>{!options.isNothingOnNoData && <div>no data</div>}</>;
+  }
+
   const cardTitle = getTitle(options, fieldsConfig, series);
   const cardSubtitle = getSubtitle(options, fieldsConfig, series);
   const cardUrl = getUrl(options, fieldsConfig, series);
