@@ -9,9 +9,11 @@ import { mappingMetricUnitName } from './metricUnitMapping';
  * @param series Data from the query
  * @returns Values of the queries with selected aggregation
  */
-export const getQueryValueAggregation = (series: DataFrame, fieldsConf: FieldConfigSource<any>): number | undefined => {
+export const getQueryValueAggregation = (series: DataFrame, fieldsConf: FieldConfigSource<any>): number[] => {
+  let queryValues: number[] = [];
   let aggregation = fieldsConf.defaults.custom.aggregation;
 
+  // Browse overrides fields to get the aggregation type for this query (series is one element of data.series[])
   for (let overrideField of fieldsConf.overrides) {
     let matcher = overrideField.matcher;
 
@@ -24,15 +26,27 @@ export const getQueryValueAggregation = (series: DataFrame, fieldsConf: FieldCon
     }
   }
 
-  const rows = series.fields.find((field: { type: string }) => field.type === 'number');
-  return AggregationFunctions(rows, aggregation);
+  // Get all fields of type number (if the query return an array, like Zabbix)
+  const numberFields = series.fields.filter((field: { type: string }) => field.type === 'number');
+
+  for (let rowIndex = 0; rowIndex < numberFields.length; rowIndex++) {
+    let rows = numberFields[rowIndex];
+    if (rows.values.length > 0) {
+      let aggregatedFunction = AggregationFunctions(rows, aggregation);
+      if (aggregatedFunction !== undefined) {
+        queryValues.push(aggregatedFunction);
+      }
+    }
+  }
+
+  return queryValues;
 };
 
 /**
  * Return the value of the query with selected aggregation
  * @param rows Data from series of a query
  * @param aggregation Aggregation type
- * @returns Value of the query with selected aggregation
+ * @returns Value of the query with selected aggregation. Can be null
  */
 const AggregationFunctions = (rows: Field<any> | undefined, aggregation: string): number | undefined => {
   if (!rows) {

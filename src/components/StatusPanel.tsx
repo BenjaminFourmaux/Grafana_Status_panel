@@ -20,18 +20,19 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   }, [options.flipState]);
 
   /* Calculate the query values */
-  // Contains all query aggregated values
-  let queriesValuesAggregated: number[] = [];
+
+  // A list for all panel (and all rows) aggregated values used to compute the threshold according to the selected aggregation and overrides fields config
+  let queriesValuesAggregated: number[][] = [];
   for (let series of data.series) {
+    // for each query
     let value = getQueryValueAggregation(series, fieldConfig);
-    if (value !== undefined) {
-      queriesValuesAggregated.push(value);
-    }
+    queriesValuesAggregated.push(value);
   }
 
   /* Calculate Card size */
 
-  const cardWidth = data.series.length < 12 ? width / data.series.length - 5 * 2 : width / 12 - 5 * 2;
+  const totalCards = getTotalCardsToShow(queriesValuesAggregated, options.isNothingOnNoData);
+  const cardWidth = totalCards < 12 ? width / totalCards - 5 * 2 : width / 12 - 5 * 2;
   const cardHeight = height;
 
   // If query(ies) return no data, display "no data"
@@ -57,21 +58,32 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
           </div>
         ) : (
           <>
-            {data.series.map((series, index) => (
+            {/* For each query */}
+            {data.series.map((series, queryIndex) => (
               <>
-                <div className={Style.col} key={index}>
-                  <CardWrapper
-                    series={series}
-                    data={data}
-                    options={options}
-                    fieldsConfig={fieldConfig}
-                    queryValue={queriesValuesAggregated[index]}
-                    cardWidth={cardWidth}
-                    cardHeight={cardHeight}
-                    flipped={flipped}
-                    index={index}
-                  />
-                </div>
+                {/* For each values in query (dataframe returned in the query (zabbix)  */}
+                {queriesValuesAggregated[queryIndex].map((value, index) => (
+                  <>
+                    {/* If the value is not null or undefined, add it to the total cards */}
+                    {(value === null || value === undefined) && options.isNothingOnNoData ? (
+                      <></>
+                    ) : (
+                      <div className={Style.col} key={index}>
+                        <CardWrapper
+                          series={series}
+                          data={data}
+                          options={options}
+                          fieldsConfig={fieldConfig}
+                          queryValue={value}
+                          cardWidth={cardWidth}
+                          cardHeight={cardHeight}
+                          flipped={flipped}
+                          index={queriesValuesAggregated[queryIndex].length > 1 ? index + 1 : index}
+                        />
+                      </div>
+                    )}
+                  </>
+                ))}
               </>
             ))}
           </>
@@ -87,4 +99,22 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
       />
     </div>
   );
+};
+
+const getTotalCardsToShow = (queriesValues: number[][], nothingOnNoData: boolean): number => {
+  let calculatedCards = 0;
+
+  // Browse all query values
+  for (let queryValues of queriesValues) {
+    if (queryValues.length > 0) {
+      for (let value of queryValues) {
+        // If the value is not null or undefined, add it to the total cards
+        if (!nothingOnNoData || (nothingOnNoData && value !== null && value !== undefined)) {
+          calculatedCards++;
+        }
+      }
+    }
+  }
+
+  return calculatedCards;
 };

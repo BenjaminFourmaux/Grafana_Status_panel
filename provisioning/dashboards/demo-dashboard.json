@@ -99,6 +99,7 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "",
         "title": "",
         "url": "",
@@ -191,6 +192,7 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "",
         "title": "",
         "url": "",
@@ -309,6 +311,7 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "",
         "title": "",
         "url": "",
@@ -383,6 +386,7 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "Click on me",
         "title": "",
         "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
@@ -456,6 +460,7 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "Click on me",
         "title": "",
         "url": "https://www.youtube.com/watch?v=xvFZjo5PgG0",
@@ -554,6 +559,7 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "",
         "title": "",
         "url": "",
@@ -801,6 +807,7 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "",
         "title": "",
         "url": "",
@@ -999,6 +1006,7 @@
         "flipState": true,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "",
         "title": "",
         "url": "",
@@ -1176,6 +1184,7 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "My name is {{query_name}}",
         "title": "",
         "url": "",
@@ -1253,6 +1262,7 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "My value is {{query_value}}",
         "title": "",
         "url": "",
@@ -1322,6 +1332,83 @@
         "x": 12,
         "y": 19
       },
+      "id": 13,
+      "options": {
+        "aggregateQueries": false,
+        "cornerRadius": "0rem",
+        "flipCard": false,
+        "flipState": false,
+        "flipTime": 5,
+        "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
+        "subtitle": "Column name is {{column_name}}",
+        "title": "",
+        "url": "",
+        "urlTargetBlank": false
+      },
+      "pluginVersion": "1.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "bdi86bi8f7zswc"
+          },
+          "refId": "Joh Doe",
+          "scenarioId": "table_static"
+        }
+      ],
+      "title": "Formatted string - column name",
+      "type": "benjaminfourmaux-status-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "bdi86bi8f7zswc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "aggregation": "max",
+            "displayValueMetric": false,
+            "fontFormat": "Regular",
+            "metricUnit": "",
+            "subtitle": "",
+            "thresholds": [
+              {
+                "color": "#73bf69",
+                "id": 1,
+                "severity": "Base"
+              }
+            ],
+            "title": "",
+            "url": "",
+            "urlTargetBlank": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 19
+      },
       "id": 10,
       "options": {
         "aggregateQueries": false,
@@ -1330,6 +1417,7 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "interval set at {{$__interval}}",
         "title": "",
         "url": "",
@@ -1396,7 +1484,7 @@
       "gridPos": {
         "h": 8,
         "w": 4,
-        "x": 16,
+        "x": 20,
         "y": 19
       },
       "id": 11,
@@ -1407,6 +1495,7 @@
         "flipState": false,
         "flipTime": 5,
         "isGrayOnNoData": false,
+        "isNothingOnNoData": false,
         "subtitle": "time is {{time DD-MM-YYYY HH:mm:ss}}",
         "title": "",
         "url": "",

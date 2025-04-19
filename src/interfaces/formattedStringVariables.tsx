@@ -5,6 +5,7 @@ export interface FormattedStringVariables {
   queryIndex: number;
   queryName: string;
   queryValue: string;
+  columnName: string;
   interval: string;
   time: number;
   metricName: string;
