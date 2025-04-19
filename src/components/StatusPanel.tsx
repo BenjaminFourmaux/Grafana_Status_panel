@@ -21,12 +21,15 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
 
   /* Calculate the query values */
   // Contains all query aggregated values
-  let queriesValuesAggregated: number[] = [];
+
+  console.log('data', data);
+
+  // A list for all panel (and all rows) aggregated values used to compute the threshold according to the selected aggregation and overrides fields config
+  let queriesValuesAggregated: number[][] = [];
   for (let series of data.series) {
+    // for each query
     let value = getQueryValueAggregation(series, fieldConfig);
-    if (value !== undefined) {
-      queriesValuesAggregated.push(value);
-    }
+    queriesValuesAggregated.push(value);
   }
 
   /* Calculate Card size */
@@ -49,7 +52,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
               data={data}
               options={options}
               fieldsConfig={fieldConfig}
-              queriesValuesAggregated={queriesValuesAggregated}
+              queriesValuesAggregated={queriesValuesAggregated[0]}
               cardWidth={width - 5 * 2}
               cardHeight={cardHeight}
               flipped={flipped}
@@ -57,21 +60,27 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
           </div>
         ) : (
           <>
+            {/* For each query */}
             {data.series.map((series, index) => (
               <>
-                <div className={Style.col} key={index}>
-                  <CardWrapper
-                    series={series}
-                    data={data}
-                    options={options}
-                    fieldsConfig={fieldConfig}
-                    queryValue={queriesValuesAggregated[index]}
-                    cardWidth={cardWidth}
-                    cardHeight={cardHeight}
-                    flipped={flipped}
-                    index={index}
-                  />
-                </div>
+                {/* For each values in query (dataframe returned in the query (zabbix)  */}
+                {queriesValuesAggregated[index].map((value, index) => (
+                  <>
+                    <div className={Style.col} key={index}>
+                      <CardWrapper
+                        series={series}
+                        data={data}
+                        options={options}
+                        fieldsConfig={fieldConfig}
+                        queryValue={value}
+                        cardWidth={cardWidth}
+                        cardHeight={cardHeight}
+                        flipped={flipped}
+                        index={index}
+                      />
+                    </div>
+                  </>
+                ))}
               </>
             ))}
           </>
