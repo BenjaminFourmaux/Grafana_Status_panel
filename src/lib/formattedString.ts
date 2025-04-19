@@ -25,6 +25,9 @@ export const compileFormattedString = (formatString: string, variables: Formatte
       case 'query_index':
         value = variables.queryIndex.toString();
         break;
+      case 'column_name':
+        value = variables.columnName;
+        break;
       case '$__interval':
         value = variables.interval;
         break;
@@ -70,11 +73,9 @@ export const provideFormattedStringVariables = (
   if (dataQueries.request) {
     return {
       queryIndex: queryIndex,
-      queryName:
-        series.refId ||
-        series.fields.find((field, index) => field.type === 'number' && index === queryIndex)?.name ||
-        '',
+      queryName: series.refId || '',
       queryValue: queryValue !== undefined && queryValue !== null ? queryValue.toString() : '',
+      columnName: series.fields.find((field, index) => field.type === 'number' && index === queryIndex)?.name || '',
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
       metricName: metricUnit,
@@ -87,6 +88,7 @@ export const provideFormattedStringVariables = (
       queryIndex: 0,
       queryName: '',
       queryValue: '',
+      columnName: '',
       interval: '',
       time: 0,
       metricName: '',

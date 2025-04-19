@@ -34,6 +34,9 @@ export const FormattedStringHelpEditor: React.FC = () => {
               <code>{'{{query_index}}'}</code> - The positional index of the query (start 0)
             </li>
             <li>
+              <code>{'{{column_name}}'}</code> - The name of the column if query returns a table. (like Zabbix)
+            </li>
+            <li>
               <code>{'{{$__interval}}'}</code> - The <i>$__interval</i> Grafana&apos;s global variable, represents the
               selected time interval for fetching data.
             </li>
