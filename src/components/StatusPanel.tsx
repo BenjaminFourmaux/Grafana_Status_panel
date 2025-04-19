@@ -67,19 +67,24 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
                 {/* For each values in query (dataframe returned in the query (zabbix)  */}
                 {queriesValuesAggregated[queryIndex].map((value, index) => (
                   <>
-                    <div className={Style.col} key={index}>
-                      <CardWrapper
-                        series={series}
-                        data={data}
-                        options={options}
-                        fieldsConfig={fieldConfig}
-                        queryValue={value}
-                        cardWidth={cardWidth}
-                        cardHeight={cardHeight}
-                        flipped={flipped}
-                        index={index + 1}
-                      />
-                    </div>
+                    {/* If the value is not null or undefined, add it to the total cards */}
+                    {(value === null || value === undefined) && options.isNothingOnNoData ? (
+                      <></>
+                    ) : (
+                      <div className={Style.col} key={index}>
+                        <CardWrapper
+                          series={series}
+                          data={data}
+                          options={options}
+                          fieldsConfig={fieldConfig}
+                          queryValue={value}
+                          cardWidth={cardWidth}
+                          cardHeight={cardHeight}
+                          flipped={flipped}
+                          index={queriesValuesAggregated[queryIndex].length > 1 ? index + 1 : index}
+                        />
+                      </div>
+                    )}
                   </>
                 ))}
               </>
