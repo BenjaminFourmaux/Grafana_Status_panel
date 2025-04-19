@@ -68,14 +68,25 @@ export const provideFormattedStringVariables = (
   series: DataFrame,
   dataQueries: PanelData,
   queryValue: number,
-  metricUnit: string
+  metricUnit: string,
+  aggregateQuery = false
 ): FormattedStringVariables => {
+  console.log('series', series);
+  console.log('queryIndex', queryIndex);
+
   if (dataQueries.request) {
+    const numberFields = series.fields.filter((field, index) => field.type === 'number');
+    console.log('numberFields', numberFields);
+    console.log('numberFields[0]', numberFields[0]);
+
     return {
       queryIndex: queryIndex,
       queryName: series.refId || '',
       queryValue: queryValue !== undefined && queryValue !== null ? queryValue.toString() : '',
-      columnName: series.fields.find((field, index) => field.type === 'number' && index === queryIndex)?.name || '',
+      // dev note: there are a trouble with the index of the field . -1 is just for fix that when aggregateQuery is true
+      columnName: aggregateQuery
+        ? numberFields[queryIndex].name
+        : numberFields[queryIndex > 0 ? queryIndex - 1 : 0].name,
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
       metricName: metricUnit,

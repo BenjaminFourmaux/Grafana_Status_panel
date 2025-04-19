@@ -69,6 +69,25 @@ test('query_index', async ({ page, panelEditPage }) => {
 });
 
 /**
+ * Test scenario: Check if the string formatted variable 'column_name' is correctly interpreted
+ */
+test('column_name', async ({ page, panelEditPage }) => {
+  const variable_string = '{{column_name}}';
+  const expected_value = '0';
+
+  // Arrange
+  await Arrange(page, panelEditPage);
+
+  // Act
+  await SetPanelOption(page, 'CardSubtitle', variable_string);
+  await SetPanelOption(page, 'StayOn', 'Front'); // Display side card
+
+  // Assert
+  let locator = (await GetPanelCardAttribute(page, 'Subtitle', 0)) as Locator;
+  expect(await locator.textContent()).toBe(expected_value);
+});
+
+/**
  * Test scenario: Check if the string formatted variable '$__interval' is correctly interpreted
  */
 test('interval', async ({ page, panelEditPage }) => {

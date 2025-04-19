@@ -149,7 +149,8 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
     data.series[thresholdIndex],
     data,
     queryValue,
-    metricUnit
+    metricUnit,
+    true
   );
   // Debug, help people to show what their can do with the variables
   console.log('stringFormattedVariables', stringFormattedVariables);
