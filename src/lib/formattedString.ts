@@ -74,9 +74,6 @@ export const provideFormattedStringVariables = (
   if (dataQueries.request) {
     const numberFields = series.fields.filter((field, index) => field.type === 'number');
 
-    console.log('series', series);
-    console.log('queryIndex', queryIndex);
-
     return {
       queryIndex: queryIndex,
       queryName: series.refId || '',
