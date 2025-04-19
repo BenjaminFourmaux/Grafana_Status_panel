@@ -74,13 +74,18 @@ export const provideFormattedStringVariables = (
   if (dataQueries.request) {
     const numberFields = series.fields.filter((field, index) => field.type === 'number');
 
+    console.log('series', series);
+    console.log('queryIndex', queryIndex);
+
     return {
       queryIndex: queryIndex,
       queryName: series.refId || '',
       queryValue: queryValue !== undefined && queryValue !== null ? queryValue.toString() : '',
       // dev note: there are a trouble with the index of the field . -1 is just for fix that when aggregateQuery is true
       columnName: aggregateQuery
-        ? numberFields[queryIndex].name
+        ? numberFields.length === 1
+          ? numberFields[0].name
+          : numberFields[queryIndex].name
         : numberFields[queryIndex > 0 ? queryIndex - 1 : 0].name,
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
