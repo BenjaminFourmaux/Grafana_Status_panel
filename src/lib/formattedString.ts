@@ -70,12 +70,12 @@ export const provideFormattedStringVariables = (
   if (dataQueries.request) {
     return {
       queryIndex: queryIndex,
-      queryName: series.refId || series.fields[queryIndex].name,
+      queryName: series.refId || series.fields.find((field) => field.type === 'number')?.name || '',
       queryValue: queryValue !== undefined && queryValue !== null ? queryValue.toString() : '',
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
       metricName: metricUnit,
-      labels: { ...series.fields[1].labels },
+      labels: { ...series.fields.filter((field) => field.type === 'number')[queryIndex].labels },
     };
   } else {
     return {

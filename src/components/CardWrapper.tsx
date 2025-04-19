@@ -105,7 +105,7 @@ interface CardWrapperPropsAggregateQuery {
   data: PanelData;
   fieldsConfig: FieldConfigSource<any>;
   options: StatusPanelOptions;
-  queriesValuesAggregated: number[];
+  queriesValuesAggregated: number[][];
   cardWidth: number;
   cardHeight: number;
   flipped: boolean;
@@ -124,16 +124,20 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
   const thresholdsConf = fieldsConfig.defaults.custom.thresholds;
   // For all aggregateQueriesValues, get actual threshold
   let actualThresholds = [];
-  for (let queryValue of queriesValuesAggregated) {
-    actualThresholds.push(getActualThreshold(thresholdsConf, queryValue));
+  for (let queryValues of queriesValuesAggregated) {
+    // note: queryValues is already the aggregated value for each dataframe of a query
+    for (let queryValue of queryValues) {
+      actualThresholds.push(getActualThreshold(thresholdsConf, queryValue));
+    }
   }
+
   // Get index of the worst threshold
   const actualThreshold = actualThresholds.reduce((prev, current) =>
     (prev.value || 0) > (current.value || 0) ? prev : current
   );
   const thresholdIndex = actualThresholds.indexOf(actualThreshold);
 
-  const queryValue = queriesValuesAggregated[thresholdIndex];
+  const queryValue = queriesValuesAggregated.flat()[thresholdIndex];
   const metricUnit = mappingMetricUnitName(fieldsConfig.defaults.custom.metricUnit);
 
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
@@ -143,6 +147,8 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
     queryValue,
     metricUnit
   );
+  // Debug, help people to show what their can do with the variables
+  console.log('stringFormattedVariables', stringFormattedVariables);
 
   // Formatted Texts
   const cardTitle = compileFormattedString(
