@@ -14,6 +14,7 @@ import { FlipCard } from './FlipCard';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { provideFormattedStringVariables } from '../lib/formattedString';
 import { mappingMetricUnitName } from '../lib/metricUnitMapping';
+import { FlipCardNoData } from './FlipCardNoData';
 
 interface CardWrapperProps {
   index: number;
@@ -38,11 +39,6 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   flipped,
   index,
 }) => {
-  // First: display "no data" if no data
-  if (queryValue === undefined || queryValue === null) {
-    return <>{!options.isNothingOnNoData && <div>no data</div>}</>;
-  }
-
   const cardTitle = getTitle(options, fieldsConfig, series);
   const cardSubtitle = getSubtitle(options, fieldsConfig, series);
   const cardUrl = getUrl(options, fieldsConfig, series);
@@ -63,6 +59,28 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     metricUnit || ''
   );
   const thresholdsConf = getThresholdsConf(fieldsConfig, series);
+
+  if (queryValue === undefined || queryValue === null) {
+    return (
+      <>
+        {!options.isNothingOnNoData && (
+          <FlipCardNoData
+            width={cardWidth}
+            height={cardHeight}
+            title={cardTitle}
+            subtitle={cardSubtitle}
+            url={cardUrl}
+            urlTargetBlank={cardUrlTargetBlank}
+            showMetric={fieldsConfig.defaults.custom.displayValueMetric}
+            fontStyle={fieldsConfig.defaults.custom.fontFormat}
+            cornerRadius={options.cornerRadius}
+            formattedVariables={stringFormattedVariables}
+            isFlipped={flipped}
+          />
+        )}
+      </>
+    );
+  }
 
   return (
     <FlipCard
