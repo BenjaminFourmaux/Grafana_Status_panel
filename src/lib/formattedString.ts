@@ -6,7 +6,7 @@ import { DataFrame, PanelData } from '@grafana/data';
  * @param formatString A string {{formatted_value}} to render
  * @param variables some data to render
  */
-export const formattedString = (formatString: string, variables: FormattedStringVariables): string => {
+export const compileFormattedString = (formatString: string, variables: FormattedStringVariables): string => {
   if (!formatString) {
     return '';
   }
@@ -24,6 +24,9 @@ export const formattedString = (formatString: string, variables: FormattedString
         break;
       case 'query_index':
         value = variables.queryIndex.toString();
+        break;
+      case 'column_name':
+        value = variables.columnName;
         break;
       case '$__interval':
         value = variables.interval;
@@ -65,23 +68,35 @@ export const provideFormattedStringVariables = (
   series: DataFrame,
   dataQueries: PanelData,
   queryValue: number,
-  metricUnit: string
+  metricUnit: string,
+  aggregateQuery = false
 ): FormattedStringVariables => {
   if (dataQueries.request) {
+    const numberFields = series.fields.filter((field, index) => field.type === 'number');
+
     return {
       queryIndex: queryIndex,
       queryName: series.refId || '',
-      queryValue: queryValue !== undefined ? queryValue.toString() : '',
+      queryValue: queryValue !== undefined && queryValue !== null ? queryValue.toString() : '',
+      // dev note: there are a trouble with the index of the field . -1 is just for fix that when aggregateQuery is true
+      columnName: aggregateQuery
+        ? numberFields.length === 1
+          ? numberFields[0].name
+          : numberFields[queryIndex].name
+        : numberFields[queryIndex > 0 ? queryIndex - 1 : 0].name,
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
       metricName: metricUnit,
-      labels: { ...series.fields[1].labels },
+      labels: {
+        ...(series.fields.find((field, index) => field.type === 'number' && index === queryIndex)?.labels || {}),
+      },
     };
   } else {
     return {
       queryIndex: 0,
       queryName: '',
       queryValue: '',
+      columnName: '',
       interval: '',
       time: 0,
       metricName: '',

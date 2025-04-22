@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
 import { css } from '@emotion/css';
-import { getActualThreshold } from '../lib/thresholdCalulationFunc';
 import { Style } from '../interfaces/styleCSS';
 import { OpenLinkAnchor } from './OpenLinkAnchor';
-import { StatusMetric } from './buildStatusMetric';
-import { ThresholdConf } from './ThresholdSetComponent';
 import { Icon } from '@grafana/ui';
 
 interface FlipCardProps {
@@ -16,31 +13,23 @@ interface FlipCardProps {
   url: string;
   urlTargetBlank: boolean;
   showMetric: boolean;
-  metricUnit: string | undefined;
-  value: number;
   fontStyle: string;
   cornerRadius: string;
-  thresholds: ThresholdConf[];
   isFlipped: boolean;
 }
 
-export const FlipCard: React.FC<FlipCardProps> = ({
+export const FlipCardNoData: React.FC<FlipCardProps> = ({
   isFlipped,
   title,
   subtitle,
   url,
   urlTargetBlank,
   showMetric,
-  metricUnit,
-  value,
   fontStyle,
   cornerRadius,
-  thresholds,
   width,
   height,
 }) => {
-  const actualThreshold = getActualThreshold(thresholds, value);
-
   // Retrieve colors
   const textColoration = css({ color: 'white' });
 
@@ -48,8 +37,6 @@ export const FlipCard: React.FC<FlipCardProps> = ({
     <div
       className={
         css({ width, height: '100%', minWidth: '142px', borderRadius: cornerRadius, position: 'relative' }) +
-        ' ' +
-        css({ backgroundColor: actualThreshold.color }) +
         ' ' +
         textColoration
       }
@@ -75,10 +62,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
                 {/* Pane metric */}
                 {showMetric && (
                   <div className={Style.flipCardBackTexts + ' ' + Style.flipCardMetric}>
-                    <StatusMetric fontStyle={fontStyle}>
-                      {value}
-                      {metricUnit}
-                    </StatusMetric>
+                    <span id={'card-metric'}>no data</span>
                   </div>
                 )}
               </OpenLinkAnchor>
@@ -87,7 +71,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
             {/* Back (severity) */}
             <div className={Style.flipCardContainer}>
               <span id={'card-severity'} className={Style.flipCardSeverity}>
-                {actualThreshold.severity}
+                no data
               </span>
             </div>
           </ReactCardFlip>
