@@ -59,8 +59,7 @@ You can customize the panel with the following options:
 - **Flip Card**: set if card do a flip animation
   - (if not Flip Card) **Stay on**: select the side of the card to display
   - (if Flip Card) **Flip interval**: set the time in seconds to flip the card
-- **Use 'Disable' color if no data**: if no data is returned by the query, the card will be colored with the 'Disable'
-  color
+- **Display nothing when 'no data'**: if no data is returned by the query, choose if you want a card empty card marked "no data" (disable) or show nothing (enable)
 
 ![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-options.png)
 
