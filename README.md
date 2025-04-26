@@ -23,6 +23,7 @@ that can be defined by the user.
   additional details or resources.
 - **Metric Display and Units**: Optionally display metrics on the cards and define units for enhanced readability.
 - **Multiple Cards per Panel**: Add queries to display multiple cards in a single panel.
+- **Support for Table**: If query return a table (array of number field), each column is considered as a card 
 - **Individual Card Customization**: Use override fields for advanced customization of each card independently.
 
 ## Compatibility
@@ -69,7 +70,8 @@ For text fields (Title, Subtitle, URL), you can use string formatted variables, 
 
 - `{{query_name}}`: will be replaced by the query name (A, B, C, ... by default)
 - `{{query_value}}`: will be replaced by the value of the query (calculate with the selected aggregation)
-- `{{quer_index}}`: will be replaced by the index of the query (0, 1, 2, ... by default)
+- `{{query_index}}`: will be replaced by the index of the query (0, 1, 2, ... by default)
+- `{{column_name}}`: will be replaced by the column name if query return a table
 - `{{$__interval}}`: will be replaced by the interval of the query
 - `{{time}}`: will be replaced by the sending query time. You can specify the format with `{{time format}}` (see
   [EMACS - Date Time String Format](https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-time-string-format))
