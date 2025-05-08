@@ -12,7 +12,11 @@ import {
 } from '../lib/thresholdCalulationFunc';
 import { FlipCard } from './FlipCard';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
-import { compileFormattedString, provideFormattedStringVariables } from '../lib/formattedString';
+import {
+  compileFormattedString,
+  provideFormattedStringVariables,
+  StoredFormattedStringVariables,
+} from '../lib/formattedString';
 import { mappingMetricUnitName } from '../lib/metricUnitMapping';
 import { FlipCardNoData } from './FlipCardNoData';
 
@@ -45,8 +49,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     fieldsConfig.defaults.custom.metricUnit,
     series,
     fieldsConfig.overrides
-  );
-  // Get formatted string variables (like query name, query value, etc.)
+  ); // Get formatted string variables (like query name, query value, etc.)
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     index,
     series,
@@ -55,8 +58,8 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     metricUnit || ''
   );
 
-  // Debug, help people to show what their can do with the variables
-  console.log('stringFormattedVariables', stringFormattedVariables);
+  // Store variables in localStorage, so they can be accessed by FormattedStringHelpEditor
+  StoredFormattedStringVariables(stringFormattedVariables);
 
   const cardTitle = compileFormattedString(getTitle(options, fieldsConfig, series), stringFormattedVariables);
   const cardSubtitle = compileFormattedString(getSubtitle(options, fieldsConfig, series), stringFormattedVariables);
@@ -143,7 +146,6 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
 
   const queryValue = queriesValuesAggregated.flat()[thresholdIndex];
   const metricUnit = mappingMetricUnitName(fieldsConfig.defaults.custom.metricUnit);
-
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     thresholdIndex,
     data.series[thresholdIndex],
@@ -152,8 +154,9 @@ export const CardWrapperAggregateQuery: React.FC<CardWrapperPropsAggregateQuery>
     metricUnit,
     true
   );
-  // Debug, help people to show what their can do with the variables
-  console.log('stringFormattedVariables', stringFormattedVariables);
+
+  // Store variables in localStorage, so they can be accessed by FormattedStringHelpEditor
+  StoredFormattedStringVariables(stringFormattedVariables);
 
   // Formatted Texts
   const cardTitle = compileFormattedString(

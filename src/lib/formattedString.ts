@@ -1,5 +1,6 @@
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 import { DataFrame, PanelData } from '@grafana/data';
+import { STORAGE_FORMATTED_STRING_VARIABLES_LIST } from './constant';
 
 /**
  * Render a formatted string with template
@@ -129,3 +130,13 @@ function parseDateToString(date: Date, format: string): string {
     return '';
   }
 }
+
+export const StoredFormattedStringVariables = (variables: FormattedStringVariables) => {
+  const stringFormattedVariablesList = JSON.parse(
+    localStorage.getItem(STORAGE_FORMATTED_STRING_VARIABLES_LIST) || '[]'
+  );
+  if (!stringFormattedVariablesList || stringFormattedVariablesList.length === 0) {
+    stringFormattedVariablesList.push(variables);
+    localStorage.setItem(STORAGE_FORMATTED_STRING_VARIABLES_LIST, JSON.stringify(stringFormattedVariablesList));
+  }
+};

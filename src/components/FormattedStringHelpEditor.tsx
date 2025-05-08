@@ -6,18 +6,9 @@ import { FormattedStringVariables } from '../interfaces/formattedStringVariables
 export const FormattedStringHelpEditor: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const variablesContent: FormattedStringVariables = {
-    columnName: 'metric_name',
-    queryName: 'A',
-    queryValue: '100',
-    queryIndex: 0,
-    interval: '1m',
-    labels: {
-      region: 'us-west',
-    },
-    time: new Date().getTime(),
-    metricName: 'metric_name',
-  };
+  const variablesContent: FormattedStringVariables[] = JSON.parse(
+    localStorage.getItem('status_panel.stringFormattedVariablesList') || '[{}]'
+  );
 
   return (
     <>
@@ -96,21 +87,21 @@ export const FormattedStringHelpEditor: React.FC = () => {
           >
             <p>A example of available values in formatted string</p>
             <Text color="primary" variant="body">
-              query_name: <code>{variablesContent.queryName}</code>
+              query_name: <code>{variablesContent[0].queryName}</code>
               <br />
-              query_value: <code>{variablesContent.queryValue}</code>
+              query_value: <code>{variablesContent[0].queryValue}</code>
               <br />
-              query_index: <code>{variablesContent.queryIndex}</code>
+              query_index: <code>{variablesContent[0].queryIndex}</code>
               <br />
-              column_name: <code>{variablesContent.columnName}</code>
+              column_name: <code>{variablesContent[0].columnName}</code>
               <br />
-              $__interval: <code>{variablesContent.interval}</code>
+              $__interval: <code>{variablesContent[0].interval}</code>
               <br />
-              time: <code>{variablesContent.time}</code>
+              time: <code>{variablesContent[0].time}</code>
               <br />
-              metric_name: <code>{variablesContent.metricName}</code>
+              metric_name: <code>{variablesContent[0].metricName}</code>
               <br />
-              labels: <code>{JSON.stringify(variablesContent.labels)}</code>
+              labels: <code>{JSON.stringify(variablesContent[0].labels)}</code>
               <br />
             </Text>
           </Collapse>
