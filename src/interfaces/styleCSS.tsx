@@ -22,7 +22,7 @@ export const Style = {
     bottom: '1.2rem',
     right: '1.2rem',
     display: 'none',
-    '.panel-container:hover &': { display: 'block' },
+    '.status-panel-container:hover &': { display: 'block' },
   }),
   /* Flip Card */
   flipCardContainer: css({
@@ -73,4 +73,5 @@ export const Style = {
   }),
   /* help modal */
   helpUl: css({ marginLeft: '1rem', listStylePosition: 'inside' }),
+  variableContent: css({ marginTop: '1rem' }),
 };

@@ -41,7 +41,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
   }
 
   return (
-    <div className={Style.wrapperContainer + ' panel-container'}>
+    <div className={Style.wrapperContainer + ' status-panel-container'}>
       <div className={Style.row + ' ' + css({ height })}>
         {/* If option AggregateQueries is enabled */}
         {options.aggregateQueries ? (
