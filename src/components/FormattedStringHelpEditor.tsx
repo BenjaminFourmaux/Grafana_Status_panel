@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Button, Collapse, IconButton, Modal, Text } from '@grafana/ui';
 import { Style } from '../interfaces/styleCSS';
 import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
+import { STORAGE_FORMATTED_STRING_VARIABLES_LIST } from 'lib/constant';
 
 export const FormattedStringHelpEditor: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const variablesContent: FormattedStringVariables[] = JSON.parse(
-    localStorage.getItem('status_panel.stringFormattedVariablesList') || '[{}]'
+    localStorage.getItem(STORAGE_FORMATTED_STRING_VARIABLES_LIST) || '[{}]'
   );
 
   return (
@@ -70,11 +71,11 @@ export const FormattedStringHelpEditor: React.FC = () => {
               </ul>
             </li>
             <li>
-              <code>{'{{metric_name}}'}</code> - (in prometheus) The metric name of the query expression
+              <code>{'{{metric_name}}'}</code> - The metric name of the query expression
             </li>
             <li>
-              <code>{'{{label:<label_name>}}'}</code> - (in prometheus) Get the value of the label by his name. Must be
-              present in the query expression
+              <code>{'{{label:<label_name>}}'}</code> - Get the value of the label by its name. Must be present in the
+              query expression
             </li>
           </ul>
           <br />
