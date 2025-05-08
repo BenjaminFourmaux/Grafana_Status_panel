@@ -1,9 +1,23 @@
-import React from 'react';
-import { Button, IconButton, Modal } from '@grafana/ui';
+import React, { useState } from 'react';
+import { Button, Collapse, IconButton, Modal, Text } from '@grafana/ui';
 import { Style } from '../interfaces/styleCSS';
+import { FormattedStringVariables } from '../interfaces/formattedStringVariables';
 
 export const FormattedStringHelpEditor: React.FC = () => {
-  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const variablesContent: FormattedStringVariables = {
+    columnName: 'metric_name',
+    queryName: 'A',
+    queryValue: '100',
+    queryIndex: 0,
+    interval: '1m',
+    labels: {
+      region: 'us-west',
+    },
+    time: new Date().getTime(),
+    metricName: 'metric_name',
+  };
 
   return (
     <>
@@ -73,7 +87,33 @@ export const FormattedStringHelpEditor: React.FC = () => {
             </li>
           </ul>
           <br />
-          You can add multiple variables in the same text field.
+          You can add multiple variables in the same text field
+          <Collapse
+            label="Variable content"
+            isOpen={isOpen}
+            onToggle={() => setIsOpen(!isOpen)}
+            className={Style.variableContent}
+          >
+            <p>A example of available values in formatted string</p>
+            <Text color="primary" variant="body">
+              query_name: <code>{variablesContent.queryName}</code>
+              <br />
+              query_value: <code>{variablesContent.queryValue}</code>
+              <br />
+              query_index: <code>{variablesContent.queryIndex}</code>
+              <br />
+              column_name: <code>{variablesContent.columnName}</code>
+              <br />
+              $__interval: <code>{variablesContent.interval}</code>
+              <br />
+              time: <code>{variablesContent.time}</code>
+              <br />
+              metric_name: <code>{variablesContent.metricName}</code>
+              <br />
+              labels: <code>{JSON.stringify(variablesContent.labels)}</code>
+              <br />
+            </Text>
+          </Collapse>
         </div>
         <Modal.ButtonRow>
           <Button variant={'secondary'} onClick={() => setModalOpen(false)}>

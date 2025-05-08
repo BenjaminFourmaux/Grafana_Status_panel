@@ -73,4 +73,5 @@ export const Style = {
   }),
   /* help modal */
   helpUl: css({ marginLeft: '1rem', listStylePosition: 'inside' }),
+  variableContent: css({ marginTop: '1rem' }),
 };
