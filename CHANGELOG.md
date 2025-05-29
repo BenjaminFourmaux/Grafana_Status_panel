@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.1.1
+
+### Changed
+
+- Fix no values of formattedVariables `metric_name` and `label` on Prometheus
+  Datasource. [#18](https://github.com/BenjaminFourmaux/Grafana_Status_panel/issues/18)
+
 ## v1.1.0
 
 ### Added
