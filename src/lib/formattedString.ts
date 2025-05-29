@@ -75,10 +75,6 @@ export const provideFormattedStringVariables = (
   if (dataQueries.request) {
     const numberFields = series.fields.filter((field, index) => field.type === 'number');
 
-    console.log('series', series);
-    console.log('metricName', metricName);
-    console.log('queryIndex', queryIndex);
-
     return {
       queryIndex: queryIndex,
       queryName: series.refId || '',
@@ -91,9 +87,9 @@ export const provideFormattedStringVariables = (
         : numberFields[queryIndex > 0 ? queryIndex - 1 : 0].name,
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
-      metricName: metricName,
+      metricName: numberFields[queryIndex]?.name || '',
       labels: {
-        ...(series.fields.filter((field) => field.type === 'number')[queryIndex]?.labels || {}),
+        ...(numberFields[queryIndex]?.labels || {}),
       },
     };
   } else {
