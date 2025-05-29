@@ -69,7 +69,7 @@ export const provideFormattedStringVariables = (
   series: DataFrame,
   dataQueries: PanelData,
   queryValue: number,
-  metricUnit: string,
+  metricName: string,
   aggregateQuery = false
 ): FormattedStringVariables => {
   if (dataQueries.request) {
@@ -87,9 +87,9 @@ export const provideFormattedStringVariables = (
         : numberFields[queryIndex > 0 ? queryIndex - 1 : 0].name,
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
-      metricName: metricUnit,
+      metricName: numberFields[queryIndex]?.name || '',
       labels: {
-        ...(series.fields.find((field, index) => field.type === 'number' && index === queryIndex)?.labels || {}),
+        ...(numberFields[queryIndex]?.labels || {}),
       },
     };
   } else {

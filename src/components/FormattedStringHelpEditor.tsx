@@ -102,7 +102,8 @@ export const FormattedStringHelpEditor: React.FC = () => {
               <br />
               metric_name: <code>{variablesContent[0].metricName}</code>
               <br />
-              labels: <code>{JSON.stringify(variablesContent[0].labels)}</code>
+              labels:{' '}
+              <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(variablesContent[0].labels, null, 4)}</pre>
               <br />
             </Text>
           </Collapse>
