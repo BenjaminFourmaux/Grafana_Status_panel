@@ -69,11 +69,15 @@ export const provideFormattedStringVariables = (
   series: DataFrame,
   dataQueries: PanelData,
   queryValue: number,
-  metricUnit: string,
+  metricName: string,
   aggregateQuery = false
 ): FormattedStringVariables => {
   if (dataQueries.request) {
     const numberFields = series.fields.filter((field, index) => field.type === 'number');
+
+    console.log('series', series);
+    console.log('metricName', metricName);
+    console.log('queryIndex', queryIndex);
 
     return {
       queryIndex: queryIndex,
@@ -87,9 +91,9 @@ export const provideFormattedStringVariables = (
         : numberFields[queryIndex > 0 ? queryIndex - 1 : 0].name,
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
-      metricName: metricUnit,
+      metricName: metricName,
       labels: {
-        ...(series.fields.find((field, index) => field.type === 'number' && index === queryIndex)?.labels || {}),
+        ...(series.fields.filter((field) => field.type === 'number')[queryIndex]?.labels || {}),
       },
     };
   } else {
