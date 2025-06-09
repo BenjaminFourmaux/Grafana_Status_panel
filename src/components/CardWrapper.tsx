@@ -49,7 +49,8 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
     fieldsConfig.defaults.custom.metricUnit,
     series,
     fieldsConfig.overrides
-  ); // Get formatted string variables (like query name, query value, etc.)
+  );
+  // Get formatted string variables (like query name, query value, etc.)
   const stringFormattedVariables: FormattedStringVariables = provideFormattedStringVariables(
     index,
     series,
