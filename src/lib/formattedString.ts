@@ -79,17 +79,17 @@ export const provideFormattedStringVariables = (
       queryIndex: queryIndex,
       queryName: series.refId || '',
       queryValue: queryValue !== undefined && queryValue !== null ? queryValue.toString() : '',
-      // dev note: there are a trouble with the index of the field . -1 is just for fix that when aggregateQuery is true
+      // dev note: there is a problem with the index of the field. -1 is just to fix that when aggregateQuery is true
       columnName: aggregateQuery
         ? numberFields.length === 1
           ? numberFields[0].name
           : numberFields[queryIndex].name
-        : numberFields[queryIndex > 0 ? queryIndex - 1 : 0].name,
+        : numberFields[0].name,
       interval: dataQueries.request.interval,
       time: dataQueries.request.startTime,
-      metricName: numberFields[queryIndex]?.name || '',
+      metricName: numberFields[0]?.name || '',
       labels: {
-        ...(numberFields[queryIndex]?.labels || {}),
+        ...(numberFields[0]?.labels || {}),
       },
     };
   } else {

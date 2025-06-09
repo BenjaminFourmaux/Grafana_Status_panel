@@ -78,7 +78,7 @@ export const StatusPanel: React.FC<Props> = ({ data, options, fieldConfig, width
                           cardWidth={cardWidth}
                           cardHeight={cardHeight}
                           flipped={flipped}
-                          index={queriesValuesAggregated[queryIndex].length > 1 ? index + 1 : index}
+                          index={queriesValuesAggregated[queryIndex].length > 1 ? index : queryIndex}
                         />
                       </div>
                     )}
