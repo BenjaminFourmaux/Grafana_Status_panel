@@ -36,11 +36,11 @@ This plugin supports autoscaling for best-fit sizing and font size of each cards
 
 ### Card variant options
 
-![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/card-variants.png)
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/main/src/img/screenshots/card-variants.png)
 
 ### Multi cards in one panel
 
-![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/screenshots/multi-card.png)
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/main/src/img/screenshots/multi-card.png)
 
 ## Documentation
 
@@ -61,7 +61,7 @@ You can customize the panel with the following options:
   - (if Flip Card) **Flip interval**: set the time in seconds to flip the card
 - **Display nothing when 'no data'**: if no data is returned by the query, choose if you want a card empty card marked "no data" (disable) or show nothing (enable)
 
-![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-options.png)
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/main/src/img/doc-options.png)
 
 #### String variables
 
@@ -99,7 +99,7 @@ You can customize the apparence of the text with the following options:
   - **Metric font format**: set the style of the metric text (bold, italic, underline, ...)
   - **Metric Unit**: set the unit of the metric value (like `ms`, `B`, `Gbits/s`, ...)
 
-![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-display_options.png)
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/main/src/img/doc-display_options.png)
 
 ### Thresholds
 
@@ -139,7 +139,7 @@ Thresholds are defined by the following options:
 - **severity**: text to display on the card, when the threshold is reached
 - **value**: value of the threshold (only number)
 
-![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-thresholds.png)
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/main/src/img/doc-thresholds.png)
 
 ### Overridden fields
 
@@ -153,4 +153,4 @@ If you want to customize the card individually, you can use the overridden field
 - **Metric Unit**
 - **Thresholds**
 
-![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/master/src/img/doc-overridden_fields.png)
+![](https://raw.githubusercontent.com/BenjaminFourmaux/Grafana_Status_panel/refs/heads/main/src/img/doc-overridden_fields.png)
